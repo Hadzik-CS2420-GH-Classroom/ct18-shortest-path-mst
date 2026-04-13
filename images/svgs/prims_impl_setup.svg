@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 500" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">prims_mst() &#x2014; Setup (Part 1 of 2)</text>
+  <text x="430" y="48" text-anchor="middle" fill="#777" font-size="13">Seed the MST set and build the min-heap of crossing edges</text>
+
+  <!-- Column headers -->
+  <text x="210" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">CODE</text>
+  <text x="650" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">WHAT HAPPENS</text>
+
+  <!-- Row backgrounds -->
+  <rect x="20" y="82" width="820" height="48" fill="#f9f9f9"/>
+  <rect x="20" y="130" width="820" height="54" fill="white"/>
+  <rect x="20" y="184" width="820" height="96" fill="#f9f9f9"/>
+  <rect x="20" y="280" width="820" height="64" fill="white"/>
+  <rect x="20" y="344" width="820" height="48" fill="#f9f9f9"/>
+
+  <!-- ===== ROW 1: Init MST set ===== -->
+  <rect x="30" y="90" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="110" fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">insert</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">);</tspan>
+  </text>
+  <line x1="410" y1="105" x2="458" y2="105" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,101 466,105 458,109" fill="#bdc3c7"/>
+  <text x="476" y="102" font-size="11" fill="#555"><tspan font-weight="bold">Start the MST with one vertex.</tspan> Any starting</text>
+  <text x="476" y="118" font-size="11" fill="#555">vertex gives the same total weight in the end.</text>
+
+  <!-- ===== ROW 2: using EdgeTuple alias ===== -->
+  <rect x="30" y="138" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="9">
+    <tspan x="40" y="158" fill="#569cd6">using</tspan><tspan fill="#ddd"> </tspan><tspan fill="#4ec9b0">EdgeTuple</tspan><tspan fill="#ddd"> = std::</tspan><tspan fill="#4ec9b0">tuple</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">, std::</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">, std::</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">&gt;;</tspan>
+  </text>
+  <line x1="410" y1="153" x2="458" y2="153" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,149 466,153 458,157" fill="#bdc3c7"/>
+  <text x="476" y="146" font-size="11" fill="#555"><tspan font-weight="bold">Type alias.</tspan> Three fields &#x2014; (weight, from, to).</text>
+  <text x="476" y="162" font-size="11" fill="#555">We need <tspan font-family="Consolas, monospace" font-size="10">from</tspan> to record the MST edge in output.</text>
+  <text x="476" y="178" font-size="11" fill="#555">Naming it <tspan font-family="Consolas, monospace" font-size="10">EdgeTuple</tspan> keeps the next line readable.</text>
+
+  <!-- ===== ROW 3: min-heap declaration ===== -->
+  <rect x="30" y="192" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="9">
+    <tspan x="40" y="212" fill="#ddd">std::</tspan><tspan fill="#4ec9b0">priority_queue</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">EdgeTuple</tspan><tspan fill="#ddd">, std::</tspan><tspan fill="#4ec9b0">vector</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">EdgeTuple</tspan><tspan fill="#ddd">&gt;, std::</tspan><tspan fill="#4ec9b0">greater</tspan><tspan fill="#ddd">&lt;&gt;&gt; </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="207" x2="458" y2="207" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,203 466,207 458,211" fill="#bdc3c7"/>
+  <text x="476" y="200" font-size="11" fill="#27ae60" font-weight="bold">Build a min-heap of (weight, from, to) tuples.</text>
+  <text x="476" y="216" font-size="11" fill="#555">Same three template args as Dijkstra:</text>
+  <text x="476" y="232" font-size="11" fill="#555">&#x2022; element type (<tspan font-family="Consolas, monospace" font-size="10">EdgeTuple</tspan>)</text>
+  <text x="476" y="248" font-size="11" fill="#555">&#x2022; underlying container (<tspan font-family="Consolas, monospace" font-size="10">vector&lt;EdgeTuple&gt;</tspan>)</text>
+  <text x="476" y="264" font-size="11" fill="#555">&#x2022; <tspan font-family="Consolas, monospace" font-size="10">greater&lt;&gt;</tspan> flips the default max-heap &#x2192; <tspan font-weight="bold">min-heap</tspan></text>
+  <text x="476" y="278" font-size="11" fill="#555">Tuples compare lexicographically, so sorting is by <tspan font-family="Consolas, monospace" font-size="10">weight</tspan> first.</text>
+
+  <!-- ===== ROW 4: Seed frontier ===== -->
+  <rect x="30" y="288" width="380" height="48" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="304" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">)) {</tspan>
+    <tspan x="60" y="320" fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">weight</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">});</tspan>
+  </text>
+  <line x1="410" y1="312" x2="458" y2="312" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,308 466,312 458,316" fill="#bdc3c7"/>
+  <text x="476" y="300" font-size="11" fill="#555"><tspan font-weight="bold">Seed the frontier.</tspan> Every edge leaving</text>
+  <text x="476" y="316" font-size="11" fill="#555"><tspan font-family="Consolas, monospace" font-size="10">start</tspan> is a candidate crossing edge &#x2014; push</text>
+  <text x="476" y="332" font-size="11" fill="#555">all of them into the heap at once.</text>
+
+  <!-- ===== ROW 5: vertex_count ===== -->
+  <rect x="30" y="352" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="372" fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd"> </tspan><tspan fill="#9cdcfe">V</tspan><tspan fill="#ddd"> = </tspan><tspan fill="#dcdcaa">vertex_count</tspan><tspan fill="#ddd">();</tspan>
+  </text>
+  <line x1="410" y1="367" x2="458" y2="367" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,363 466,367 458,371" fill="#bdc3c7"/>
+  <text x="476" y="364" font-size="11" fill="#555"><tspan font-weight="bold">Cache V.</tspan> We'll stop once the MST set</text>
+  <text x="476" y="380" font-size="11" fill="#555">contains all V vertices (V-1 accepted edges).</text>
+
+  <!-- ===== FOOTER: Setup summary + transition ===== -->
+  <rect x="30" y="404" width="800" height="82" rx="8" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="430" y="426" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">Setup is done. What's in play now?</text>
+  <text x="430" y="446" text-anchor="middle" fill="#555" font-size="12"><tspan font-family="Consolas, monospace" font-size="11">in_mst</tspan> contains only <tspan font-family="Consolas, monospace" font-size="11">{start}</tspan>.</text>
+  <text x="430" y="462" text-anchor="middle" fill="#555" font-size="12"><tspan font-family="Consolas, monospace" font-size="11">min_heap</tspan> contains every edge leaving <tspan font-family="Consolas, monospace" font-size="11">start</tspan>.</text>
+  <text x="430" y="480" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">&#x2192; Continue to Part 2: Main Loop</text>
+</svg>
