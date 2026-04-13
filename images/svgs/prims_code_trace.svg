@@ -11,9 +11,9 @@
   <text font-family="Consolas, 'Courier New', monospace" font-size="9">
     <tspan x="40" y="96" fill="#ddd">in_mst.insert(start);</tspan>
     <tspan x="40" y="110" fill="#c586c0">for</tspan><tspan fill="#ddd"> (auto&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : adj_list_.at(start))</tspan>
-    <tspan x="50" y="124" fill="#ddd">pq.push({edge.weight, start, edge.to});</tspan>
-    <tspan x="40" y="138" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!pq.empty() &amp;&amp; in_mst.size()&lt;V) {</tspan>
-    <tspan x="50" y="152" fill="#ddd">auto [w, from, to] = pq.top(); pq.pop();</tspan>
+    <tspan x="50" y="124" fill="#ddd">min_heap.push({edge.weight, start, edge.to});</tspan>
+    <tspan x="40" y="138" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!min_heap.empty() &amp;&amp; in_mst.size()&lt;V) {</tspan>
+    <tspan x="50" y="152" fill="#ddd">auto [w, from, to] = min_heap.top(); min_heap.pop();</tspan>
     <tspan x="50" y="166" fill="#e67e22">if (in_mst.count(to)) continue;</tspan>
     <tspan x="50" y="180" fill="#ddd">mst_edges.push_back({from, to, w});</tspan>
     <tspan x="50" y="194" fill="#ddd">in_mst.insert(to);</tspan>
@@ -61,7 +61,7 @@
   <rect x="580" y="64" width="290" height="150" rx="8" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
   <text x="725" y="84" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">Variable Legend</text>
 
-  <text x="596" y="104" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">pq</text>
+  <text x="596" y="104" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">min_heap</text>
   <text x="620" y="104" fill="#555" font-size="10">min-heap of (weight, from, to) tuples.</text>
   <text x="596" y="116" fill="#888" font-size="9">top = cheapest crossing edge candidate.</text>
 
@@ -85,14 +85,14 @@
   <rect x="30" y="248" width="840" height="26" rx="6" fill="#27ae60"/>
   <text x="60" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Step</text>
   <text x="220" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Action</text>
-  <text x="520" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">pq (min-heap)</text>
+  <text x="520" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">min_heap (min-heap)</text>
   <text x="760" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">MST state</text>
 
   <!-- Step 0: Seed -->
   <rect x="30" y="278" width="840" height="44" fill="#f0faf0"/>
   <text x="60" y="304" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">0</text>
   <text x="220" y="294" text-anchor="middle" fill="#555" font-size="10">in_mst = {A}; push all A's edges</text>
-  <text x="220" y="308" text-anchor="middle" fill="#888" font-size="9" font-style="italic">pq.push({4,A,B}), pq.push({2,A,C})</text>
+  <text x="220" y="308" text-anchor="middle" fill="#888" font-size="9" font-style="italic">min_heap.push({4,A,B}), min_heap.push({2,A,C})</text>
   <text x="520" y="304" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(2,A,C), (4,A,B)]</text>
   <text x="760" y="298" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A} &nbsp; total=0</text>
   <text x="760" y="312" text-anchor="middle" fill="#bbb" font-size="9">mst_edges: [ ]</text>

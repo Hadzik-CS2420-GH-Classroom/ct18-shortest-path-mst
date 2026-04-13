@@ -89,13 +89,18 @@ WeightedGraph::dijkstra(const std::string& source) const {
     // 2. Initialize every vertex's dist to std::numeric_limits<int>::max()
     // 3. Guard: if (!has_vertex(source)) return dist;
     // 4. Seed the source: dist[source] = 0;
-    // 5. Declare a min-heap of (distance, vertex) pairs using std::greater
-    // 6. Seed the heap: pq.push({0, source})
-    // 7. Main loop — while the heap is not empty:
-    //      pop (d, u) with pq.top() / pq.pop()
-    // 8. Stale-entry skip: if (d > dist[u]) continue;
-    // 9. Relax every edge in adj_list_.at(u): compute new_dist = dist[u] +
-    //    edge.weight; if new_dist < dist[edge.to], update and push
+    // 5. Type alias: using Pair = std::pair<int, std::string>;
+    // 6. Min-heap declaration:
+    //      std::priority_queue<Pair, std::vector<Pair>,
+    //                          std::greater<Pair>> min_heap;
+    //    (std::greater flips the default max-heap to a min-heap)
+    // 7. Seed the min-heap: min_heap.push({0, source})
+    // 8. Main loop — while (!min_heap.empty()):
+    //      pop (d, u) with min_heap.top() / min_heap.pop()
+    // 9. Stale-entry skip: if (d > dist[u]) continue;
+    // 10. Relax every edge in adj_list_.at(u): compute new_dist = dist[u]
+    //     + edge.weight; if new_dist < dist[edge.to], update dist[edge.to]
+    //     and min_heap.push({new_dist, edge.to})
     return dist;
 }
 
@@ -124,17 +129,22 @@ WeightedGraph::prims_mst(const std::string& start) const {
     // TODO: implement Prim's — step numbers match the SVG rows
     //
     // 1. Put `start` in an unordered_set<string> in_mst
-    // 2. Declare a min-heap of (weight, from, to) tuples using std::greater
-    // 3. Seed the frontier: push every edge leaving `start` as
-    //    pq.push({edge.weight, start, edge.to})
-    // 4. Cache V = vertex_count() so we can stop at the right time
-    // 5. Main loop — while pq not empty AND in_mst.size() < V:
+    // 2. Type alias:
+    //      using EdgeTuple = std::tuple<int, std::string, std::string>;
+    // 3. Min-heap declaration:
+    //      std::priority_queue<EdgeTuple, std::vector<EdgeTuple>,
+    //                          std::greater<EdgeTuple>> min_heap;
+    //    (std::greater flips the default max-heap to a min-heap)
+    // 4. Seed the frontier: push every edge leaving `start` as
+    //    min_heap.push({edge.weight, start, edge.to})
+    // 5. Cache V = vertex_count() so we can stop at the right time
+    // 6. Main loop — while (!min_heap.empty() && in_mst.size() < V):
     //      pop the cheapest tuple (w, from, to)
-    // 6. Cycle skip: if in_mst already contains `to`, continue;
-    // 7. Accept the edge: mst_edges.push_back({from, to, w});
+    // 7. Cycle skip: if in_mst already contains `to`, continue;
+    // 8. Accept the edge: mst_edges.push_back({from, to, w});
     //    total_weight += w; in_mst.insert(to);
-    // 8. Grow the frontier: for each edge from `to`, push
-    //    {edge.weight, to, edge.to} into pq (skip if edge.to in in_mst)
+    // 9. Grow the frontier: for each edge from `to`, push
+    //    {edge.weight, to, edge.to} into min_heap (skip if edge.to in in_mst)
     return {mst_edges, total_weight};
 }
 
