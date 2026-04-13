@@ -1,0 +1,146 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 590" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="26" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">Dijkstra's Algorithm &#x2014; Shortest Path from One Source</text>
+  <text x="450" y="44" text-anchor="middle" fill="#2980b9" font-size="12" font-style="italic" font-weight="bold">pronounced DIKE-struh &#x2014; named after Dutch computer scientist Edsger W. Dijkstra (1959)</text>
+  <text x="450" y="60" text-anchor="middle" fill="#777" font-size="13">Greedy: always expand the unfinalized vertex with the smallest known distance</text>
+
+  <!-- ===== THE IDEA ===== -->
+  <rect x="30" y="70" width="840" height="62" rx="10" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="450" y="90" text-anchor="middle" fill="#2980b9" font-size="14" font-weight="bold">The Big Idea</text>
+  <text x="450" y="108" text-anchor="middle" fill="#555" font-size="12"><tspan font-weight="bold">Greedy</tspan> = take the best-looking option right now, commit to it, and never reconsider. No lookahead, no backtracking.</text>
+  <text x="450" y="124" text-anchor="middle" fill="#555" font-size="12">Dijkstra&#x2019;s greedy choice: pick the unfinalized vertex with the smallest known distance, improve its neighbors, repeat.</text>
+
+  <!-- ===== VARIABLE LEGEND ===== -->
+  <rect x="30" y="146" width="840" height="120" rx="10" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="166" text-anchor="middle" fill="#27ae60" font-size="14" font-weight="bold">Variable Legend</text>
+
+  <!-- Column 1 -->
+  <text x="60" y="188" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#2980b9" font-weight="bold">source</text>
+  <text x="130" y="188" fill="#555" font-size="11">the starting vertex &#x2014; we find shortest paths FROM this</text>
+
+  <text x="60" y="208" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#2980b9" font-weight="bold">u</text>
+  <text x="130" y="208" fill="#555" font-size="11">the vertex just popped from the min-heap (now finalized)</text>
+
+  <text x="60" y="228" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#2980b9" font-weight="bold">v</text>
+  <text x="130" y="228" fill="#555" font-size="11">a neighbor of <tspan font-family="Consolas, monospace">u</tspan> we're checking for a shorter path</text>
+
+  <text x="60" y="252" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#2980b9" font-weight="bold">V</text>
+  <text x="130" y="252" fill="#555" font-size="11">number of <tspan font-weight="bold">vertices</tspan> in the graph (used in Big O)</text>
+
+  <!-- Column 2 -->
+  <text x="480" y="188" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#2980b9" font-weight="bold">dist[x]</text>
+  <text x="555" y="188" fill="#555" font-size="11">best known distance from source to vertex <tspan font-family="Consolas, monospace">x</tspan></text>
+
+  <text x="480" y="208" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#2980b9" font-weight="bold">weight(u,v)</text>
+  <text x="583" y="208" fill="#555" font-size="11">the cost of the edge between <tspan font-family="Consolas, monospace">u</tspan> and <tspan font-family="Consolas, monospace">v</tspan></text>
+
+  <text x="480" y="228" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#2980b9" font-weight="bold">min-heap</text>
+  <text x="568" y="228" fill="#555" font-size="11">priority queue that always returns the smallest</text>
+
+  <text x="480" y="252" font-family="Consolas, 'Courier New', monospace" font-size="11" fill="#2980b9" font-weight="bold">E</text>
+  <text x="555" y="252" fill="#555" font-size="11">number of <tspan font-weight="bold">edges</tspan> in the graph (used in Big O)</text>
+
+  <!-- ===== THE ALGORITHM ===== -->
+  <rect x="30" y="280" width="420" height="238" rx="10" fill="#f9f9f9" stroke="#ccc" stroke-width="1"/>
+  <text x="240" y="300" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">The Algorithm (5 Steps)</text>
+
+  <!-- Step 1 -->
+  <circle cx="56" cy="322" r="11" fill="#2980b9"/>
+  <text x="56" y="326" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1</text>
+  <text x="76" y="320" fill="#555" font-size="11" font-weight="bold">Initialize</text>
+  <text x="76" y="334" fill="#777" font-size="10">Set dist[source] = 0, all others = &#x221E;. Push {0, source} into min-heap.</text>
+
+  <!-- Step 2 -->
+  <circle cx="56" cy="356" r="11" fill="#2980b9"/>
+  <text x="56" y="360" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2</text>
+  <text x="76" y="354" fill="#555" font-size="11" font-weight="bold">Extract minimum</text>
+  <text x="76" y="368" fill="#777" font-size="10">Pop the vertex with the smallest current distance. Call it <tspan font-family="Consolas, monospace">u</tspan>.</text>
+
+  <!-- Step 3 -->
+  <circle cx="56" cy="390" r="11" fill="#2980b9"/>
+  <text x="56" y="394" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3</text>
+  <text x="76" y="388" fill="#555" font-size="11" font-weight="bold">Skip stale entries</text>
+  <text x="76" y="402" fill="#777" font-size="10">If the popped distance is greater than <tspan font-family="Consolas, monospace">dist[u]</tspan>, skip &#x2014; it's outdated.</text>
+
+  <!-- Step 4 -->
+  <circle cx="56" cy="424" r="11" fill="#2980b9"/>
+  <text x="56" y="428" text-anchor="middle" fill="white" font-size="11" font-weight="bold">4</text>
+  <text x="76" y="422" fill="#555" font-size="11" font-weight="bold">Relax neighbors</text>
+  <text x="76" y="436" fill="#777" font-size="10">For each neighbor <tspan font-family="Consolas, monospace">v</tspan>: if <tspan font-family="Consolas, monospace">dist[u] + weight(u,v) &lt; dist[v]</tspan>,</text>
+  <text x="76" y="450" fill="#777" font-size="10">update <tspan font-family="Consolas, monospace">dist[v]</tspan> and push <tspan font-family="Consolas, monospace">{dist[v], v}</tspan> into the min-heap.</text>
+
+  <!-- Step 5 -->
+  <circle cx="56" cy="472" r="11" fill="#2980b9"/>
+  <text x="56" y="476" text-anchor="middle" fill="white" font-size="11" font-weight="bold">5</text>
+  <text x="76" y="470" fill="#555" font-size="11" font-weight="bold">Repeat until min-heap empty</text>
+  <text x="76" y="484" fill="#777" font-size="10">When the min-heap is empty, <tspan font-family="Consolas, monospace">dist[]</tspan> holds the shortest</text>
+  <text x="76" y="498" fill="#777" font-size="10">distances from source to every reachable vertex.</text>
+
+  <!-- ===== EXAMPLE GRAPH ===== -->
+  <rect x="470" y="280" width="400" height="238" rx="10" fill="#f9f9f9" stroke="#ccc" stroke-width="1"/>
+  <text x="670" y="300" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">Example Graph (source = A)</text>
+
+  <!-- Edges (drawn first so nodes render on top) -->
+  <!-- A-B (4) -->
+  <line x1="542" y1="339" x2="648" y2="333" stroke="#2980b9" stroke-width="2"/>
+  <rect x="583" y="327" width="24" height="18" rx="9" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="595" y="341" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">4</text>
+
+  <!-- A-C (2) -->
+  <line x1="534" y1="357" x2="576" y2="403" stroke="#2980b9" stroke-width="2"/>
+  <rect x="543" y="371" width="24" height="18" rx="9" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="555" y="385" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">2</text>
+
+  <!-- B-C (3) -->
+  <line x1="655" y1="348" x2="605" y2="404" stroke="#2980b9" stroke-width="2"/>
+  <rect x="618" y="367" width="24" height="18" rx="9" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="630" y="381" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">3</text>
+
+  <!-- B-D (5) -->
+  <line x1="687" y1="346" x2="743" y2="396" stroke="#2980b9" stroke-width="2"/>
+  <rect x="703" y="362" width="24" height="18" rx="9" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="715" y="376" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">5</text>
+
+  <!-- C-E (1) -->
+  <line x1="606" y1="436" x2="634" y2="464" stroke="#2980b9" stroke-width="2"/>
+  <rect x="608" y="441" width="24" height="18" rx="9" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="620" y="455" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">1</text>
+
+  <!-- D-E (3) -->
+  <line x1="741" y1="422" x2="669" y2="468" stroke="#2980b9" stroke-width="2"/>
+  <rect x="693" y="436" width="24" height="18" rx="9" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="705" y="450" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">3</text>
+
+  <!-- A (source, u during first iteration) -->
+  <circle cx="520" cy="340" r="22" fill="#fef9e7" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="520" y="346" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">A</text>
+  <text x="520" y="310" text-anchor="middle" fill="#e67e22" font-size="10" font-weight="bold">source</text>
+  <text x="520" y="382" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold" font-family="Consolas, monospace">u</text>
+
+  <!-- B (v during first iteration: relaxing A-B) -->
+  <circle cx="670" cy="332" r="22" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="670" y="338" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">B</text>
+  <text x="700" y="336" text-anchor="start" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">v</text>
+
+  <!-- C -->
+  <circle cx="590" cy="420" r="22" fill="white" stroke="#2980b9" stroke-width="2"/>
+  <text x="590" y="426" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">C</text>
+
+  <!-- D -->
+  <circle cx="760" cy="410" r="22" fill="white" stroke="#2980b9" stroke-width="2"/>
+  <text x="760" y="416" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">D</text>
+
+  <!-- E -->
+  <circle cx="650" cy="480" r="22" fill="white" stroke="#2980b9" stroke-width="2"/>
+  <text x="650" y="486" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">E</text>
+
+  <!-- Footer -->
+  <text x="670" y="508" text-anchor="middle" font-size="10" font-weight="bold"><tspan fill="#e67e22">u = A (popped)</tspan><tspan fill="#555">, </tspan><tspan fill="#27ae60">v = B (first neighbor relaxed)</tspan></text>
+
+  <!-- ===== FOOTER: See trace SVG ===== -->
+  <rect x="30" y="534" width="840" height="40" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="450" y="552" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">&#x2192; Continue to <tspan font-family="Consolas, monospace">dijkstra_trace.svg</tspan> for the full step-by-step trace on this graph</text>
+  <text x="450" y="568" text-anchor="middle" fill="#888" font-size="10">Includes: relaxation table, heap push column, and time-complexity notes</text>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Different Weights, Different Trees</text>
+  <text x="450" y="48" text-anchor="middle" fill="#777" font-size="13">On this graph, Dijkstra's and Prim's choose different edges &#x2014; the &#x201C;same tree&#x201D; result above was just a coincidence</text>
+
+  <!-- ===== Left panel: Dijkstra ===== -->
+  <rect x="30" y="66" width="410" height="230" rx="10" fill="#f9f9f9" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="235" y="86" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">Dijkstra's Shortest Path Tree (source = A)</text>
+  <text x="235" y="102" text-anchor="middle" fill="#777" font-size="10">A&#x2014;B(10) IS the shortest path to B &#x2014; the detour A&#x2192;C&#x2192;D&#x2192;B costs 11</text>
+
+  <!-- A top-left -->
+  <circle cx="105" cy="160" r="20" fill="#fef9e7" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="105" y="166" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">A</text>
+  <text x="78" y="160" text-anchor="end" fill="#e67e22" font-size="9" font-weight="bold">dist = 0</text>
+
+  <!-- B top-right -->
+  <circle cx="345" cy="160" r="20" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="345" y="166" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">B</text>
+  <text x="372" y="160" fill="#2980b9" font-size="9" font-weight="bold">dist = 10</text>
+
+  <!-- C bottom-left -->
+  <circle cx="105" cy="245" r="20" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="105" y="251" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">C</text>
+  <text x="78" y="248" text-anchor="end" fill="#27ae60" font-size="9" font-weight="bold">dist = 2</text>
+
+  <!-- D bottom-right -->
+  <circle cx="345" cy="245" r="20" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="345" y="251" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">D</text>
+  <text x="372" y="248" fill="#27ae60" font-size="9" font-weight="bold">dist = 10</text>
+
+  <!-- A-B: IN TREE (green, thick) — Dijkstra needs this direct edge -->
+  <line x1="125" y1="160" x2="325" y2="160" stroke="#27ae60" stroke-width="3"/>
+  <rect x="212" y="142" width="26" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="225" y="154" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">10</text>
+
+  <!-- A-C: IN TREE (green) -->
+  <line x1="105" y1="180" x2="105" y2="225" stroke="#27ae60" stroke-width="3"/>
+  <rect x="115" y="194" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="126" y="206" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">2</text>
+
+  <!-- C-D: IN TREE (green) -->
+  <line x1="125" y1="245" x2="325" y2="245" stroke="#27ae60" stroke-width="3"/>
+  <rect x="214" y="249" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="225" y="261" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">8</text>
+
+  <!-- B-D: NOT in tree (gray dashed) -->
+  <line x1="345" y1="180" x2="345" y2="225" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="318" y="194" width="22" height="16" rx="8" fill="white" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="329" y="206" text-anchor="middle" fill="#888" font-size="10">1</text>
+
+  <!-- Dijkstra total -->
+  <text x="235" y="282" text-anchor="middle" fill="#2980b9" font-size="12" font-weight="bold">Edge total = 10 + 2 + 8 = 20</text>
+
+  <!-- ===== Right panel: Prim's ===== -->
+  <rect x="460" y="66" width="410" height="230" rx="10" fill="#f9f9f9" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="665" y="86" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">Prim's MST (start = A)</text>
+  <text x="665" y="102" text-anchor="middle" fill="#777" font-size="10">Skips A&#x2014;B(10) and uses D&#x2014;B(1) &#x2014; saves 9 in total weight</text>
+
+  <!-- A top-left -->
+  <circle cx="535" cy="160" r="20" fill="#fef9e7" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="535" y="166" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">A</text>
+  <text x="508" y="160" text-anchor="end" fill="#e67e22" font-size="9" font-weight="bold">start</text>
+
+  <!-- B top-right -->
+  <circle cx="775" cy="160" r="20" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="775" y="166" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">B</text>
+  <text x="802" y="160" fill="#27ae60" font-size="9" font-weight="bold">step 3</text>
+
+  <!-- C bottom-left -->
+  <circle cx="535" cy="245" r="20" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="535" y="251" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">C</text>
+  <text x="508" y="248" text-anchor="end" fill="#27ae60" font-size="9" font-weight="bold">step 1</text>
+
+  <!-- D bottom-right -->
+  <circle cx="775" cy="245" r="20" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="775" y="251" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">D</text>
+  <text x="802" y="248" fill="#27ae60" font-size="9" font-weight="bold">step 2</text>
+
+  <!-- A-B: NOT in MST (gray dashed) — Prim's skips it -->
+  <line x1="555" y1="160" x2="755" y2="160" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="642" y="142" width="26" height="16" rx="8" fill="white" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="655" y="154" text-anchor="middle" fill="#888" font-size="10">10</text>
+
+  <!-- A-C: IN MST (green) -->
+  <line x1="535" y1="180" x2="535" y2="225" stroke="#27ae60" stroke-width="3"/>
+  <rect x="545" y="194" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="556" y="206" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">2</text>
+
+  <!-- C-D: IN MST (green) -->
+  <line x1="555" y1="245" x2="755" y2="245" stroke="#27ae60" stroke-width="3"/>
+  <rect x="644" y="249" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="655" y="261" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">8</text>
+
+  <!-- B-D: IN MST (green) — Prim's uses this cheap edge -->
+  <line x1="775" y1="180" x2="775" y2="225" stroke="#27ae60" stroke-width="3"/>
+  <rect x="785" y="194" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="796" y="206" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">1</text>
+
+  <!-- Prim's total -->
+  <text x="665" y="282" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">Total weight = 2 + 8 + 1 = 11</text>
+
+  <!-- ===== Bottom note ===== -->
+  <rect x="30" y="310" width="840" height="56" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="450" y="332" text-anchor="middle" fill="#2c3e50" font-size="12"><tspan font-weight="bold">Dijkstra must use A&#x2014;B(10)</tspan> because the only other path to B is A&#x2192;C&#x2192;D&#x2192;B = 2 + 8 + 1 = 11, which is even longer.</text>
+  <text x="450" y="352" text-anchor="middle" fill="#2c3e50" font-size="12"><tspan font-weight="bold">Prim's skips A&#x2014;B(10)</tspan> and uses D&#x2014;B(1) instead &#x2014; it saves 9 in total weight and still connects everyone.</text>
+
+  <!-- ===== REAL-WORLD: CAMPUS BUILDINGS ===== -->
+  <rect x="30" y="384" width="840" height="200" rx="10" fill="#fef9e7" stroke="#f39c12" stroke-width="1.5"/>
+  <text x="450" y="406" text-anchor="middle" fill="#e67e22" font-size="14" font-weight="bold">&#x1F3EB; Real-World: Navigating Weber State Campus</text>
+  <text x="450" y="422" text-anchor="middle" fill="#777" font-size="10" font-style="italic">Vertices = buildings &#xA0;&#xA0; Edges = walking paths &#xA0;&#xA0; Weights = walking minutes</text>
+
+  <!-- Vertical divider between columns -->
+  <line x1="450" y1="434" x2="450" y2="524" stroke="#f39c12" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Left column: Dijkstra's use case -->
+  <text x="60" y="448" fill="#2980b9" font-size="12" font-weight="bold">Dijkstra&#x2019;s &#x2014; &#x201C;Get me there fast&#x201D;</text>
+  <text x="60" y="466" fill="#555" font-size="11"><tspan font-style="italic">&#x201C;I&#x2019;m at my dorm. Chem class starts in Lind Lecture Hall</tspan></text>
+  <text x="60" y="481" fill="#555" font-size="11"><tspan font-style="italic">at 9am. What&#x2019;s the fastest route?&#x201D;</tspan></text>
+  <text x="60" y="502" fill="#2c3e50" font-size="11">&#x2192; Run <tspan font-family="Consolas, monospace" font-weight="bold">dijkstra(&quot;dorm&quot;)</tspan>. Read off <tspan font-family="Consolas, monospace" font-weight="bold">dist[&quot;Lind&quot;]</tspan></text>
+  <text x="60" y="517" fill="#2c3e50" font-size="11">&#x2014; that&#x2019;s your walking time; the tree gives you the path.</text>
+
+  <!-- Right column: Prim's use case -->
+  <text x="470" y="448" fill="#27ae60" font-size="12" font-weight="bold">Prim&#x2019;s &#x2014; &#x201C;Connect everything cheaply&#x201D;</text>
+  <text x="470" y="466" fill="#555" font-size="11"><tspan font-style="italic">&#x201C;Facilities is running fiber between every building on</tspan></text>
+  <text x="470" y="481" fill="#555" font-size="11"><tspan font-style="italic">campus. What&#x2019;s the minimum cable length?&#x201D;</tspan></text>
+  <text x="470" y="502" fill="#2c3e50" font-size="11">&#x2192; Run <tspan font-family="Consolas, monospace" font-weight="bold">prims_mst(&quot;any_building&quot;)</tspan>. MST edges</text>
+  <text x="470" y="517" fill="#2c3e50" font-size="11">are the cable runs; total weight is the cable you&#x2019;ll buy.</text>
+
+  <!-- Divider + Starbucks twist -->
+  <line x1="60" y1="532" x2="840" y2="532" stroke="#f39c12" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="60" y="548" fill="#e67e22" font-size="11" font-weight="bold">&#x2615; The Starbucks twist:</text>
+  <text x="188" y="548" fill="#555" font-size="11"><tspan font-style="italic">&#x201C;Same trip &#x2014; but stop at the Tracy Hall Starbucks on the way to chem class.&#x201D;</tspan></text>
+  <text x="60" y="564" fill="#2c3e50" font-size="11">&#x2192; Still Dijkstra&#x2019;s &#x2014; but run it <tspan font-weight="bold">twice</tspan>: <tspan font-family="Consolas, monospace">dist[&quot;Tracy&quot;]</tspan> from dorm, then <tspan font-family="Consolas, monospace">dist[&quot;Lind&quot;]</tspan> from Tracy Hall, and sum them.</text>
+  <text x="60" y="578" fill="#888" font-size="10" font-style="italic">Prim&#x2019;s MST can&#x2019;t answer this &#x2014; the MST edges aren&#x2019;t necessarily the shortest routes between any two vertices.</text>
+</svg>

@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">prims_mst() &#x2014; Code Execution Trace</text>
+  <text x="450" y="48" text-anchor="middle" fill="#777" font-size="13">Tracing prims_mst("A") on: A&#x2013;B(4), A&#x2013;C(2), B&#x2013;C(3), B&#x2013;D(5), C&#x2013;E(1), D&#x2013;E(3) &#x2014; same graph as the Dijkstra trace</text>
+
+  <!-- ===== CODE REFERENCE ===== -->
+  <rect x="30" y="64" width="290" height="150" rx="8" fill="#1e1e1e"/>
+  <text x="40" y="80" fill="#888" font-size="9">Key lines:</text>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="9">
+    <tspan x="40" y="96" fill="#ddd">in_mst.insert(start);</tspan>
+    <tspan x="40" y="110" fill="#c586c0">for</tspan><tspan fill="#ddd"> ([v,w] : adj_list_.at(start))</tspan>
+    <tspan x="50" y="124" fill="#ddd">pq.push({w, start, v});</tspan>
+    <tspan x="40" y="138" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!pq.empty() &amp;&amp; in_mst.size()&lt;V) {</tspan>
+    <tspan x="50" y="152" fill="#ddd">auto [w, from, to] = pq.top(); pq.pop();</tspan>
+    <tspan x="50" y="166" fill="#e67e22">if (in_mst.count(to)) continue;</tspan>
+    <tspan x="50" y="180" fill="#ddd">mst_edges.push_back({from, to, w});</tspan>
+    <tspan x="50" y="194" fill="#ddd">in_mst.insert(to);</tspan>
+    <tspan x="50" y="208" fill="#888">/* push to's crossing edges */</tspan>
+  </text>
+
+  <!-- ===== GRAPH REFERENCE ===== -->
+  <rect x="340" y="64" width="220" height="150" rx="8" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+  <text x="450" y="82" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="bold">The Graph</text>
+
+  <circle cx="400" cy="110" r="14" fill="#eaf2f8" stroke="#27ae60" stroke-width="2"/>
+  <text x="400" y="115" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">A</text>
+
+  <circle cx="500" cy="110" r="14" fill="white" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="500" y="115" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">B</text>
+
+  <circle cx="400" cy="175" r="14" fill="white" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="400" y="180" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">C</text>
+
+  <circle cx="500" cy="175" r="14" fill="white" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="500" y="180" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">D</text>
+
+  <circle cx="450" cy="200" r="14" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="450" y="205" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">E</text>
+
+  <line x1="414" y1="110" x2="486" y2="110" stroke="#bbb" stroke-width="1.2"/>
+  <text x="450" y="104" text-anchor="middle" fill="#555" font-size="9" font-weight="bold">4</text>
+
+  <line x1="400" y1="124" x2="400" y2="161" stroke="#bbb" stroke-width="1.2"/>
+  <text x="391" y="146" fill="#555" font-size="9" font-weight="bold">2</text>
+
+  <line x1="414" y1="120" x2="486" y2="165" stroke="#bbb" stroke-width="1.2"/>
+  <text x="456" y="136" fill="#555" font-size="9" font-weight="bold">3</text>
+
+  <line x1="500" y1="124" x2="500" y2="161" stroke="#bbb" stroke-width="1.2"/>
+  <text x="509" y="146" fill="#555" font-size="9" font-weight="bold">5</text>
+
+  <line x1="414" y1="181" x2="436" y2="193" stroke="#bbb" stroke-width="1.2"/>
+  <text x="416" y="196" fill="#555" font-size="9" font-weight="bold">1</text>
+
+  <line x1="486" y1="181" x2="464" y2="193" stroke="#bbb" stroke-width="1.2"/>
+  <text x="482" y="196" fill="#555" font-size="9" font-weight="bold">3</text>
+
+  <!-- ===== VARIABLE LEGEND ===== -->
+  <rect x="580" y="64" width="290" height="150" rx="8" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="725" y="84" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">Variable Legend</text>
+
+  <text x="596" y="104" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">pq</text>
+  <text x="620" y="104" fill="#555" font-size="10">min-heap of (weight, from, to) tuples.</text>
+  <text x="596" y="116" fill="#888" font-size="9">top = cheapest crossing edge candidate.</text>
+
+  <text x="596" y="134" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">in_mst</text>
+  <text x="632" y="134" fill="#555" font-size="10">set of vertices already added to MST.</text>
+
+  <text x="596" y="150" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">mst_edges</text>
+  <text x="652" y="150" fill="#555" font-size="10">accepted edges so far.</text>
+
+  <text x="596" y="166" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">total</text>
+  <text x="628" y="166" fill="#555" font-size="10">running sum of accepted edge weights.</text>
+
+  <line x1="596" y1="176" x2="854" y2="176" stroke="#27ae60" stroke-width="0.5" opacity="0.5"/>
+  <text x="596" y="192" fill="#555" font-size="10">Loop exits when <tspan font-family="Consolas, monospace">in_mst.size() == V</tspan>.</text>
+  <text x="596" y="206" fill="#555" font-size="10">We need exactly <tspan font-weight="bold">V&#x2212;1 = 4</tspan> accepted edges.</text>
+
+  <!-- ===== TRACE TABLE ===== -->
+  <text x="450" y="238" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">Execution Trace: prims_mst("A")</text>
+
+  <!-- Header -->
+  <rect x="30" y="248" width="840" height="26" rx="6" fill="#27ae60"/>
+  <text x="60" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Step</text>
+  <text x="220" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Action</text>
+  <text x="520" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">pq (min-heap)</text>
+  <text x="760" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">MST state</text>
+
+  <!-- Step 0: Seed -->
+  <rect x="30" y="278" width="840" height="44" fill="#f0faf0"/>
+  <text x="60" y="304" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">0</text>
+  <text x="220" y="294" text-anchor="middle" fill="#555" font-size="10">in_mst = {A}; push all A's edges</text>
+  <text x="220" y="308" text-anchor="middle" fill="#888" font-size="9" font-style="italic">pq.push({4,A,B}), pq.push({2,A,C})</text>
+  <text x="520" y="304" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(2,A,C), (4,A,B)]</text>
+  <text x="760" y="298" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A} &nbsp; total=0</text>
+  <text x="760" y="312" text-anchor="middle" fill="#bbb" font-size="9">mst_edges: [ ]</text>
+
+  <!-- Step 1: Pop (2,A,C) -->
+  <rect x="30" y="326" width="840" height="64" fill="white"/>
+  <text x="60" y="362" text-anchor="middle" fill="#8e44ad" font-size="11" font-weight="bold">1</text>
+  <text x="220" y="342" text-anchor="middle" fill="#555" font-size="10">Pop (2,A,C). C in MST? no &#x2192; accept</text>
+  <text x="220" y="356" text-anchor="middle" fill="#555" font-size="10">Add edge A&#x2014;C(2), total=2, in_mst.insert(C)</text>
+  <text x="220" y="370" text-anchor="middle" fill="#888" font-size="9" font-style="italic">push C&#x2192;B(3) and C&#x2192;E(1); A skipped (in MST)</text>
+  <text x="520" y="362" text-anchor="middle" fill="#8e44ad" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(1,C,E), (3,C,B), (4,A,B)]</text>
+  <text x="760" y="356" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A,C} &nbsp; total=2</text>
+  <text x="760" y="370" text-anchor="middle" fill="#8e44ad" font-size="9">edges: [A-C(2)]</text>
+
+  <!-- Step 2: Pop (1,C,E) -->
+  <rect x="30" y="394" width="840" height="64" fill="#f0faf0"/>
+  <text x="60" y="430" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="bold">2</text>
+  <text x="220" y="410" text-anchor="middle" fill="#555" font-size="10">Pop (1,C,E). E in MST? no &#x2192; accept</text>
+  <text x="220" y="424" text-anchor="middle" fill="#555" font-size="10">Add edge C&#x2014;E(1), total=3, in_mst.insert(E)</text>
+  <text x="220" y="438" text-anchor="middle" fill="#888" font-size="9" font-style="italic">push E&#x2192;D(3); C skipped (in MST)</text>
+  <text x="520" y="430" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(3,C,B), (3,E,D), (4,A,B)]</text>
+  <text x="760" y="424" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A,C,E} &nbsp; total=3</text>
+  <text x="760" y="438" text-anchor="middle" fill="#c0392b" font-size="9">edges: [A-C, C-E]</text>
+
+  <!-- Step 3: Pop (3,C,B) -->
+  <rect x="30" y="462" width="840" height="64" fill="white"/>
+  <text x="60" y="498" text-anchor="middle" fill="#2980b9" font-size="11" font-weight="bold">3</text>
+  <text x="220" y="478" text-anchor="middle" fill="#555" font-size="10">Pop (3,C,B). B in MST? no &#x2192; accept</text>
+  <text x="220" y="492" text-anchor="middle" fill="#555" font-size="10">Add edge C&#x2014;B(3), total=6, in_mst.insert(B)</text>
+  <text x="220" y="506" text-anchor="middle" fill="#888" font-size="9" font-style="italic">tuple tie (3,C,B) &lt; (3,E,D) lexicographically &#x2014; C wins</text>
+  <text x="520" y="498" text-anchor="middle" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(3,E,D), (4,A,B), (5,B,D)]</text>
+  <text x="760" y="492" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A,C,E,B} &nbsp; total=6</text>
+  <text x="760" y="506" text-anchor="middle" fill="#2980b9" font-size="9">edges: [A-C, C-E, C-B]</text>
+
+  <!-- Step 4: Pop (3,E,D) -->
+  <rect x="30" y="530" width="840" height="64" fill="#f0faf0"/>
+  <text x="60" y="566" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">4</text>
+  <text x="220" y="546" text-anchor="middle" fill="#555" font-size="10">Pop (3,E,D). D in MST? no &#x2192; accept</text>
+  <text x="220" y="560" text-anchor="middle" fill="#555" font-size="10">Add edge E&#x2014;D(3), total=9, in_mst.insert(D)</text>
+  <text x="220" y="574" text-anchor="middle" fill="#888" font-size="9" font-style="italic">no new pushes (B, E already in MST)</text>
+  <text x="520" y="566" text-anchor="middle" fill="#e67e22" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(4,A,B), (5,B,D)]</text>
+  <text x="760" y="560" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A,C,E,B,D} &nbsp; total=9</text>
+  <text x="760" y="574" text-anchor="middle" fill="#e67e22" font-size="9">edges: [A-C, C-E, C-B, E-D]</text>
+
+  <!-- Done -->
+  <rect x="30" y="598" width="840" height="32" fill="#f0faf0"/>
+  <text x="60" y="618" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">&#x2713;</text>
+  <text x="220" y="618" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">in_mst.size() == 5 == V &#x2192; exit loop</text>
+  <text x="760" y="618" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">MST total = 9</text>
+
+  <!-- ===== FOOTER ===== -->
+  <rect x="30" y="640" width="840" height="70" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="450" y="660" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">MST edges: A&#x2014;C(2), C&#x2014;E(1), C&#x2014;B(3), E&#x2014;D(3) &nbsp; &#x2014; total weight 9</text>
+  <text x="450" y="678" text-anchor="middle" fill="#555" font-size="11">Notice: Prim's picks C&#x2014;B(3) instead of A&#x2014;B(4), so its tree differs from Dijkstra's shortest-path tree on this graph.</text>
+  <text x="450" y="696" text-anchor="middle" fill="#555" font-size="11">The leftover (4,A,B) and (5,B,D) in the heap are never popped &#x2014; early termination at <tspan font-family="Consolas, monospace">size == V</tspan> catches them first.</text>
+</svg>

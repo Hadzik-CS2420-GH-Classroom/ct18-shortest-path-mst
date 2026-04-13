@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">Prim's Algorithm &#x2014; MST Result</text>
+  <text x="450" y="48" text-anchor="middle" fill="#777" font-size="13">After running Prim's from start A: the resulting minimum spanning tree and key facts</text>
+
+  <!-- ===== MST VISUAL ===== -->
+  <rect x="30" y="66" width="840" height="260" rx="10" fill="#fafafa" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="90" text-anchor="middle" fill="#27ae60" font-size="15" font-weight="bold">Minimum Spanning Tree</text>
+  <text x="450" y="110" text-anchor="middle" fill="#777" font-size="12">Green edges are in the MST; gray dashed edges were not chosen (would form cycles or cost more)</text>
+
+  <!-- A (start) -->
+  <circle cx="130" cy="210" r="26" fill="#fef9e7" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="130" y="217" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">A</text>
+  <text x="130" y="260" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">start</text>
+
+  <!-- B -->
+  <circle cx="280" cy="160" r="26" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="280" y="167" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">B</text>
+  <text x="280" y="125" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">step 1</text>
+
+  <!-- C -->
+  <circle cx="280" cy="270" r="26" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="280" y="277" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">C</text>
+  <text x="280" y="310" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">step 2</text>
+
+  <!-- D -->
+  <circle cx="440" cy="210" r="26" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="440" y="217" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">D</text>
+  <text x="440" y="260" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">step 3</text>
+
+  <!-- A-C (NOT in MST): gray dashed -->
+  <line x1="153" y1="219" x2="257" y2="261" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="192" y="231" width="26" height="18" rx="9" fill="white" stroke="#bdc3c7" stroke-width="1.2"/>
+  <text x="205" y="245" text-anchor="middle" fill="#888" font-size="11">4</text>
+
+  <!-- B-D (NOT in MST): gray dashed -->
+  <line x1="304" y1="167" x2="416" y2="203" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="347" y="176" width="26" height="18" rx="9" fill="white" stroke="#bdc3c7" stroke-width="1.2"/>
+  <text x="360" y="190" text-anchor="middle" fill="#888" font-size="11">5</text>
+
+  <!-- A-B (IN MST): green thick -->
+  <line x1="154" y1="202" x2="256" y2="168" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="192" y="176" width="26" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="205" y="190" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">1</text>
+
+  <!-- B-C (IN MST): green thick -->
+  <line x1="280" y1="186" x2="280" y2="244" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="290" y="206" width="26" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="303" y="220" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">2</text>
+
+  <!-- C-D (IN MST): green thick -->
+  <line x1="303" y1="261" x2="417" y2="219" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="347" y="231" width="26" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="360" y="245" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">1</text>
+
+  <!-- MST edge list on right side -->
+  <text x="510" y="150" fill="#2c3e50" font-size="13" font-weight="bold">MST edges (total weight = 4):</text>
+
+  <text x="510" y="180" fill="#555" font-size="12"><tspan fill="#27ae60" font-weight="bold">A &#x2014; B</tspan>&#xA0;&#xA0; weight = <tspan font-weight="bold">1</tspan></text>
+  <text x="510" y="206" fill="#555" font-size="12"><tspan fill="#27ae60" font-weight="bold">B &#x2014; C</tspan>&#xA0;&#xA0; weight = <tspan font-weight="bold">2</tspan></text>
+  <text x="510" y="232" fill="#555" font-size="12"><tspan fill="#27ae60" font-weight="bold">C &#x2014; D</tspan>&#xA0;&#xA0; weight = <tspan font-weight="bold">1</tspan></text>
+
+  <line x1="510" y1="246" x2="700" y2="246" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="510" y="264" fill="#27ae60" font-size="13" font-weight="bold">Total = 1 + 2 + 1 = 4</text>
+
+  <text x="510" y="294" fill="#888" font-size="11" font-style="italic">Excluded edges:</text>
+  <text x="510" y="310" fill="#888" font-size="11">A&#x2013;C (4) &#x2014; C was already reachable via B</text>
+  <text x="510" y="326" fill="#888" font-size="11">B&#x2013;D (5) &#x2014; D was already reachable via C</text>
+
+  <!-- Heap entry order footnote -->
+  <text x="450" y="346" text-anchor="middle" fill="#888" font-size="10" font-style="italic">Note: min-heap stores edges as <tspan font-family="Consolas, monospace">{weight, from, to}</tspan> &#x2014; weight first so <tspan font-family="Consolas, monospace">std::tuple</tspan> comparison gives a min-heap by weight.</text>
+
+  <!-- ===== KEY FACTS ===== -->
+  <rect x="30" y="362" width="840" height="112" rx="10" fill="#fef9e7" stroke="#f39c12" stroke-width="1.2"/>
+  <text x="450" y="382" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">Key Facts</text>
+
+  <text x="60" y="402" fill="#555" font-size="11"><tspan font-weight="bold">Time complexity:</tspan> O((V + E) log V) with a binary min-heap priority queue &#x2014; same as Dijkstra's</text>
+  <text x="60" y="420" fill="#555" font-size="11"><tspan font-weight="bold">Works with ANY edge weights</tspan> &#x2014; positive, zero, or negative (unlike Dijkstra's, which requires non-negative)</text>
+  <text x="60" y="440" fill="#555" font-size="11"><tspan font-weight="bold">Cut property:</tspan> the cheapest edge crossing any cut (partition of vertices) is always in some MST &#x2014; this is why greedy works</text>
+  <text x="60" y="460" fill="#555" font-size="11"><tspan font-weight="bold">Multiple MSTs:</tspan> if edges tie in weight, different tie-break orders can produce different valid MSTs with equal total weight</text>
+</svg>

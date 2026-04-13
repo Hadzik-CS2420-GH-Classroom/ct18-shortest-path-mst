@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 700" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">Dijkstra: Why Stale Heap Entries Happen</text>
+  <text x="430" y="48" text-anchor="middle" fill="#777" font-size="13">Breaking down the "if (d &gt; dist[u]) continue;" line and what a stale pair looks like</text>
+
+  <!-- ===== FULL CODE BLOCK ===== -->
+  <rect x="30" y="66" width="500" height="90" rx="8" fill="#1e1e1e"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="50" y="86" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
+    <tspan x="50" y="106" fill="#e67e22" font-weight="bold">if (d &gt; dist[u]) continue;</tspan>
+    <tspan x="50" y="126" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">)) {</tspan>
+    <tspan x="70" y="146" fill="#888">/* relaxation */</tspan>
+  </text>
+
+  <!-- ===== EXAMPLE GRAPH ===== -->
+  <rect x="548" y="66" width="282" height="90" rx="8" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+  <text x="689" y="84" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="bold">The Example Graph</text>
+
+  <circle cx="598" cy="118" r="14" fill="#eaf2f8" stroke="#27ae60" stroke-width="2"/>
+  <text x="598" y="123" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">A</text>
+
+  <circle cx="770" cy="118" r="14" fill="white" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="770" y="123" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">B</text>
+
+  <circle cx="684" cy="142" r="14" fill="white" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="684" y="147" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">C</text>
+
+  <line x1="612" y1="118" x2="756" y2="118" stroke="#bbb" stroke-width="1.2"/>
+  <text x="684" y="112" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold">5</text>
+
+  <line x1="608" y1="126" x2="672" y2="138" stroke="#bbb" stroke-width="1.2"/>
+  <text x="632" y="138" fill="#27ae60" font-size="10" font-weight="bold">1</text>
+
+  <line x1="696" y1="138" x2="760" y2="126" stroke="#bbb" stroke-width="1.2"/>
+  <text x="732" y="138" fill="#27ae60" font-size="10" font-weight="bold">2</text>
+
+  <!-- ===== WHY IT HAPPENS HEADER ===== -->
+  <text x="430" y="182" text-anchor="middle" fill="#2c3e50" font-size="15" font-weight="bold">How a stale entry gets created</text>
+  <text x="430" y="200" text-anchor="middle" fill="#555" font-size="12">We push <tspan font-family="Consolas, monospace">(distance, vertex)</tspan> but never remove old entries when we find a better one.</text>
+
+  <!-- ===== STEP TABLE ===== -->
+  <rect x="30" y="212" width="800" height="26" rx="6" fill="#27ae60"/>
+  <text x="60" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Step</text>
+  <text x="200" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Action</text>
+  <text x="450" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">pq (min-heap)</text>
+  <text x="670" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">dist</text>
+
+  <!-- Step 0: Seed -->
+  <rect x="30" y="242" width="800" height="36" fill="#f0faf0"/>
+  <text x="60" y="264" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">0</text>
+  <text x="200" y="258" text-anchor="middle" fill="#555" font-size="10">Seed source A at distance 0</text>
+  <text x="200" y="272" text-anchor="middle" fill="#888" font-size="9" font-style="italic">pq.push({0, "A"})</text>
+  <text x="450" y="264" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">[(0,A)]</text>
+  <text x="670" y="264" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A:0, B:&#x221E;, C:&#x221E;}</text>
+
+  <!-- Step 1: Pop A, relax -->
+  <rect x="30" y="282" width="800" height="50" fill="white"/>
+  <text x="60" y="310" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">1</text>
+  <text x="200" y="298" text-anchor="middle" fill="#555" font-size="10">Pop (0, A). d=0, dist[A]=0 &#x2713;</text>
+  <text x="200" y="312" text-anchor="middle" fill="#555" font-size="10">Relax A&#x2192;B(5): dist[B]=5, push (5,B)</text>
+  <text x="200" y="326" text-anchor="middle" fill="#555" font-size="10">Relax A&#x2192;C(1): dist[C]=1, push (1,C)</text>
+  <text x="450" y="310" text-anchor="middle" fill="#2980b9" font-size="11" font-weight="bold" font-family="Consolas, monospace">[(1,C), (5,B)]</text>
+  <text x="670" y="310" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A:0, B:5, C:1}</text>
+
+  <!-- Step 2: Pop C, relax -->
+  <rect x="30" y="336" width="800" height="50" fill="#f0faf0"/>
+  <text x="60" y="364" text-anchor="middle" fill="#8e44ad" font-size="11" font-weight="bold">2</text>
+  <text x="200" y="352" text-anchor="middle" fill="#555" font-size="10">Pop (1, C). d=1, dist[C]=1 &#x2713;</text>
+  <text x="200" y="366" text-anchor="middle" fill="#555" font-size="10">Relax C&#x2192;B(2): 1+2=3 &lt; dist[B]=5</text>
+  <text x="200" y="380" text-anchor="middle" fill="#e67e22" font-size="10" font-weight="bold">update dist[B]=3, push (3,B)</text>
+  <text x="450" y="364" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold" font-family="Consolas, monospace">[(3,B), (5,B)]</text>
+  <text x="670" y="364" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A:0, B:3, C:1}</text>
+
+  <!-- Callout arrow pointing to (5,B) -->
+  <text x="450" y="398" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold" font-style="italic">&#x2191; (5,B) is now STALE &#x2014; dist[B] is already 3</text>
+
+  <!-- Step 3: Pop (3,B), fine -->
+  <rect x="30" y="408" width="800" height="40" fill="white"/>
+  <text x="60" y="432" text-anchor="middle" fill="#2980b9" font-size="11" font-weight="bold">3</text>
+  <text x="200" y="426" text-anchor="middle" fill="#555" font-size="10">Pop (3, B). d=3, dist[B]=3 &#x2713;</text>
+  <text x="200" y="440" text-anchor="middle" fill="#888" font-size="9" font-style="italic">check passes &#x2014; process neighbors of B normally</text>
+  <text x="450" y="432" text-anchor="middle" fill="#2980b9" font-size="11" font-weight="bold" font-family="Consolas, monospace">[(5,B)]</text>
+  <text x="670" y="432" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A:0, B:3, C:1}</text>
+
+  <!-- Step 4: Pop (5,B), SKIP -->
+  <rect x="30" y="452" width="800" height="44" fill="#fff3e0"/>
+  <text x="60" y="478" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="bold">4</text>
+  <text x="200" y="472" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold">Pop (5, B). d=5, dist[B]=3</text>
+  <text x="200" y="486" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold">5 &gt; 3 &#x2192; continue; (skip!)</text>
+  <text x="450" y="478" text-anchor="middle" fill="#bbb" font-size="11" font-family="Consolas, monospace">[ ] empty</text>
+  <text x="670" y="478" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A:0, B:3, C:1}</text>
+
+  <!-- ===== WHY IT MATTERS ===== -->
+  <rect x="30" y="512" width="800" height="100" rx="8" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="430" y="534" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">Why the Skip Is Necessary</text>
+  <text x="430" y="554" text-anchor="middle" fill="#555" font-size="11">If we didn't skip, Step 4 would re-run relaxation for B using the old, worse distance of 5.</text>
+  <text x="430" y="570" text-anchor="middle" fill="#555" font-size="11">It wouldn't break correctness (the <tspan font-family="Consolas, monospace">&lt;</tspan> test still rejects worse paths), but it wastes work.</text>
+  <text x="430" y="590" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="bold">std::priority_queue has no "decrease-key" operation.</text>
+  <text x="430" y="604" text-anchor="middle" fill="#555" font-size="11">So instead of updating the old pair, we just push a new one and ignore the stale leftover on pop.</text>
+
+  <!-- ===== FOOTER ===== -->
+  <rect x="30" y="622" width="800" height="60" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="430" y="642" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">Rule of thumb</text>
+  <text x="430" y="660" text-anchor="middle" fill="#555" font-size="11">When you pop (d, u), the first check is always: "is this still the best distance I know for u?"</text>
+  <text x="430" y="676" text-anchor="middle" fill="#555" font-size="11">If not, the pair is a leftover from before we found a shorter path &#x2014; throw it away.</text>
+</svg>

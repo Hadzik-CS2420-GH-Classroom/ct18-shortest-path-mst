@@ -1,0 +1,171 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 760" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="30" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">Weighted Graph &#x2014; What Can You Query From Source A?</text>
+  <text x="450" y="52" text-anchor="middle" fill="#777" font-size="13">The adjacency list gives you <tspan font-style="italic">direct</tspan> edge costs &#x2014; multi-hop paths require an algorithm</text>
+
+  <!-- ===== LEFT: Visual graph (A highlighted) ===== -->
+  <rect x="30" y="70" width="420" height="300" rx="10" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="240" y="92" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">Visual Representation (source = A)</text>
+
+  <!-- Vertices -->
+  <circle cx="130" cy="150" r="24" fill="#fef9e7" stroke="#e67e22" stroke-width="3"/>
+  <text x="130" y="156" text-anchor="middle" fill="#e67e22" font-size="15" font-weight="bold">A</text>
+
+  <circle cx="270" cy="140" r="22" fill="white" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="270" y="146" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">B</text>
+
+  <circle cx="200" cy="230" r="22" fill="white" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="200" y="236" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">C</text>
+
+  <circle cx="370" cy="220" r="22" fill="white" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="370" y="226" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">D</text>
+
+  <circle cx="300" cy="310" r="22" fill="white" stroke="#2980b9" stroke-width="2.5"/>
+  <text x="300" y="316" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">E</text>
+
+  <!-- Direct edges from A (highlighted green) -->
+  <line x1="152" y1="150" x2="248" y2="140" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="188" y="130" width="24" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="200" y="144" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">4</text>
+
+  <line x1="143" y1="170" x2="187" y2="212" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="153" y="181" width="24" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.8"/>
+  <text x="165" y="195" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">2</text>
+
+  <!-- Non-A edges (gray, faded) -->
+  <line x1="259" y1="160" x2="211" y2="210" stroke="#bbb" stroke-width="2"/>
+  <rect x="223" y="176" width="24" height="18" rx="9" fill="#f5f5f5" stroke="#bbb" stroke-width="1.2"/>
+  <text x="235" y="190" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">3</text>
+
+  <line x1="291" y1="156" x2="349" y2="206" stroke="#bbb" stroke-width="2"/>
+  <rect x="308" y="172" width="24" height="18" rx="9" fill="#f5f5f5" stroke="#bbb" stroke-width="1.2"/>
+  <text x="320" y="186" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">5</text>
+
+  <line x1="215" y1="247" x2="285" y2="293" stroke="#bbb" stroke-width="2"/>
+  <rect x="238" y="261" width="24" height="18" rx="9" fill="#f5f5f5" stroke="#bbb" stroke-width="1.2"/>
+  <text x="250" y="275" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">1</text>
+
+  <line x1="355" y1="238" x2="315" y2="292" stroke="#bbb" stroke-width="2"/>
+  <rect x="323" y="256" width="24" height="18" rx="9" fill="#f5f5f5" stroke="#bbb" stroke-width="1.2"/>
+  <text x="335" y="270" text-anchor="middle" fill="#999" font-size="11" font-weight="bold">3</text>
+
+  <!-- Legend -->
+  <line x1="50" y1="338" x2="80" y2="338" stroke="#27ae60" stroke-width="3.5"/>
+  <text x="88" y="342" fill="#555" font-size="11">direct edge from A (cost known)</text>
+  <line x1="50" y1="356" x2="80" y2="356" stroke="#bbb" stroke-width="2"/>
+  <text x="88" y="360" fill="#555" font-size="11">indirect &#x2014; cost unknown without algorithm</text>
+
+  <!-- ===== RIGHT: dist[] array (partially filled) ===== -->
+  <rect x="470" y="70" width="400" height="300" rx="10" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="670" y="92" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">dist[] &#x2014; shortest distance from A (what we&#x2019;re building)</text>
+
+  <!-- Declaration -->
+  <text x="490" y="116" fill="#555" font-size="11" font-weight="bold">Return type of dijkstra():</text>
+  <rect x="490" y="122" width="360" height="26" rx="6" fill="#1e1e1e"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="11">
+    <tspan x="502" y="140" fill="#4ec9b0">unordered_map</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">, </tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">&gt; dist;</tspan>
+  </text>
+
+  <!-- Section label -->
+  <text x="490" y="170" fill="#555" font-size="11" font-weight="bold">Using only direct edges from A:</text>
+
+  <!-- Table header -->
+  <rect x="490" y="178" width="360" height="26" rx="4" fill="#27ae60"/>
+  <text x="540" y="196" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Consolas, monospace">key</text>
+  <text x="640" y="196" text-anchor="middle" fill="white" font-size="11" font-weight="bold" font-family="Consolas, monospace">dist[key]</text>
+  <text x="780" y="196" text-anchor="middle" fill="white" font-size="11" font-weight="bold">status</text>
+
+  <!-- Row A (source) -->
+  <rect x="490" y="204" width="360" height="26" fill="#fef9e7" stroke="#e5e5e5"/>
+  <text x="540" y="222" text-anchor="middle" fill="#e67e22" font-size="12" font-weight="bold" font-family="Consolas, monospace">&quot;A&quot;</text>
+  <text x="640" y="222" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold" font-family="Consolas, monospace">0</text>
+  <text x="780" y="222" text-anchor="middle" fill="#777" font-size="10" font-style="italic">source</text>
+
+  <!-- Row B (direct) -->
+  <rect x="490" y="230" width="360" height="26" fill="#eafaf1" stroke="#e5e5e5"/>
+  <text x="540" y="248" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold" font-family="Consolas, monospace">&quot;B&quot;</text>
+  <text x="640" y="248" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold" font-family="Consolas, monospace">4</text>
+  <text x="780" y="248" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">&#x2714; direct</text>
+
+  <!-- Row C (direct) -->
+  <rect x="490" y="256" width="360" height="26" fill="#eafaf1" stroke="#e5e5e5"/>
+  <text x="540" y="274" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold" font-family="Consolas, monospace">&quot;C&quot;</text>
+  <text x="640" y="274" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold" font-family="Consolas, monospace">2</text>
+  <text x="780" y="274" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">&#x2714; direct</text>
+
+  <!-- Row D (unknown) -->
+  <rect x="490" y="282" width="360" height="26" fill="#fdecea" stroke="#e5e5e5"/>
+  <text x="540" y="300" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold" font-family="Consolas, monospace">&quot;D&quot;</text>
+  <text x="640" y="300" text-anchor="middle" fill="#c0392b" font-size="13" font-weight="bold" font-family="Consolas, monospace">?</text>
+  <text x="780" y="300" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold">needs algo</text>
+
+  <!-- Row E (unknown) -->
+  <rect x="490" y="308" width="360" height="26" fill="#fdecea" stroke="#e5e5e5"/>
+  <text x="540" y="326" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold" font-family="Consolas, monospace">&quot;E&quot;</text>
+  <text x="640" y="326" text-anchor="middle" fill="#c0392b" font-size="13" font-weight="bold" font-family="Consolas, monospace">?</text>
+  <text x="780" y="326" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold">needs algo</text>
+
+  <!-- Summary -->
+  <text x="670" y="356" text-anchor="middle" fill="#555" font-size="11" font-style="italic">3 of 5 entries filled from direct edges &#x2014; 2 require multi-hop traversal</text>
+
+  <!-- ===== COST TABLE FROM A ===== -->
+  <rect x="30" y="386" width="840" height="240" rx="10" fill="#fafafa" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="450" y="410" text-anchor="middle" fill="#e67e22" font-size="14" font-weight="bold">Cost to Reach Each Vertex From Source A</text>
+
+  <!-- Table header -->
+  <rect x="50" y="424" width="800" height="28" rx="4" fill="#e67e22"/>
+  <text x="110" y="443" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Destination</text>
+  <text x="260" y="443" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Direct edge from A?</text>
+  <text x="430" y="443" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Cost (direct)</text>
+  <text x="650" y="443" text-anchor="middle" fill="white" font-size="12" font-weight="bold">How the graph answers</text>
+
+  <!-- Row A (self) -->
+  <rect x="50" y="452" width="800" height="28" fill="#ffffff" stroke="#e5e5e5"/>
+  <text x="110" y="471" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">A</text>
+  <text x="260" y="471" text-anchor="middle" fill="#777" font-size="11">&#x2014; (self)</text>
+  <text x="430" y="471" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">0</text>
+  <text x="650" y="471" text-anchor="middle" fill="#555" font-size="11" font-family="Consolas, monospace">source == destination</text>
+
+  <!-- Row B -->
+  <rect x="50" y="480" width="800" height="28" fill="#eafaf1" stroke="#e5e5e5"/>
+  <text x="110" y="499" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">B</text>
+  <text x="260" y="499" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">&#x2714; yes</text>
+  <text x="430" y="499" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">4</text>
+  <text x="650" y="499" text-anchor="middle" fill="#555" font-size="11" font-family="Consolas, monospace">adj_list_[&quot;A&quot;][0] == {B, 4}</text>
+
+  <!-- Row C -->
+  <rect x="50" y="508" width="800" height="28" fill="#eafaf1" stroke="#e5e5e5"/>
+  <text x="110" y="527" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">C</text>
+  <text x="260" y="527" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">&#x2714; yes</text>
+  <text x="430" y="527" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">2</text>
+  <text x="650" y="527" text-anchor="middle" fill="#555" font-size="11" font-family="Consolas, monospace">adj_list_[&quot;A&quot;][1] == {C, 2}</text>
+
+  <!-- Row D -->
+  <rect x="50" y="536" width="800" height="28" fill="#fdecea" stroke="#e5e5e5"/>
+  <text x="110" y="555" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">D</text>
+  <text x="260" y="555" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="bold">&#x2716; no</text>
+  <text x="430" y="555" text-anchor="middle" fill="#c0392b" font-size="12" font-weight="bold">?</text>
+  <text x="650" y="555" text-anchor="middle" fill="#c0392b" font-size="11">must traverse B or C &#x2014; needs algorithm</text>
+
+  <!-- Row E -->
+  <rect x="50" y="564" width="800" height="28" fill="#fdecea" stroke="#e5e5e5"/>
+  <text x="110" y="583" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">E</text>
+  <text x="260" y="583" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="bold">&#x2716; no</text>
+  <text x="430" y="583" text-anchor="middle" fill="#c0392b" font-size="12" font-weight="bold">?</text>
+  <text x="650" y="583" text-anchor="middle" fill="#c0392b" font-size="11">must traverse C or D &#x2014; needs algorithm</text>
+
+  <!-- Key takeaway -->
+  <text x="450" y="612" text-anchor="middle" fill="#2c3e50" font-size="12" font-style="italic">
+    The <tspan font-weight="bold">WeightedGraph class</tspan> stores edges and their weights. It answers &#x201C;is there a direct edge?&#x201D; &#x2014; but not &#x201C;what&#x2019;s the cheapest route?&#x201D;
+  </text>
+
+  <!-- ===== BRIDGE TO DIJKSTRA ===== -->
+  <rect x="30" y="642" width="840" height="100" rx="10" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="450" y="666" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">&#x279C; Next: filling in the question marks</text>
+
+  <text x="60" y="688" fill="#555" font-size="11"><tspan font-weight="bold" fill="#2980b9">Dijkstra&#x2019;s algorithm</tspan> walks the adjacency list from A, combining direct edge costs to discover multi-hop shortest paths:</text>
+  <text x="80" y="708" fill="#555" font-size="11" font-family="Consolas, monospace">dist[D] = min(A&#x2192;B&#x2192;D = 4+5, &#xA0;A&#x2192;C&#x2192;B&#x2192;D = 2+3+5, &#xA0;A&#x2192;C&#x2192;E&#x2192;D = 2+1+3) &#xA0;&#x2192;&#xA0; 6</text>
+  <text x="80" y="726" fill="#555" font-size="11" font-family="Consolas, monospace">dist[E] = min(A&#x2192;C&#x2192;E = 2+1, &#xA0;A&#x2192;B&#x2192;D&#x2192;E = 4+5+3, &#xA0;&#x2026;) &#xA0;&#x2192;&#xA0; 3</text>
+</svg>

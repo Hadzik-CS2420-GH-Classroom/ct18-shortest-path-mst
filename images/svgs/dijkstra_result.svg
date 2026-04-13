@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">Dijkstra's Algorithm &#x2014; Shortest Path Tree Result</text>
+  <text x="450" y="48" text-anchor="middle" fill="#777" font-size="13">After tracing dijkstra from source A: the resulting tree of shortest paths and what it tells us</text>
+
+  <!-- ===== SHORTEST PATH TREE VISUAL ===== -->
+  <rect x="30" y="66" width="840" height="260" rx="10" fill="#fafafa" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="450" y="90" text-anchor="middle" fill="#27ae60" font-size="15" font-weight="bold">Shortest Path Tree from A</text>
+  <text x="450" y="110" text-anchor="middle" fill="#777" font-size="12">Green edges are the shortest paths Dijkstra's found; gray edges are NOT in the tree (longer alternatives)</text>
+
+  <!-- B-C (NOT in tree): gray dashed -->
+  <line x1="276" y1="172" x2="244" y2="223" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="247" y="188" width="26" height="18" rx="9" fill="white" stroke="#bdc3c7" stroke-width="1.2"/>
+  <text x="260" y="202" text-anchor="middle" fill="#888" font-size="11">3</text>
+
+  <!-- B-D (NOT in tree): gray dashed -->
+  <line x1="315" y1="159" x2="395" y2="187" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="342" y="164" width="26" height="18" rx="9" fill="white" stroke="#bdc3c7" stroke-width="1.2"/>
+  <text x="355" y="178" text-anchor="middle" fill="#888" font-size="11">5</text>
+
+  <!-- A-B (IN tree): green thick -->
+  <line x1="176" y1="170" x2="264" y2="155" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="207" y="152" width="26" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="220" y="166" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">4</text>
+
+  <!-- A-C (IN tree): green thick -->
+  <line x1="170" y1="192" x2="210" y2="228" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="177" y="201" width="26" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="190" y="215" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">2</text>
+
+  <!-- C-E (IN tree): green thick -->
+  <line x1="255" y1="252" x2="315" y2="268" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="272" y="251" width="26" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="285" y="265" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">1</text>
+
+  <!-- D-E (IN tree): green thick -->
+  <line x1="402" y1="213" x2="358" y2="257" stroke="#27ae60" stroke-width="3.5"/>
+  <rect x="367" y="226" width="26" height="18" rx="9" fill="#eafaf1" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="380" y="240" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">3</text>
+
+  <!-- A (source) -->
+  <circle cx="150" cy="175" r="26" fill="#fef9e7" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="150" y="182" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">A</text>
+  <text x="120" y="215" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold" font-family="Consolas, monospace">dist[A]=0</text>
+  <text x="120" y="228" text-anchor="middle" fill="#e67e22" font-size="9">(source)</text>
+
+  <!-- B -->
+  <circle cx="290" cy="150" r="26" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="290" y="157" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">B</text>
+  <text x="290" y="118" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">dist[B]=4</text>
+
+  <!-- C -->
+  <circle cx="230" cy="245" r="26" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="230" y="252" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">C</text>
+  <text x="180" y="249" text-anchor="end" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">dist[C]=2</text>
+
+  <!-- D -->
+  <circle cx="420" cy="195" r="26" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="420" y="202" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">D</text>
+  <text x="392" y="199" text-anchor="end" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">dist[D]=6</text>
+
+  <!-- E -->
+  <circle cx="340" cy="275" r="26" fill="#eafaf1" stroke="#27ae60" stroke-width="2.5"/>
+  <text x="340" y="282" text-anchor="middle" fill="#2c3e50" font-size="16" font-weight="bold">E</text>
+  <text x="340" y="316" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">dist[E]=3</text>
+
+  <!-- Path explanation on right side -->
+  <text x="520" y="138" fill="#2c3e50" font-size="13" font-weight="bold">Shortest paths from A:</text>
+
+  <text x="520" y="162" fill="#555" font-size="12"><tspan fill="#27ae60" font-weight="bold">A &#x2192; B</tspan>  direct edge A&#x2013;B = <tspan font-weight="bold">4</tspan></text>
+
+  <text x="520" y="186" fill="#555" font-size="12"><tspan fill="#27ae60" font-weight="bold">A &#x2192; C</tspan>  direct edge A&#x2013;C = <tspan font-weight="bold">2</tspan></text>
+
+  <text x="520" y="210" fill="#555" font-size="12"><tspan fill="#27ae60" font-weight="bold">A &#x2192; E</tspan>  via C (A&#x2013;C&#x2013;E) &#xA0; 2 + 1 = <tspan font-weight="bold">3</tspan></text>
+
+  <text x="520" y="234" fill="#555" font-size="12"><tspan fill="#27ae60" font-weight="bold">A &#x2192; D</tspan>  via C&#x2013;E (A&#x2013;C&#x2013;E&#x2013;D) &#xA0; 2 + 1 + 3 = <tspan font-weight="bold">6</tspan></text>
+  <text x="538" y="248" fill="#888" font-size="10" font-style="italic">(not A&#x2013;B&#x2013;D of weight 9)</text>
+
+  <text x="520" y="296" fill="#e67e22" font-size="11" font-style="italic">V&#x2212;1 = 4 tree edges &#x2014; shortest path tree from A (not the MST)</text>
+
+  <!-- Heap entry order footnote -->
+  <text x="450" y="346" text-anchor="middle" fill="#888" font-size="10" font-style="italic">Note: min-heap entries are <tspan font-family="Consolas, monospace">{distance, vertex}</tspan> (distance first!) so <tspan font-family="Consolas, monospace">std::pair</tspan> comparison gives a min-heap by distance &#x2014; different from the Edge struct <tspan font-family="Consolas, monospace">{to, weight}</tspan>.</text>
+
+  <!-- ===== KEY FACTS ===== -->
+  <rect x="30" y="362" width="840" height="112" rx="10" fill="#fef9e7" stroke="#f39c12" stroke-width="1.2"/>
+  <text x="450" y="382" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">Key Facts</text>
+
+  <text x="60" y="402" fill="#555" font-size="11"><tspan font-weight="bold">Time complexity:</tspan> O((V + E) log V) with a binary min-heap priority queue</text>
+  <text x="60" y="420" fill="#555" font-size="11"><tspan font-weight="bold">Does NOT work with negative edge weights</tspan> &#x2014; greedy finalization assumes distances can only grow</text>
+  <text x="60" y="440" fill="#555" font-size="11"><tspan font-weight="bold">Greedy:</tspan> once a vertex is popped, its shortest distance <tspan font-style="italic">from this source</tspan> is locked in for the rest of <tspan font-style="italic">this</tspan> run (new source = fresh run)</text>
+  <text x="60" y="460" fill="#555" font-size="11"><tspan font-weight="bold">Relaxation:</tspan> "can I reach <tspan font-family="Consolas, monospace">v</tspan> more cheaply by going through <tspan font-family="Consolas, monospace">u</tspan>?" &#x2014; if yes, update <tspan font-family="Consolas, monospace">dist[v]</tspan></text>
+</svg>

@@ -1,0 +1,156 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 720" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">dijkstra() &#x2014; Code Execution Trace</text>
+  <text x="450" y="48" text-anchor="middle" fill="#777" font-size="13">Tracing dijkstra("A") on: A&#x2013;B(4), A&#x2013;C(2), B&#x2013;C(3), B&#x2013;D(5), C&#x2013;E(1), D&#x2013;E(3) &#x2014; same graph as the header trace</text>
+
+  <!-- ===== CODE REFERENCE ===== -->
+  <rect x="30" y="64" width="290" height="150" rx="8" fill="#1e1e1e"/>
+  <text x="40" y="80" fill="#888" font-size="9">Key lines:</text>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="9">
+    <tspan x="40" y="96" fill="#ddd">dist[source] = </tspan><tspan fill="#b5cea8">0</tspan><tspan fill="#ddd">;</tspan>
+    <tspan x="40" y="110" fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.push({</tspan><tspan fill="#b5cea8">0</tspan><tspan fill="#ddd">, source});</tspan>
+    <tspan x="40" y="124" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!pq.empty()) {</tspan>
+    <tspan x="50" y="138" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] = pq.top(); pq.pop();</tspan>
+    <tspan x="50" y="152" fill="#e67e22">if (d &gt; dist[u]) continue;</tspan>
+    <tspan x="50" y="166" fill="#c586c0">for</tspan><tspan fill="#ddd"> ([</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">] : adj_list_.at(u)) {</tspan>
+    <tspan x="60" y="180" fill="#c586c0">if</tspan><tspan fill="#ddd"> (dist[u] + w &lt; dist[v]) {</tspan>
+    <tspan x="70" y="194" fill="#ddd">dist[v] = dist[u] + w;</tspan>
+    <tspan x="70" y="208" fill="#ddd">pq.push({dist[v], v});</tspan>
+  </text>
+
+  <!-- ===== GRAPH REFERENCE ===== -->
+  <rect x="340" y="64" width="220" height="150" rx="8" fill="#fafafa" stroke="#ccc" stroke-width="1"/>
+  <text x="450" y="82" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="bold">The Graph</text>
+
+  <circle cx="400" cy="110" r="14" fill="#eaf2f8" stroke="#27ae60" stroke-width="2"/>
+  <text x="400" y="115" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">A</text>
+
+  <circle cx="500" cy="110" r="14" fill="white" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="500" y="115" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">B</text>
+
+  <circle cx="400" cy="175" r="14" fill="white" stroke="#8e44ad" stroke-width="1.5"/>
+  <text x="400" y="180" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">C</text>
+
+  <circle cx="500" cy="175" r="14" fill="white" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="500" y="180" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">D</text>
+
+  <circle cx="450" cy="200" r="14" fill="white" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="450" y="205" text-anchor="middle" fill="#2c3e50" font-size="10" font-weight="bold">E</text>
+
+  <!-- edges -->
+  <line x1="414" y1="110" x2="486" y2="110" stroke="#bbb" stroke-width="1.2"/>
+  <text x="450" y="104" text-anchor="middle" fill="#555" font-size="9" font-weight="bold">4</text>
+
+  <line x1="400" y1="124" x2="400" y2="161" stroke="#bbb" stroke-width="1.2"/>
+  <text x="391" y="146" fill="#555" font-size="9" font-weight="bold">2</text>
+
+  <line x1="414" y1="120" x2="486" y2="165" stroke="#bbb" stroke-width="1.2"/>
+  <text x="456" y="136" fill="#555" font-size="9" font-weight="bold">3</text>
+
+  <line x1="500" y1="124" x2="500" y2="161" stroke="#bbb" stroke-width="1.2"/>
+  <text x="509" y="146" fill="#555" font-size="9" font-weight="bold">5</text>
+
+  <line x1="414" y1="181" x2="436" y2="193" stroke="#bbb" stroke-width="1.2"/>
+  <text x="416" y="196" fill="#555" font-size="9" font-weight="bold">1</text>
+
+  <line x1="486" y1="181" x2="464" y2="193" stroke="#bbb" stroke-width="1.2"/>
+  <text x="482" y="196" fill="#555" font-size="9" font-weight="bold">3</text>
+
+  <!-- ===== VARIABLE LEGEND ===== -->
+  <rect x="580" y="64" width="290" height="150" rx="8" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="725" y="84" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">Variable Legend</text>
+
+  <text x="596" y="104" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">pq</text>
+  <text x="620" y="104" fill="#555" font-size="10">min-heap of (distance, vertex) pairs.</text>
+  <text x="596" y="116" fill="#888" font-size="9">top = smallest distance. Duplicates allowed.</text>
+
+  <text x="596" y="134" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">d, u</text>
+  <text x="628" y="134" fill="#555" font-size="10">just popped: distance <tspan font-family="Consolas, monospace">d</tspan>, vertex <tspan font-family="Consolas, monospace">u</tspan>.</text>
+
+  <text x="596" y="150" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">v, w</text>
+  <text x="628" y="150" fill="#555" font-size="10">neighbor of <tspan font-family="Consolas, monospace">u</tspan> and its edge weight.</text>
+
+  <text x="596" y="166" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">dist</text>
+  <text x="624" y="166" fill="#555" font-size="10">best-known distance from source so far.</text>
+
+  <line x1="596" y1="176" x2="854" y2="176" stroke="#27ae60" stroke-width="0.5" opacity="0.5"/>
+  <text x="596" y="192" fill="#555" font-size="10">No stale pops occur on this graph &#x2014; each</text>
+  <text x="596" y="206" fill="#555" font-size="10">vertex's first pushed distance is already best.</text>
+
+  <!-- ===== TRACE TABLE ===== -->
+  <text x="450" y="238" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">Execution Trace: dijkstra("A")</text>
+
+  <!-- Header -->
+  <rect x="30" y="248" width="840" height="26" rx="6" fill="#27ae60"/>
+  <text x="60" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Step</text>
+  <text x="220" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Action</text>
+  <text x="540" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">pq (min-heap)</text>
+  <text x="760" y="266" text-anchor="middle" fill="white" font-size="10" font-weight="bold">dist</text>
+
+  <!-- Step 0: Seed -->
+  <rect x="30" y="278" width="840" height="36" fill="#f0faf0"/>
+  <text x="60" y="300" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">0</text>
+  <text x="220" y="294" text-anchor="middle" fill="#555" font-size="10">Init dist, seed (0, A)</text>
+  <text x="220" y="308" text-anchor="middle" fill="#888" font-size="9" font-style="italic">dist[A]=0; pq.push({0,"A"})</text>
+  <text x="540" y="300" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">[(0,A)]</text>
+  <text x="760" y="300" text-anchor="middle" fill="#555" font-size="9" font-family="Consolas, monospace">{A:0, B:&#x221E;, C:&#x221E;, D:&#x221E;, E:&#x221E;}</text>
+
+  <!-- Step 1: Pop A -->
+  <rect x="30" y="318" width="840" height="54" fill="white"/>
+  <text x="60" y="348" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">1</text>
+  <text x="220" y="334" text-anchor="middle" fill="#555" font-size="10">Pop (0,A). d=0 == dist[A] &#x2713;</text>
+  <text x="220" y="348" text-anchor="middle" fill="#555" font-size="10">Relax A&#x2192;B(4): 0+4&lt;&#x221E; &#x2192; dist[B]=4, push (4,B)</text>
+  <text x="220" y="362" text-anchor="middle" fill="#555" font-size="10">Relax A&#x2192;C(2): 0+2&lt;&#x221E; &#x2192; dist[C]=2, push (2,C)</text>
+  <text x="540" y="348" text-anchor="middle" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(2,C), (4,B)]</text>
+  <text x="760" y="348" text-anchor="middle" fill="#555" font-size="9" font-family="Consolas, monospace">{A:0, B:4, C:2, D:&#x221E;, E:&#x221E;}</text>
+
+  <!-- Step 2: Pop C -->
+  <rect x="30" y="376" width="840" height="54" fill="#f0faf0"/>
+  <text x="60" y="406" text-anchor="middle" fill="#8e44ad" font-size="11" font-weight="bold">2</text>
+  <text x="220" y="392" text-anchor="middle" fill="#555" font-size="10">Pop (2,C). d=2 == dist[C] &#x2713;</text>
+  <text x="220" y="406" text-anchor="middle" fill="#555" font-size="10">C&#x2192;A(2): 2+2&lt;0? no. &nbsp; C&#x2192;B(3): 2+3&lt;4? no.</text>
+  <text x="220" y="420" text-anchor="middle" fill="#555" font-size="10">C&#x2192;E(1): 2+1&lt;&#x221E; &#x2192; dist[E]=3, push (3,E)</text>
+  <text x="540" y="406" text-anchor="middle" fill="#8e44ad" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(3,E), (4,B)]</text>
+  <text x="760" y="406" text-anchor="middle" fill="#555" font-size="9" font-family="Consolas, monospace">{A:0, B:4, C:2, D:&#x221E;, E:3}</text>
+
+  <!-- Step 3: Pop E -->
+  <rect x="30" y="434" width="840" height="54" fill="white"/>
+  <text x="60" y="464" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="bold">3</text>
+  <text x="220" y="450" text-anchor="middle" fill="#555" font-size="10">Pop (3,E). d=3 == dist[E] &#x2713;</text>
+  <text x="220" y="464" text-anchor="middle" fill="#555" font-size="10">E&#x2192;C(1): 3+1&lt;2? no.</text>
+  <text x="220" y="478" text-anchor="middle" fill="#555" font-size="10">E&#x2192;D(3): 3+3&lt;&#x221E; &#x2192; dist[D]=6, push (6,D)</text>
+  <text x="540" y="464" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(4,B), (6,D)]</text>
+  <text x="760" y="464" text-anchor="middle" fill="#555" font-size="9" font-family="Consolas, monospace">{A:0, B:4, C:2, D:6, E:3}</text>
+
+  <!-- Step 4: Pop B -->
+  <rect x="30" y="492" width="840" height="54" fill="#f0faf0"/>
+  <text x="60" y="522" text-anchor="middle" fill="#2980b9" font-size="11" font-weight="bold">4</text>
+  <text x="220" y="508" text-anchor="middle" fill="#555" font-size="10">Pop (4,B). d=4 == dist[B] &#x2713;</text>
+  <text x="220" y="522" text-anchor="middle" fill="#555" font-size="10">B&#x2192;A(4): no. &nbsp; B&#x2192;C(3): 4+3&lt;2? no.</text>
+  <text x="220" y="536" text-anchor="middle" fill="#555" font-size="10">B&#x2192;D(5): 4+5=9 &lt; 6? no. No updates.</text>
+  <text x="540" y="522" text-anchor="middle" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(6,D)]</text>
+  <text x="760" y="522" text-anchor="middle" fill="#555" font-size="9" font-family="Consolas, monospace">{A:0, B:4, C:2, D:6, E:3}</text>
+
+  <!-- Step 5: Pop D -->
+  <rect x="30" y="550" width="840" height="54" fill="white"/>
+  <text x="60" y="580" text-anchor="middle" fill="#e67e22" font-size="11" font-weight="bold">5</text>
+  <text x="220" y="566" text-anchor="middle" fill="#555" font-size="10">Pop (6,D). d=6 == dist[D] &#x2713;</text>
+  <text x="220" y="580" text-anchor="middle" fill="#555" font-size="10">D&#x2192;B(5): 6+5&lt;4? no.</text>
+  <text x="220" y="594" text-anchor="middle" fill="#555" font-size="10">D&#x2192;E(3): 6+3&lt;3? no. No updates.</text>
+  <text x="540" y="580" text-anchor="middle" fill="#bbb" font-size="10" font-family="Consolas, monospace">[ ] empty</text>
+  <text x="760" y="580" text-anchor="middle" fill="#555" font-size="9" font-family="Consolas, monospace">{A:0, B:4, C:2, D:6, E:3}</text>
+
+  <!-- Done -->
+  <rect x="30" y="608" width="840" height="30" fill="#f0faf0"/>
+  <text x="60" y="628" text-anchor="middle" fill="#555" font-size="11" font-weight="bold">&#x2713;</text>
+  <text x="220" y="628" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">pq.empty() &#x2192; exit loop, return dist</text>
+  <text x="760" y="628" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">{A:0,B:4,C:2,D:6,E:3}</text>
+
+  <!-- ===== FOOTER ===== -->
+  <rect x="30" y="648" width="840" height="60" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="450" y="668" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">Final distances: A=0, B=4, C=2, D=6, E=3</text>
+  <text x="450" y="686" text-anchor="middle" fill="#555" font-size="11">Every <tspan font-family="Consolas, monospace">d &gt; dist[u]</tspan> check passed on this graph &#x2014; no stale pops fired.</text>
+  <text x="450" y="702" text-anchor="middle" fill="#555" font-size="11">See diagram <tspan font-weight="bold">2a</tspan> for a smaller example where that line actually catches a stale (5,B) heap entry.</text>
+</svg>

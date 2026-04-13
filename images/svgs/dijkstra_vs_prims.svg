@@ -1,0 +1,204 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 880" font-family="'Segoe UI', Arial, sans-serif">
+  <defs>
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2980b9"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c0392b"/>
+    </marker>
+  </defs>
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="450" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">Dijkstra's vs Prim's &#x2014; Same Tool, Different Question</text>
+  <text x="450" y="48" text-anchor="middle" fill="#777" font-size="13">Both use a min-heap on the same graph &#x2014; but they optimize for completely different things</text>
+
+  <!-- ===== SIDE-BY-SIDE PANELS ===== -->
+
+  <!-- Dijkstra panel (left) -->
+  <rect x="30" y="66" width="410" height="160" rx="10" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="235" y="88" text-anchor="middle" fill="#2980b9" font-size="15" font-weight="bold">Dijkstra's Algorithm</text>
+  <text x="235" y="106" text-anchor="middle" fill="#2980b9" font-size="12" font-style="italic">Shortest paths from one source</text>
+
+  <text x="50" y="130" fill="#555" font-size="11"><tspan font-weight="bold">Goal:</tspan> find the cheapest <tspan font-weight="bold">path</tspan> from source to every vertex</text>
+  <text x="50" y="148" fill="#555" font-size="11"><tspan font-weight="bold">Heap stores:</tspan> <tspan font-family="Consolas, monospace">{distance, vertex}</tspan></text>
+  <text x="50" y="166" fill="#555" font-size="11"><tspan font-weight="bold">Picks by:</tspan> smallest <tspan font-style="italic">total distance from source</tspan></text>
+  <text x="50" y="184" fill="#555" font-size="11"><tspan font-weight="bold">Key operation:</tspan> relaxation &#x2014; "is there a shorter path through u?"</text>
+  <text x="50" y="204" fill="#c0392b" font-size="11"><tspan font-weight="bold">&#x2716; No negative weights</tspan> &#x2014; greedy finalization breaks</text>
+  <text x="50" y="220" fill="#555" font-size="11"><tspan font-weight="bold">Result:</tspan> dist[] array + shortest path tree</text>
+
+  <!-- Prim's panel (right) -->
+  <rect x="460" y="66" width="410" height="160" rx="10" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="665" y="88" text-anchor="middle" fill="#27ae60" font-size="15" font-weight="bold">Prim's Algorithm</text>
+  <text x="665" y="106" text-anchor="middle" fill="#27ae60" font-size="12" font-style="italic">Minimum spanning tree</text>
+
+  <text x="480" y="130" fill="#555" font-size="11"><tspan font-weight="bold">Goal:</tspan> find the cheapest <tspan font-weight="bold">set of edges</tspan> connecting all vertices</text>
+  <text x="480" y="148" fill="#555" font-size="11"><tspan font-weight="bold">Heap stores:</tspan> <tspan font-family="Consolas, monospace">{weight, from, to}</tspan></text>
+  <text x="480" y="166" fill="#555" font-size="11"><tspan font-weight="bold">Picks by:</tspan> smallest <tspan font-style="italic">single edge weight</tspan></text>
+  <text x="480" y="184" fill="#555" font-size="11"><tspan font-weight="bold">Key operation:</tspan> cycle check &#x2014; "is <tspan font-family="Consolas, monospace">to</tspan> already in the MST?"</text>
+  <text x="480" y="204" fill="#27ae60" font-size="11"><tspan font-weight="bold">&#x2714; Negative weights OK</tspan> &#x2014; only compares edge weights</text>
+  <text x="480" y="220" fill="#555" font-size="11"><tspan font-weight="bold">Result:</tspan> V&#x2212;1 edges with minimum total weight</text>
+
+  <!-- ===== WHAT THEY SHARE ===== -->
+  <rect x="30" y="240" width="840" height="52" rx="10" fill="#fef9e7" stroke="#f39c12" stroke-width="1.2"/>
+  <text x="450" y="260" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">What They Share</text>
+  <text x="450" y="280" text-anchor="middle" fill="#555" font-size="11">Both are <tspan font-weight="bold">greedy</tspan>, both use a <tspan font-weight="bold">min-heap priority queue</tspan>, both run in <tspan font-weight="bold">O((V + E) log V)</tspan>, and both produce a tree with <tspan font-weight="bold">V&#x2212;1 edges</tspan>.</text>
+
+  <!-- ===== VISUAL COMPARISON: same graph, different trees ===== -->
+  <rect x="30" y="306" width="410" height="230" rx="10" fill="#f9f9f9" stroke="#2980b9" stroke-width="1"/>
+  <text x="235" y="326" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">Dijkstra's Shortest Path Tree (source = A)</text>
+  <text x="235" y="342" text-anchor="middle" fill="#777" font-size="10">Shortest path from A to every vertex</text>
+
+  <!-- Dijkstra graph: A-B-C-D diamond -->
+  <circle cx="100" cy="430" r="22" fill="#fef9e7" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="100" y="436" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">A</text>
+  <text x="100" y="466" text-anchor="middle" fill="#e67e22" font-size="9" font-weight="bold">dist = 0</text>
+
+  <circle cx="210" cy="385" r="22" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="210" y="391" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">B</text>
+  <text x="210" y="355" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="bold">dist = 1</text>
+
+  <circle cx="210" cy="480" r="22" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="210" y="486" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">C</text>
+  <text x="210" y="510" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="bold">dist = 3</text>
+
+  <circle cx="340" cy="430" r="22" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="340" y="436" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">D</text>
+  <text x="340" y="466" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="bold">dist = 4</text>
+
+  <!-- Dijkstra: A-B green -->
+  <line x1="121" y1="423" x2="189" y2="392" stroke="#27ae60" stroke-width="3"/>
+  <rect x="143" y="398" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="154" y="410" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">1</text>
+
+  <!-- Dijkstra: A-C gray dashed -->
+  <line x1="118" y1="446" x2="192" y2="470" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="143" y="450" width="22" height="16" rx="8" fill="white" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="154" y="462" text-anchor="middle" fill="#888" font-size="10">4</text>
+
+  <!-- Dijkstra: B-C green -->
+  <line x1="210" y1="407" x2="210" y2="458" stroke="#27ae60" stroke-width="3"/>
+  <rect x="218" y="424" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="229" y="436" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">2</text>
+
+  <!-- Dijkstra: B-D gray dashed -->
+  <line x1="231" y1="392" x2="319" y2="423" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="263" y="398" width="22" height="16" rx="8" fill="white" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="274" y="410" text-anchor="middle" fill="#888" font-size="10">5</text>
+
+  <!-- Dijkstra: C-D green -->
+  <line x1="231" y1="473" x2="319" y2="437" stroke="#27ae60" stroke-width="3"/>
+  <rect x="263" y="446" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="274" y="458" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">1</text>
+
+  <!-- Prim's panel (right) -->
+  <rect x="460" y="306" width="410" height="230" rx="10" fill="#f9f9f9" stroke="#27ae60" stroke-width="1"/>
+  <text x="665" y="326" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">Prim's MST (start = A)</text>
+  <text x="665" y="342" text-anchor="middle" fill="#777" font-size="10">Optimizes total edge weight across the whole tree</text>
+
+  <!-- Prim's graph: same diamond -->
+  <circle cx="530" cy="430" r="22" fill="#fef9e7" stroke="#e67e22" stroke-width="2.5"/>
+  <text x="530" y="436" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">A</text>
+  <text x="530" y="466" text-anchor="middle" fill="#e67e22" font-size="9" font-weight="bold">start</text>
+
+  <circle cx="640" cy="385" r="22" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="640" y="391" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">B</text>
+  <text x="640" y="355" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="bold">step 1</text>
+
+  <circle cx="640" cy="480" r="22" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="640" y="486" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">C</text>
+  <text x="640" y="510" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="bold">step 2</text>
+
+  <circle cx="770" cy="430" r="22" fill="#eafaf1" stroke="#27ae60" stroke-width="2"/>
+  <text x="770" y="436" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">D</text>
+  <text x="770" y="466" text-anchor="middle" fill="#27ae60" font-size="9" font-weight="bold">step 3</text>
+
+  <!-- Prim's: A-B green -->
+  <line x1="551" y1="423" x2="619" y2="392" stroke="#27ae60" stroke-width="3"/>
+  <rect x="573" y="398" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="584" y="410" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">1</text>
+
+  <!-- Prim's: A-C gray dashed -->
+  <line x1="548" y1="446" x2="622" y2="470" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="573" y="450" width="22" height="16" rx="8" fill="white" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="584" y="462" text-anchor="middle" fill="#888" font-size="10">4</text>
+
+  <!-- Prim's: B-C green -->
+  <line x1="640" y1="407" x2="640" y2="458" stroke="#27ae60" stroke-width="3"/>
+  <rect x="648" y="424" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="659" y="436" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">2</text>
+
+  <!-- Prim's: B-D gray dashed -->
+  <line x1="661" y1="392" x2="749" y2="423" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,3"/>
+  <rect x="693" y="398" width="22" height="16" rx="8" fill="white" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="704" y="410" text-anchor="middle" fill="#888" font-size="10">5</text>
+
+  <!-- Prim's: C-D green -->
+  <line x1="661" y1="473" x2="749" y2="437" stroke="#27ae60" stroke-width="3"/>
+  <rect x="693" y="446" width="22" height="16" rx="8" fill="#eafaf1" stroke="#27ae60" stroke-width="1.2"/>
+  <text x="704" y="458" text-anchor="middle" fill="#27ae60" font-size="10" font-weight="bold">1</text>
+
+  <!-- ===== BOTTOM NOTE ===== -->
+  <rect x="30" y="550" width="840" height="56" rx="10" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="450" y="570" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">On this graph, Dijkstra's and Prim's produce the same tree &#x2014; but that's a coincidence, not a rule.</text>
+  <text x="450" y="590" text-anchor="middle" fill="#777" font-size="11">With different weights or a different source, the shortest path tree and MST will often differ.</text>
+
+  <!-- ===== NEGATIVE WEIGHT SECTION ===== -->
+  <text x="450" y="636" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c3e50">Why Negative Weights Break Dijkstra's (but Not Prim's)</text>
+
+  <!-- Left panel: example graph -->
+  <rect x="30" y="654" width="410" height="210" rx="10" fill="#f9f9f9" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="235" y="674" text-anchor="middle" fill="#c0392b" font-size="13" font-weight="bold">Example: Directed Graph with a Negative Edge</text>
+
+  <!-- A (source) -->
+  <circle cx="110" cy="735" r="20" fill="#fef9e7" stroke="#e67e22" stroke-width="2"/>
+  <text x="110" y="741" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">A</text>
+  <text x="110" y="766" text-anchor="middle" fill="#e67e22" font-size="9" font-weight="bold">source</text>
+
+  <!-- B -->
+  <circle cx="340" cy="735" r="20" fill="white" stroke="#2980b9" stroke-width="2"/>
+  <text x="340" y="741" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">B</text>
+
+  <!-- C -->
+  <circle cx="220" cy="810" r="20" fill="white" stroke="#2980b9" stroke-width="2"/>
+  <text x="220" y="816" text-anchor="middle" fill="#2c3e50" font-size="13" font-weight="bold">C</text>
+
+  <!-- A&#x2192;B: weight 1 (directed) -->
+  <line x1="130" y1="735" x2="318" y2="735" stroke="#2980b9" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <rect x="214" y="719" width="22" height="16" rx="8" fill="#fff3e0" stroke="#e67e22" stroke-width="1.2"/>
+  <text x="225" y="731" text-anchor="middle" fill="#e67e22" font-size="10" font-weight="bold">1</text>
+
+  <!-- A&#x2192;C: weight 4 (directed) -->
+  <line x1="126" y1="748" x2="204" y2="797" stroke="#2980b9" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <rect x="154" y="765" width="22" height="16" rx="8" fill="#fff3e0" stroke="#e67e22" stroke-width="1.2"/>
+  <text x="165" y="777" text-anchor="middle" fill="#e67e22" font-size="10" font-weight="bold">4</text>
+
+  <!-- C&#x2192;B: weight -5 (directed, RED) -->
+  <line x1="237" y1="800" x2="323" y2="749" stroke="#c0392b" stroke-width="2.5" marker-end="url(#arrow-red)"/>
+  <rect x="267" y="765" width="28" height="16" rx="8" fill="#fde8e8" stroke="#c0392b" stroke-width="1.5"/>
+  <text x="281" y="777" text-anchor="middle" fill="#c0392b" font-size="10" font-weight="bold">&#x2212;5</text>
+
+  <!-- Results below graph -->
+  <text x="235" y="846" text-anchor="middle" fill="#c0392b" font-size="11" font-weight="bold">Dijkstra says: dist[B] = 1 &#x2716;</text>
+  <text x="235" y="860" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">Actual shortest: A&#x2192;C&#x2192;B = 4 + (&#x2212;5) = &#x2212;1 &#x2714;</text>
+
+  <!-- Right panel: explanation -->
+  <rect x="460" y="654" width="410" height="210" rx="10" fill="#f9f9f9" stroke="#ccc" stroke-width="1"/>
+
+  <text x="480" y="676" fill="#c0392b" font-size="13" font-weight="bold">Why Dijkstra Breaks:</text>
+
+  <text x="480" y="698" fill="#555" font-size="11">Step 1: Pop A &#x2014; relax B to 1, C to 4</text>
+  <text x="480" y="716" fill="#555" font-size="11">Step 2: Pop B (<tspan font-family="Consolas, monospace">dist</tspan> = 1) &#x2014; <tspan fill="#c0392b" font-weight="bold">B is finalized forever</tspan></text>
+  <text x="480" y="734" fill="#555" font-size="11">Step 3: Pop C (<tspan font-family="Consolas, monospace">dist</tspan> = 4) &#x2014; finds C&#x2192;B = 4 + (&#x2212;5) = &#x2212;1</text>
+  <text x="496" y="750" fill="#c0392b" font-size="11">&#x2212;1 &lt; 1 ... but B is already locked in! Too late.</text>
+
+  <text x="480" y="774" fill="#2c3e50" font-size="11" font-weight="bold">Greedy assumption: &#x201C;once popped, distance is final.&#x201D;</text>
+  <text x="480" y="790" fill="#555" font-size="11">Negative edges violate this &#x2014; a later path CAN be cheaper.</text>
+
+  <line x1="480" y1="804" x2="850" y2="804" stroke="#ccc" stroke-width="1"/>
+
+  <text x="480" y="822" fill="#27ae60" font-size="13" font-weight="bold">Why Prim's Works:</text>
+
+  <text x="480" y="842" fill="#555" font-size="11">Prim's never accumulates distances &#x2014; it only asks:</text>
+  <text x="480" y="858" fill="#555" font-size="11">&#x201C;which single edge weighs least?&#x201D; A &#x2212;5 edge just wins the heap.</text>
+</svg>
