@@ -82,7 +82,7 @@ std::unordered_map<std::string, int>
 WeightedGraph::dijkstra(const std::string& source) const {
     std::unordered_map<std::string, int> dist;
 
-    // 1. Initialize all distances to "infinity"
+    // 1. Declare dist, initialize every vertex to infinity, guard, seed source
     for (const auto& [vertex, edges] : adj_list_) {
         dist[vertex] = std::numeric_limits<int>::max();
     }
@@ -92,15 +92,19 @@ WeightedGraph::dijkstra(const std::string& source) const {
     // 2. Min-heap of (distance, vertex) pairs
     using Pair = std::pair<int, std::string>;
     std::priority_queue<Pair, std::vector<Pair>, std::greater<Pair>> pq;
+
+    // 3. Seed the heap with the source at distance 0
     pq.push({0, source});
 
-    // 3. Main loop: pop closest unfinalized vertex, relax its edges
+    // 4. Main loop: pop the closest unfinalized vertex
     while (!pq.empty()) {
         auto [d, u] = pq.top();
         pq.pop();
 
-        if (d > dist[u]) continue;  // stale entry, skip
+        // 5. Skip stale heap entries (d is worse than the known dist[u])
+        if (d > dist[u]) continue;
 
+        // 6. Relax every outgoing edge from u
         for (const auto& edge : adj_list_.at(u)) {
             const int new_dist = dist[u] + edge.weight;
             if (new_dist < dist[edge.to]) {
@@ -152,18 +156,19 @@ WeightedGraph::prims_mst(const std::string& start) const {
 
     const int V = vertex_count();
 
-    // 4. Grow the MST until it contains every vertex
+    // 4. Main loop: pop the cheapest crossing edge
     while (!pq.empty() && static_cast<int>(in_mst.size()) < V) {
         auto [w, from, to] = pq.top();
         pq.pop();
 
-        if (in_mst.count(to)) continue;  // cycle — to is already in the tree
+        // 5. Skip edges that would form a cycle
+        if (in_mst.count(to)) continue;
 
+        // 6. Accept the edge and grow the frontier
         mst_edges.push_back({from, to, w});
         total_weight += w;
         in_mst.insert(to);
 
-        // push every crossing edge from the newly added vertex
         for (const auto& edge : adj_list_.at(to)) {
             if (!in_mst.count(edge.to)) {
                 pq.push({edge.weight, to, edge.to});
