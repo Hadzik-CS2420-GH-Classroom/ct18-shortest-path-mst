@@ -33,7 +33,7 @@
   <text x="476" y="136" font-size="11" fill="#555">we're already there.</text>
 
   <!-- ===== ROW 2: Min-heap declaration ===== -->
-  <rect x="30" y="146" width="380" height="40" rx="4" fill="#2d2d2d"/>
+  <rect x="30" y="146" width="380" height="46" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="9">
     <tspan x="40" y="160" fill="#4ec9b0">priority_queue</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">pair</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">,</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">&gt;,</tspan>
     <tspan x="60" y="174" fill="#4ec9b0">vector</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">pair</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">,</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">&gt;&gt;,</tspan>
@@ -95,7 +95,7 @@
   <!-- ===== ROW 6: Relax loop ===== -->
   <text x="30" y="380" font-size="10" fill="#555" font-style="italic">Relaxation: try every outgoing edge from u</text>
 
-  <rect x="30" y="386" width="380" height="60" rx="4" fill="#2d2d2d"/>
+  <rect x="30" y="386" width="380" height="64" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
     <tspan x="60" y="402" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">)) {</tspan>
     <tspan x="80" y="416" fill="#c586c0">if</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] + </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd"> &lt; </tspan><tspan fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">]) {</tspan>
