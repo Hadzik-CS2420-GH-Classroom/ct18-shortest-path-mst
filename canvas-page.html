@@ -20,7 +20,7 @@
 
 <h4>Step 1: Accept the Assignment</h4>
 <p>Click the button below to create your personal repository:</p>
-<p><a style="display: inline-block; padding: 10px 24px; font-size: 1em; font-weight: 600; color: #fff; background-color: #0b874b; border-radius: 4px; text-decoration: none;" href="" target="_blank" rel="noopener">Accept Assignment on GitHub</a></p>
+<p><a style="display: inline-block; padding: 10px 24px; font-size: 1em; font-weight: 600; color: #fff; background-color: #0b874b; border-radius: 4px; text-decoration: none;" href="https://classroom.github.com/a/GQ6ucfm_" target="_blank" rel="noopener">Accept Assignment on GitHub</a></p>
 
 <div style="padding: 14px 18px; border-radius: 4px; margin-bottom: 16px; background-color: #fcf8e3; border: 1px solid #faebcc; color: #8a6d3b;">
     <strong>Repository Access Issue?</strong><br />
@@ -76,6 +76,22 @@
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Edge struct</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">destination vertex plus integer weight; replaces the bare <code>string</code> neighbor from CT17</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">adj_list_</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">now <code>unordered_map&lt;string, vector&lt;Edge&gt;&gt;</code> so each neighbor carries its edge weight</td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">dijkstra signature</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">takes a source vertex, returns an <code>unordered_map&lt;string, int&gt;</code> of shortest distances</td>
+        </tr>
+        <tr style="background-color: #fafafa;">
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">prims_mst signature</td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">takes a start vertex, returns a pair of (MST edges as (from,to,weight) tuples, total weight)</td>
+        </tr>
     </tbody>
 </table>
 <h4>2. <code>WeightedGraph.cpp</code> &mdash; Two student TODOs + one provided walkthrough</h4>
@@ -132,39 +148,39 @@
     <tbody>
         <tr>
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/weighted_graph.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Weighted adjacency list with Edge{to, weight} pairs</td>
         </tr>
         <tr style="background-color: #fafafa;">
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/dijkstra_overview.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Step-by-step Dijkstra trace from source on the city map</td>
         </tr>
         <tr>
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/dijkstra_impl_setup.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">dijkstra() implementation: dist map, guard, source seed, min-heap declaration</td>
         </tr>
         <tr style="background-color: #fafafa;">
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/dijkstra_impl_loop.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">dijkstra() main loop: pop, stale skip, relaxation, push</td>
         </tr>
         <tr>
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/dijkstra_stale_skip.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Why <code>if (d &gt; dist[u]) continue;</code> -- a stale heap entry example</td>
         </tr>
         <tr style="background-color: #fafafa;">
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/dijkstra_code_trace.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Full trace of dijkstra("A") on a 5-vertex graph: heap pops, relaxation checks, dist updates</td>
         </tr>
         <tr>
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/prims_impl_setup.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">prims_mst() setup: in_mst seed, tuple min-heap, frontier seeding</td>
         </tr>
         <tr style="background-color: #fafafa;">
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/prims_impl_loop.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">prims_mst() main loop: pop cheapest, cycle skip, accept, grow frontier</td>
         </tr>
         <tr>
             <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"><code>images/svgs/dijkstra_vs_prims.svg</code></td>
-            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;"></td>
+            <td style="border: 1px solid #c7cdd1; padding: 10px 14px;">Side-by-side comparison: same priority-queue pattern, different goals</td>
         </tr>
     </tbody>
 </table>
