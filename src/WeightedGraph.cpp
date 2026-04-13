@@ -122,29 +122,55 @@ WeightedGraph::dijkstra(const std::string& source) const {
 //   - skip rule: if 'to' is already in the MST, adding it would create a cycle
 //
 
+// Provided for reference — CCD 2.12 (Prim's) is lecture-only.
+// Walk through this in class using prims_impl_setup.svg and
+// prims_impl_loop.svg, but students don't type it.
 std::pair<std::vector<std::tuple<std::string, std::string, int>>, int>
 WeightedGraph::prims_mst(const std::string& start) const {
     std::vector<std::tuple<std::string, std::string, int>> mst_edges;
     int total_weight = 0;
-    // TODO: implement Prim's — step numbers match the SVG rows
-    //
-    // 1. Put `start` in an unordered_set<string> in_mst
-    // 2. Type alias:
-    //      using EdgeTuple = std::tuple<int, std::string, std::string>;
-    // 3. Min-heap declaration:
-    //      std::priority_queue<EdgeTuple, std::vector<EdgeTuple>,
-    //                          std::greater<EdgeTuple>> min_heap;
-    //    (std::greater flips the default max-heap to a min-heap)
-    // 4. Seed the frontier: push every edge leaving `start` as
-    //    min_heap.push({edge.weight, start, edge.to})
-    // 5. Cache V = vertex_count() so we can stop at the right time
-    // 6. Main loop — while (!min_heap.empty() && in_mst.size() < V):
-    //      pop the cheapest tuple (w, from, to)
-    // 7. Cycle skip: if in_mst already contains `to`, continue;
-    // 8. Accept the edge: mst_edges.push_back({from, to, w});
-    //    total_weight += w; in_mst.insert(to);
-    // 9. Grow the frontier: for each edge from `to`, push
-    //    {edge.weight, to, edge.to} into min_heap (skip if edge.to in in_mst)
+
+    if (!has_vertex(start)) return {mst_edges, total_weight};
+
+    // 1. Start the MST with 'start'
+    std::unordered_set<std::string> in_mst;
+    in_mst.insert(start);
+
+    // 2. Type alias for (weight, from, to) tuples
+    using EdgeTuple = std::tuple<int, std::string, std::string>;
+
+    // 3. Build a min-heap: std::greater flips default max-heap to min-heap
+    std::priority_queue<EdgeTuple, std::vector<EdgeTuple>, std::greater<EdgeTuple>> min_heap;
+
+    // 4. Seed the frontier with every edge leaving 'start'
+    for (const auto& edge : adj_list_.at(start)) {
+        min_heap.push({edge.weight, start, edge.to});
+    }
+
+    // 5. Cache V so we can stop once the MST covers every vertex
+    const int V = vertex_count();
+
+    // 6. Main loop: pop the cheapest crossing edge
+    while (!min_heap.empty() && static_cast<int>(in_mst.size()) < V) {
+        auto [w, from, to] = min_heap.top();
+        min_heap.pop();
+
+        // 7. Skip edges that would form a cycle
+        if (in_mst.count(to)) continue;
+
+        // 8. Accept the edge (record + total + mark in MST)
+        mst_edges.push_back({from, to, w});
+        total_weight += w;
+        in_mst.insert(to);
+
+        // 9. Grow the frontier with every crossing edge from 'to'
+        for (const auto& edge : adj_list_.at(to)) {
+            if (!in_mst.count(edge.to)) {
+                min_heap.push({edge.weight, to, edge.to});
+            }
+        }
+    }
+
     return {mst_edges, total_weight};
 }
 

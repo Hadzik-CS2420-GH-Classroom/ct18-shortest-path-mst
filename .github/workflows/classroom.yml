@@ -54,13 +54,13 @@ jobs:
         timeout: 10
         max-score: 2
 
-    # ==================== add_edge (5 points) ====================
+    # ==================== add_edge (7 points) ====================
 
-    - name: add_edge - Creates Vertices (2 points)
+    - name: add_edge - Creates Vertices (3 points)
       id: add-edge-creates
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: add_edge - Creates Vertices (2 points)
+        test-name: add_edge - Creates Vertices (3 points)
         setup-command: ''
         command: |
           if [ -f build/run_tests ]; then
@@ -69,13 +69,13 @@ jobs:
             exit 1
           fi
         timeout: 10
-        max-score: 2
+        max-score: 3
 
-    - name: add_edge - Full Graph Counts (3 points)
+    - name: add_edge - Full Graph Counts (4 points)
       id: add-edge-full
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: add_edge - Full Graph Counts (3 points)
+        test-name: add_edge - Full Graph Counts (4 points)
         setup-command: ''
         command: |
           if [ -f build/run_tests ]; then
@@ -84,15 +84,17 @@ jobs:
             exit 1
           fi
         timeout: 10
-        max-score: 3
+        max-score: 4
 
-    # ==================== Dijkstra's (12 points) ====================
+    # ==================== Dijkstra's (21 points) ====================
+    # Prim's is instructor-provided (CCD 2.12 is lecture-only), so all
+    # algorithm-implementation points live in the Dijkstra tests.
 
-    - name: Dijkstra - Source Distance Zero (2 points)
+    - name: Dijkstra - Source Distance Zero (3 points)
       id: dijkstra-source
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Dijkstra - Source Distance Zero (2 points)
+        test-name: Dijkstra - Source Distance Zero (3 points)
         setup-command: ''
         command: |
           if [ -f build/run_tests ]; then
@@ -101,13 +103,13 @@ jobs:
             exit 1
           fi
         timeout: 10
-        max-score: 2
+        max-score: 3
 
-    - name: Dijkstra - Direct Edge Distances (3 points)
+    - name: Dijkstra - Direct Edge Distances (4 points)
       id: dijkstra-direct
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Dijkstra - Direct Edge Distances (3 points)
+        test-name: Dijkstra - Direct Edge Distances (4 points)
         setup-command: ''
         command: |
           if [ -f build/run_tests ]; then
@@ -116,13 +118,13 @@ jobs:
             exit 1
           fi
         timeout: 10
-        max-score: 3
+        max-score: 4
 
-    - name: Dijkstra - Shortest Via Relaxation (3 points)
+    - name: Dijkstra - Shortest Via Relaxation (6 points)
       id: dijkstra-relax
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Dijkstra - Shortest Via Relaxation (3 points)
+        test-name: Dijkstra - Shortest Via Relaxation (6 points)
         setup-command: ''
         command: |
           if [ -f build/run_tests ]; then
@@ -131,13 +133,13 @@ jobs:
             exit 1
           fi
         timeout: 10
-        max-score: 3
+        max-score: 6
 
-    - name: Dijkstra - All Vertices Reachable (2 points)
+    - name: Dijkstra - All Vertices Reachable (4 points)
       id: dijkstra-all
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Dijkstra - All Vertices Reachable (2 points)
+        test-name: Dijkstra - All Vertices Reachable (4 points)
         setup-command: ''
         command: |
           if [ -f build/run_tests ]; then
@@ -146,13 +148,13 @@ jobs:
             exit 1
           fi
         timeout: 10
-        max-score: 2
+        max-score: 4
 
-    - name: Dijkstra - Single Vertex (2 points)
+    - name: Dijkstra - Single Vertex (4 points)
       id: dijkstra-single
       uses: classroom-resources/autograding-command-grader@v1
       with:
-        test-name: Dijkstra - Single Vertex (2 points)
+        test-name: Dijkstra - Single Vertex (4 points)
         setup-command: ''
         command: |
           if [ -f build/run_tests ]; then
@@ -161,69 +163,7 @@ jobs:
             exit 1
           fi
         timeout: 10
-        max-score: 2
-
-    # ==================== Prim's MST (11 points) ====================
-
-    - name: Prim's - Correct Edge Count (2 points)
-      id: prims-count
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Prim's - Correct Edge Count (2 points)
-        setup-command: ''
-        command: |
-          if [ -f build/run_tests ]; then
-            cd build && ./run_tests --gtest_filter=PrimsMST.CorrectEdgeCount
-          else
-            exit 1
-          fi
-        timeout: 10
-        max-score: 2
-
-    - name: Prim's - Minimum Total Weight (3 points)
-      id: prims-weight
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Prim's - Minimum Total Weight (3 points)
-        setup-command: ''
-        command: |
-          if [ -f build/run_tests ]; then
-            cd build && ./run_tests --gtest_filter=PrimsMST.MinimumTotalWeight
-          else
-            exit 1
-          fi
-        timeout: 10
-        max-score: 3
-
-    - name: Prim's - All Vertices Connected (3 points)
-      id: prims-connected
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Prim's - All Vertices Connected (3 points)
-        setup-command: ''
-        command: |
-          if [ -f build/run_tests ]; then
-            cd build && ./run_tests --gtest_filter=PrimsMST.AllVerticesConnected
-          else
-            exit 1
-          fi
-        timeout: 10
-        max-score: 3
-
-    - name: Prim's - Single Vertex (3 points)
-      id: prims-single
-      uses: classroom-resources/autograding-command-grader@v1
-      with:
-        test-name: Prim's - Single Vertex (3 points)
-        setup-command: ''
-        command: |
-          if [ -f build/run_tests ]; then
-            cd build && ./run_tests --gtest_filter=PrimsMST.SingleVertex
-          else
-            exit 1
-          fi
-        timeout: 10
-        max-score: 3
+        max-score: 4
 
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
@@ -237,9 +177,5 @@ jobs:
         DIJKSTRA-RELAX_RESULTS:     "${{steps.dijkstra-relax.outputs.result}}"
         DIJKSTRA-ALL_RESULTS:       "${{steps.dijkstra-all.outputs.result}}"
         DIJKSTRA-SINGLE_RESULTS:    "${{steps.dijkstra-single.outputs.result}}"
-        PRIMS-COUNT_RESULTS:        "${{steps.prims-count.outputs.result}}"
-        PRIMS-WEIGHT_RESULTS:       "${{steps.prims-weight.outputs.result}}"
-        PRIMS-CONNECTED_RESULTS:    "${{steps.prims-connected.outputs.result}}"
-        PRIMS-SINGLE_RESULTS:       "${{steps.prims-single.outputs.result}}"
       with:
-        runners: build,constructor,add-edge-creates,add-edge-full,dijkstra-source,dijkstra-direct,dijkstra-relax,dijkstra-all,dijkstra-single,prims-count,prims-weight,prims-connected,prims-single
+        runners: build,constructor,add-edge-creates,add-edge-full,dijkstra-source,dijkstra-direct,dijkstra-relax,dijkstra-all,dijkstra-single
