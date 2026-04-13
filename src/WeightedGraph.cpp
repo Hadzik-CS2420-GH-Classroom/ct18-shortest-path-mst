@@ -25,8 +25,11 @@ WeightedGraph::WeightedGraph() {}
 //   - everything else (add_vertex, has_vertex, counts) is identical
 //
 
+// Provided — identical to CT17's Graph::add_vertex.
 void WeightedGraph::add_vertex(const std::string& vertex) {
-    // TODO: insert vertex with empty edge list if not present
+    if (adj_list_.find(vertex) == adj_list_.end()) {
+        adj_list_[vertex] = {};
+    }
 }
 
 void WeightedGraph::add_edge(const std::string& from, const std::string& to, int weight) {
