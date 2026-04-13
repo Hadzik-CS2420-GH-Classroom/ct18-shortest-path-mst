@@ -6,7 +6,7 @@
   <text x="450" y="48" text-anchor="middle" fill="#777" font-size="13">Tracing dijkstra("A") on: A&#x2013;B(4), A&#x2013;C(2), B&#x2013;C(3), B&#x2013;D(5), C&#x2013;E(1), D&#x2013;E(3) &#x2014; same graph as the header trace</text>
 
   <!-- ===== CODE REFERENCE ===== -->
-  <rect x="30" y="64" width="290" height="150" rx="8" fill="#1e1e1e"/>
+  <rect x="30" y="64" width="290" height="164" rx="8" fill="#1e1e1e"/>
   <text x="40" y="80" fill="#888" font-size="9">Key lines:</text>
   <text font-family="Consolas, 'Courier New', monospace" font-size="9">
     <tspan x="40" y="96" fill="#ddd">dist[source] = </tspan><tspan fill="#b5cea8">0</tspan><tspan fill="#ddd">;</tspan>
@@ -14,10 +14,11 @@
     <tspan x="40" y="124" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!pq.empty()) {</tspan>
     <tspan x="50" y="138" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] = pq.top(); pq.pop();</tspan>
     <tspan x="50" y="152" fill="#e67e22">if (d &gt; dist[u]) continue;</tspan>
-    <tspan x="50" y="166" fill="#c586c0">for</tspan><tspan fill="#ddd"> ([</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">] : adj_list_.at(u)) {</tspan>
-    <tspan x="60" y="180" fill="#c586c0">if</tspan><tspan fill="#ddd"> (dist[u] + w &lt; dist[v]) {</tspan>
-    <tspan x="70" y="194" fill="#ddd">dist[v] = dist[u] + w;</tspan>
-    <tspan x="70" y="208" fill="#ddd">pq.push({dist[v], v});</tspan>
+    <tspan x="50" y="166" fill="#c586c0">for</tspan><tspan fill="#ddd"> (auto&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : adj_list_.at(u)) {</tspan>
+    <tspan x="60" y="180" fill="#ddd">int new_dist = dist[u] + edge.weight;</tspan>
+    <tspan x="60" y="194" fill="#c586c0">if</tspan><tspan fill="#ddd"> (new_dist &lt; dist[edge.to]) {</tspan>
+    <tspan x="70" y="208" fill="#ddd">dist[edge.to] = new_dist;</tspan>
+    <tspan x="70" y="222" fill="#ddd">pq.push({new_dist, edge.to});</tspan>
   </text>
 
   <!-- ===== GRAPH REFERENCE ===== -->

@@ -80,31 +80,36 @@ int WeightedGraph::edge_count() const {
 
 std::unordered_map<std::string, int>
 WeightedGraph::dijkstra(const std::string& source) const {
+    // 1. Declare the output map
     std::unordered_map<std::string, int> dist;
 
-    // 1. Declare dist, initialize every vertex to infinity, guard, seed source
+    // 2. Initialize every distance to infinity
     for (const auto& [vertex, edges] : adj_list_) {
         dist[vertex] = std::numeric_limits<int>::max();
     }
+
+    // 3. Guard against a missing source vertex
     if (!has_vertex(source)) return dist;
+
+    // 4. Seed the source
     dist[source] = 0;
 
-    // 2. Min-heap of (distance, vertex) pairs
+    // 5. Min-heap of (distance, vertex) pairs
     using Pair = std::pair<int, std::string>;
     std::priority_queue<Pair, std::vector<Pair>, std::greater<Pair>> pq;
 
-    // 3. Seed the heap with the source at distance 0
+    // 6. Seed the heap with the source at distance 0
     pq.push({0, source});
 
-    // 4. Main loop: pop the closest unfinalized vertex
+    // 7. Main loop: pop the closest unfinalized vertex
     while (!pq.empty()) {
         auto [d, u] = pq.top();
         pq.pop();
 
-        // 5. Skip stale heap entries (d is worse than the known dist[u])
+        // 8. Skip stale heap entries
         if (d > dist[u]) continue;
 
-        // 6. Relax every outgoing edge from u
+        // 9. Relax every outgoing edge from u
         for (const auto& edge : adj_list_.at(u)) {
             const int new_dist = dist[u] + edge.weight;
             if (new_dist < dist[edge.to]) {
@@ -141,7 +146,7 @@ WeightedGraph::prims_mst(const std::string& start) const {
 
     if (!has_vertex(start)) return {mst_edges, total_weight};
 
-    // 1. Start with 'start' in the MST set
+    // 1. Start the MST with 'start'
     std::unordered_set<std::string> in_mst;
     in_mst.insert(start);
 
@@ -154,21 +159,23 @@ WeightedGraph::prims_mst(const std::string& start) const {
         pq.push({edge.weight, start, edge.to});
     }
 
+    // 4. Cache V so we can stop once the MST covers every vertex
     const int V = vertex_count();
 
-    // 4. Main loop: pop the cheapest crossing edge
+    // 5. Main loop: pop the cheapest crossing edge
     while (!pq.empty() && static_cast<int>(in_mst.size()) < V) {
         auto [w, from, to] = pq.top();
         pq.pop();
 
-        // 5. Skip edges that would form a cycle
+        // 6. Skip edges that would form a cycle
         if (in_mst.count(to)) continue;
 
-        // 6. Accept the edge and grow the frontier
+        // 7. Accept the edge (record + total + mark in MST)
         mst_edges.push_back({from, to, w});
         total_weight += w;
         in_mst.insert(to);
 
+        // 8. Grow the frontier with every crossing edge from 'to'
         for (const auto& edge : adj_list_.at(to)) {
             if (!in_mst.count(edge.to)) {
                 pq.push({edge.weight, to, edge.to});

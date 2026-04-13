@@ -10,7 +10,7 @@
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
     <tspan x="50" y="86" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
     <tspan x="50" y="106" fill="#e67e22" font-weight="bold">if (d &gt; dist[u]) continue;</tspan>
-    <tspan x="50" y="126" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">)) {</tspan>
+    <tspan x="50" y="126" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">)) {</tspan>
     <tspan x="70" y="146" fill="#888">/* relaxation */</tspan>
   </text>
 

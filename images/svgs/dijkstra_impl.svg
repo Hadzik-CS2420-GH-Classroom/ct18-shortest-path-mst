@@ -35,8 +35,8 @@
   <!-- ===== ROW 2: Init loop ===== -->
   <rect x="30" y="154" width="380" height="40" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
-    <tspan x="40" y="170" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">_</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">)</tspan>
-    <tspan x="60" y="186" fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">] = INT_MAX;</tspan>
+    <tspan x="40" y="170" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">vertex</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">edges</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">)</tspan>
+    <tspan x="60" y="186" fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">vertex</tspan><tspan fill="#ddd">] = INT_MAX;</tspan>
   </text>
 
   <line x1="410" y1="174" x2="458" y2="174" stroke="#bdc3c7" stroke-width="1.5"/>
