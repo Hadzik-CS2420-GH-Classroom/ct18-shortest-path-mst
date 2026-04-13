@@ -85,15 +85,17 @@ WeightedGraph::dijkstra(const std::string& source) const {
     std::unordered_map<std::string, int> dist;
     // TODO: implement Dijkstra's — step numbers match the SVG rows
     //
-    // 1. Initialize every vertex's dist to INT_MAX, guard against a missing
-    //    source (return dist early), then set dist[source] = 0
-    // 2. Declare a min-heap of (distance, vertex) pairs using std::greater
-    // 3. Seed the heap: pq.push({0, source})
-    // 4. Main loop — while the heap is not empty:
+    // 1. Declare dist (already done above)
+    // 2. Initialize every vertex's dist to std::numeric_limits<int>::max()
+    // 3. Guard: if (!has_vertex(source)) return dist;
+    // 4. Seed the source: dist[source] = 0;
+    // 5. Declare a min-heap of (distance, vertex) pairs using std::greater
+    // 6. Seed the heap: pq.push({0, source})
+    // 7. Main loop — while the heap is not empty:
     //      pop (d, u) with pq.top() / pq.pop()
-    // 5. Stale-entry skip: if (d > dist[u]) continue;
-    // 6. Relax every edge {v, w} in adj_list_.at(u):
-    //      if dist[u] + w < dist[v], update dist[v] and push {dist[v], v}
+    // 8. Stale-entry skip: if (d > dist[u]) continue;
+    // 9. Relax every edge in adj_list_.at(u): compute new_dist = dist[u] +
+    //    edge.weight; if new_dist < dist[edge.to], update and push
     return dist;
 }
 
@@ -123,13 +125,16 @@ WeightedGraph::prims_mst(const std::string& start) const {
     //
     // 1. Put `start` in an unordered_set<string> in_mst
     // 2. Declare a min-heap of (weight, from, to) tuples using std::greater
-    // 3. Seed the heap with every edge leaving `start`: pq.push({w, start, v})
-    // 4. Main loop — while pq not empty AND in_mst.size() < V:
+    // 3. Seed the frontier: push every edge leaving `start` as
+    //    pq.push({edge.weight, start, edge.to})
+    // 4. Cache V = vertex_count() so we can stop at the right time
+    // 5. Main loop — while pq not empty AND in_mst.size() < V:
     //      pop the cheapest tuple (w, from, to)
-    // 5. Cycle skip: if in_mst already contains `to`, continue;
-    // 6. Accept: append {from, to, w} to mst_edges, add w to total_weight,
-    //    insert `to` into in_mst, then push every edge {v, nw} from `to`
-    //    into the heap (only when v is NOT in in_mst)
+    // 6. Cycle skip: if in_mst already contains `to`, continue;
+    // 7. Accept the edge: mst_edges.push_back({from, to, w});
+    //    total_weight += w; in_mst.insert(to);
+    // 8. Grow the frontier: for each edge from `to`, push
+    //    {edge.weight, to, edge.to} into pq (skip if edge.to in in_mst)
     return {mst_edges, total_weight};
 }
 

@@ -10,8 +10,8 @@
   <text x="40" y="80" fill="#888" font-size="9">Key lines:</text>
   <text font-family="Consolas, 'Courier New', monospace" font-size="9">
     <tspan x="40" y="96" fill="#ddd">in_mst.insert(start);</tspan>
-    <tspan x="40" y="110" fill="#c586c0">for</tspan><tspan fill="#ddd"> ([v,w] : adj_list_.at(start))</tspan>
-    <tspan x="50" y="124" fill="#ddd">pq.push({w, start, v});</tspan>
+    <tspan x="40" y="110" fill="#c586c0">for</tspan><tspan fill="#ddd"> (auto&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : adj_list_.at(start))</tspan>
+    <tspan x="50" y="124" fill="#ddd">pq.push({edge.weight, start, edge.to});</tspan>
     <tspan x="40" y="138" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!pq.empty() &amp;&amp; in_mst.size()&lt;V) {</tspan>
     <tspan x="50" y="152" fill="#ddd">auto [w, from, to] = pq.top(); pq.pop();</tspan>
     <tspan x="50" y="166" fill="#e67e22">if (in_mst.count(to)) continue;</tspan>

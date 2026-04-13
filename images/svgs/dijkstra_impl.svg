@@ -35,16 +35,16 @@
   <!-- ===== ROW 2: Init loop ===== -->
   <rect x="30" y="154" width="380" height="40" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
-    <tspan x="40" y="170" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">_</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">)</tspan>
-    <tspan x="60" y="186" fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">] = INT_MAX;</tspan>
+    <tspan x="40" y="170" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">vertex</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">edges</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">)</tspan>
+    <tspan x="60" y="186" fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">vertex</tspan><tspan fill="#ddd">] = std::numeric_limits&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">&gt;::max();</tspan>
   </text>
 
   <line x1="410" y1="174" x2="458" y2="174" stroke="#bdc3c7" stroke-width="1.5"/>
   <polygon points="458,170 466,174 458,178" fill="#bdc3c7"/>
 
   <text x="476" y="164" font-size="11" fill="#555"><tspan font-weight="bold">Initialize</tspan> every vertex's distance to</text>
-  <text x="476" y="180" font-size="11" fill="#555">"infinity" (<tspan font-family="Consolas, monospace" font-size="10">INT_MAX</tspan>). Sets a baseline</text>
-  <text x="476" y="196" font-size="11" fill="#555">that any real path can beat.</text>
+  <text x="476" y="180" font-size="11" fill="#555">"infinity" &#x2014; the largest possible int.</text>
+  <text x="476" y="196" font-size="11" fill="#555">Any real path will beat this baseline.</text>
 
   <!-- ===== ROW 3: Guard ===== -->
   <rect x="30" y="210" width="380" height="30" rx="4" fill="#2d2d2d"/>
