@@ -26,12 +26,16 @@ WeightedGraph::WeightedGraph() {}
 //
 
 void WeightedGraph::add_vertex(const std::string& vertex) {
-    // TODO: insert vertex with empty edge list if not present
+    if (adj_list_.find(vertex) == adj_list_.end()) {
+        adj_list_[vertex] = {};
+    }
 }
 
 void WeightedGraph::add_edge(const std::string& from, const std::string& to, int weight) {
-    // TODO: ensure both vertices exist, then push Edge{to, weight} into
-    //       from's list AND Edge{from, weight} into to's list (undirected)
+    add_vertex(from);
+    add_vertex(to);
+    adj_list_[from].push_back({to, weight});
+    adj_list_[to].push_back({from, weight});
 }
 
 // =============================================================================
@@ -39,18 +43,19 @@ void WeightedGraph::add_edge(const std::string& from, const std::string& to, int
 // =============================================================================
 
 bool WeightedGraph::has_vertex(const std::string& vertex) const {
-    // TODO
-    return false;
+    return adj_list_.count(vertex) > 0;
 }
 
 int WeightedGraph::vertex_count() const {
-    // TODO
-    return 0;
+    return static_cast<int>(adj_list_.size());
 }
 
 int WeightedGraph::edge_count() const {
-    // TODO: sum sizes of all edge lists, divide by 2 (undirected)
-    return 0;
+    int total = 0;
+    for (const auto& [vertex, edges] : adj_list_) {
+        total += static_cast<int>(edges.size());
+    }
+    return total / 2;
 }
 
 // =============================================================================
@@ -76,17 +81,34 @@ int WeightedGraph::edge_count() const {
 std::unordered_map<std::string, int>
 WeightedGraph::dijkstra(const std::string& source) const {
     std::unordered_map<std::string, int> dist;
-    // TODO: implement Dijkstra's using a priority queue
-    //
-    // 1. Initialize all distances to std::numeric_limits<int>::max()
-    //    dist[source] = 0
-    // 2. Declare a min-heap of (distance, vertex) pairs using std::greater
-    // 3. Push {0, source}
-    // 4. While the heap is not empty:
-    //    a. Pop the smallest (d, u)
-    //    b. If d > dist[u], `continue;` (stale entry)
-    //    c. For each edge {v, w} in adj_list_.at(u):
-    //         if dist[u] + w < dist[v], update dist[v] and push {dist[v], v}
+
+    // 1. Initialize all distances to "infinity"
+    for (const auto& [vertex, edges] : adj_list_) {
+        dist[vertex] = std::numeric_limits<int>::max();
+    }
+    if (!has_vertex(source)) return dist;
+    dist[source] = 0;
+
+    // 2. Min-heap of (distance, vertex) pairs
+    using Pair = std::pair<int, std::string>;
+    std::priority_queue<Pair, std::vector<Pair>, std::greater<Pair>> pq;
+    pq.push({0, source});
+
+    // 3. Main loop: pop closest unfinalized vertex, relax its edges
+    while (!pq.empty()) {
+        auto [d, u] = pq.top();
+        pq.pop();
+
+        if (d > dist[u]) continue;  // stale entry, skip
+
+        for (const auto& edge : adj_list_.at(u)) {
+            const int new_dist = dist[u] + edge.weight;
+            if (new_dist < dist[edge.to]) {
+                dist[edge.to] = new_dist;
+                pq.push({new_dist, edge.to});
+            }
+        }
+    }
     return dist;
 }
 
@@ -112,18 +134,43 @@ std::pair<std::vector<std::tuple<std::string, std::string, int>>, int>
 WeightedGraph::prims_mst(const std::string& start) const {
     std::vector<std::tuple<std::string, std::string, int>> mst_edges;
     int total_weight = 0;
-    // TODO: implement Prim's using a priority queue
-    //
-    // 1. Put `start` in an unordered_set<string> in_mst
-    // 2. Declare a min-heap of (weight, from, to) tuples using std::greater
-    // 3. Seed the heap with every edge leaving `start`: pq.push({w, start, v})
-    // 4. While pq not empty AND in_mst.size() < V:
-    //    a. Pop the cheapest tuple (w, from, to)
-    //    b. If in_mst already contains `to`, `continue;` (would form a cycle)
-    //    c. Append {from, to, w} to mst_edges; add w to total_weight
-    //    d. Insert `to` into in_mst
-    //    e. For each edge {v, nw} in adj_list_.at(to):
-    //         if v is NOT in in_mst, pq.push({nw, to, v})
+
+    if (!has_vertex(start)) return {mst_edges, total_weight};
+
+    // 1. Start with 'start' in the MST set
+    std::unordered_set<std::string> in_mst;
+    in_mst.insert(start);
+
+    // 2. Min-heap of (weight, from, to) tuples
+    using EdgeTuple = std::tuple<int, std::string, std::string>;
+    std::priority_queue<EdgeTuple, std::vector<EdgeTuple>, std::greater<EdgeTuple>> pq;
+
+    // 3. Seed the frontier with every edge leaving 'start'
+    for (const auto& edge : adj_list_.at(start)) {
+        pq.push({edge.weight, start, edge.to});
+    }
+
+    const int V = vertex_count();
+
+    // 4. Grow the MST until it contains every vertex
+    while (!pq.empty() && static_cast<int>(in_mst.size()) < V) {
+        auto [w, from, to] = pq.top();
+        pq.pop();
+
+        if (in_mst.count(to)) continue;  // cycle — to is already in the tree
+
+        mst_edges.push_back({from, to, w});
+        total_weight += w;
+        in_mst.insert(to);
+
+        // push every crossing edge from the newly added vertex
+        for (const auto& edge : adj_list_.at(to)) {
+            if (!in_mst.count(edge.to)) {
+                pq.push({edge.weight, to, edge.to});
+            }
+        }
+    }
+
     return {mst_edges, total_weight};
 }
 
