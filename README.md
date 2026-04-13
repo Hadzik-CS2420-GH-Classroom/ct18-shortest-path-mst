@@ -48,7 +48,10 @@ Open `WeightedGraph.cpp`. The constructor, queries, and `add_vertex` are already
 
 ### 1. `WeightedGraph.h` -- Review the weighted interface
 
-Walk through the header. Highlight the `Edge` struct (destination + weight) and contrast `adj_list_` -- it's now `unordered_map<string, vector<Edge>>` instead of CT17's `vector<string>`. Point out the two new method signatures: `dijkstra` returns a distance map and `prims_mst` returns a tuple vector + total weight.
+1. **Edge struct** -- destination vertex plus integer weight; replaces the bare `string` neighbor from CT17
+2. **adj_list_** -- now `unordered_map<string, vector<Edge>>` so each neighbor carries its edge weight
+3. **dijkstra signature** -- takes a source vertex, returns an `unordered_map<string, int>` of shortest distances
+4. **prims_mst signature** -- takes a start vertex, returns a pair of (MST edges as (from,to,weight) tuples, total weight)
 
 ### 2. `WeightedGraph.cpp` -- Two student TODOs + one provided walkthrough
 
@@ -64,7 +67,7 @@ Walk through the header. Highlight the `Edge` struct (destination + weight) and 
 
 ## Diagrams
 
-| File | Description |
+| Diagram | Shows |
 |---|---|
 | `images/svgs/weighted_graph.svg` | Weighted adjacency list with Edge{to, weight} pairs |
 | `images/svgs/dijkstra_overview.svg` | Step-by-step Dijkstra trace from source on the city map |
