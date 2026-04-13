@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 700" font-family="'Segoe UI', Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 820" font-family="'Segoe UI', Arial, sans-serif">
   <rect width="100%" height="100%" fill="white"/>
 
   <!-- Title -->
@@ -92,17 +92,45 @@
   <text x="450" y="478" text-anchor="middle" fill="#bbb" font-size="11" font-family="Consolas, monospace">[ ] empty</text>
   <text x="670" y="478" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A:0, B:3, C:1}</text>
 
+  <!-- ===== CONTINUE CONTROL-FLOW CALLOUT ===== -->
+  <rect x="30" y="508" width="800" height="128" rx="8" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="430" y="528" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">Wait &#x2014; where does Step 4 even come from? What does `continue` actually do?</text>
+
+  <!-- Mini code block showing while loop with a curved arrow from continue back to while -->
+  <rect x="50" y="540" width="340" height="88" rx="6" fill="#1e1e1e"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="60" y="556" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">empty</tspan><tspan fill="#ddd">()) {</tspan>
+    <tspan x="70" y="572" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
+    <tspan x="70" y="588" fill="#e67e22" font-weight="bold">if (d &gt; dist[u]) continue;</tspan>
+    <tspan x="70" y="604" fill="#888">/* relaxation */</tspan>
+    <tspan x="60" y="620" fill="#ddd">}</tspan>
+  </text>
+
+  <!-- Curved arrow from "continue" back to "while" showing the jump -->
+  <path d="M 390 588 Q 420 588 420 556 L 395 556" fill="none" stroke="#e67e22" stroke-width="2"/>
+  <polygon points="395,552 387,556 395,560" fill="#e67e22"/>
+  <text x="425" y="574" fill="#e67e22" font-size="9" font-style="italic" font-weight="bold">continue jumps</text>
+  <text x="425" y="586" fill="#e67e22" font-size="9" font-style="italic" font-weight="bold">back here &#x2014;</text>
+  <text x="425" y="598" fill="#e67e22" font-size="9" font-style="italic" font-weight="bold">NOT out of the loop</text>
+
+  <!-- Right-side explanation -->
+  <text x="530" y="556" fill="#555" font-size="11"><tspan font-weight="bold">continue</tspan> = "skip the rest of this iteration,</text>
+  <text x="530" y="570" fill="#555" font-size="11">go back to the <tspan font-family="Consolas, monospace" font-size="10">while</tspan> condition." It's the</text>
+  <text x="530" y="584" fill="#555" font-size="11">opposite of <tspan font-family="Consolas, monospace" font-size="10">break</tspan> (which exits the loop).</text>
+  <text x="530" y="604" fill="#2c3e50" font-size="10" font-weight="bold">So where does the next pop happen?</text>
+  <text x="530" y="618" fill="#555" font-size="10">At the top of the <tspan font-style="italic">next</tspan> iteration &#x2014; line 2.</text>
+
   <!-- ===== WHY IT MATTERS ===== -->
-  <rect x="30" y="512" width="800" height="100" rx="8" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
-  <text x="430" y="534" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">Why the Skip Is Necessary</text>
-  <text x="430" y="554" text-anchor="middle" fill="#555" font-size="11">If we didn't skip, Step 4 would re-run relaxation for B using the old, worse distance of 5.</text>
-  <text x="430" y="570" text-anchor="middle" fill="#555" font-size="11">It wouldn't break correctness (the <tspan font-family="Consolas, monospace">&lt;</tspan> test still rejects worse paths), but it wastes work.</text>
-  <text x="430" y="590" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="bold">std::priority_queue has no "decrease-key" operation.</text>
-  <text x="430" y="604" text-anchor="middle" fill="#555" font-size="11">So instead of updating the old pair, we just push a new one and ignore the stale leftover on pop.</text>
+  <rect x="30" y="648" width="800" height="100" rx="8" fill="#fff3e0" stroke="#e67e22" stroke-width="1.5"/>
+  <text x="430" y="670" text-anchor="middle" fill="#e67e22" font-size="13" font-weight="bold">Why the Skip Is Necessary</text>
+  <text x="430" y="690" text-anchor="middle" fill="#555" font-size="11">If we didn't skip, Step 4 would re-run relaxation for B using the old, worse distance of 5.</text>
+  <text x="430" y="706" text-anchor="middle" fill="#555" font-size="11">It wouldn't break correctness (the <tspan font-family="Consolas, monospace">&lt;</tspan> test still rejects worse paths), but it wastes work.</text>
+  <text x="430" y="726" text-anchor="middle" fill="#2c3e50" font-size="11" font-weight="bold">std::priority_queue has no "decrease-key" operation.</text>
+  <text x="430" y="740" text-anchor="middle" fill="#555" font-size="11">So instead of updating the old pair, we just push a new one and ignore the stale leftover on pop.</text>
 
   <!-- ===== FOOTER ===== -->
-  <rect x="30" y="622" width="800" height="60" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
-  <text x="430" y="642" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">Rule of thumb</text>
-  <text x="430" y="660" text-anchor="middle" fill="#555" font-size="11">When you pop (d, u), the first check is always: "is this still the best distance I know for u?"</text>
-  <text x="430" y="676" text-anchor="middle" fill="#555" font-size="11">If not, the pair is a leftover from before we found a shorter path &#x2014; throw it away.</text>
+  <rect x="30" y="758" width="800" height="60" rx="8" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+  <text x="430" y="778" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">Rule of thumb</text>
+  <text x="430" y="796" text-anchor="middle" fill="#555" font-size="11">When you pop (d, u), the first check is always: "is this still the best distance I know for u?"</text>
+  <text x="430" y="812" text-anchor="middle" fill="#555" font-size="11">If not, the pair is a leftover from before we found a shorter path &#x2014; throw it away.</text>
 </svg>
