@@ -1,0 +1,245 @@
+name: Autograding Tests
+on:
+  - push
+  - repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build Project
+      continue-on-error: true
+      run: |
+        cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+        cmake --build build --config Release
+
+    - name: Build Check (0 points)
+      id: build
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Build Check (0 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            echo "Build successful"
+          else
+            echo "Build failed" && exit 1
+          fi
+        timeout: 10
+        max-score: 0
+
+    # ==================== Constructor (2 points) ====================
+
+    - name: Constructor - Empty Graph (2 points)
+      id: constructor
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Constructor - Empty Graph (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=WGraphConstructor.Empty
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    # ==================== add_edge (5 points) ====================
+
+    - name: add_edge - Creates Vertices (2 points)
+      id: add-edge-creates
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: add_edge - Creates Vertices (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=WGraphAdd.EdgeCreatesVertices
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: add_edge - Full Graph Counts (3 points)
+      id: add-edge-full
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: add_edge - Full Graph Counts (3 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=WGraphAdd.FullGraph
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 3
+
+    # ==================== Dijkstra's (12 points) ====================
+
+    - name: Dijkstra - Source Distance Zero (2 points)
+      id: dijkstra-source
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Dijkstra - Source Distance Zero (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=Dijkstra.SourceDistanceZero
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Dijkstra - Direct Edge Distances (3 points)
+      id: dijkstra-direct
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Dijkstra - Direct Edge Distances (3 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=Dijkstra.DirectEdge
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 3
+
+    - name: Dijkstra - Shortest Via Relaxation (3 points)
+      id: dijkstra-relax
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Dijkstra - Shortest Via Relaxation (3 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=Dijkstra.ShortestViaShorterPath
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 3
+
+    - name: Dijkstra - All Vertices Reachable (2 points)
+      id: dijkstra-all
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Dijkstra - All Vertices Reachable (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=Dijkstra.AllVerticesReachable
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Dijkstra - Single Vertex (2 points)
+      id: dijkstra-single
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Dijkstra - Single Vertex (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=Dijkstra.SingleVertex
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    # ==================== Prim's MST (11 points) ====================
+
+    - name: Prim's - Correct Edge Count (2 points)
+      id: prims-count
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Prim's - Correct Edge Count (2 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=PrimsMST.CorrectEdgeCount
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 2
+
+    - name: Prim's - Minimum Total Weight (3 points)
+      id: prims-weight
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Prim's - Minimum Total Weight (3 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=PrimsMST.MinimumTotalWeight
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 3
+
+    - name: Prim's - All Vertices Connected (3 points)
+      id: prims-connected
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Prim's - All Vertices Connected (3 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=PrimsMST.AllVerticesConnected
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 3
+
+    - name: Prim's - Single Vertex (3 points)
+      id: prims-single
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Prim's - Single Vertex (3 points)
+        setup-command: ''
+        command: |
+          if [ -f build/run_tests ]; then
+            cd build && ./run_tests --gtest_filter=PrimsMST.SingleVertex
+          else
+            exit 1
+          fi
+        timeout: 10
+        max-score: 3
+
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        BUILD_RESULTS:              "${{steps.build.outputs.result}}"
+        CONSTRUCTOR_RESULTS:        "${{steps.constructor.outputs.result}}"
+        ADD-EDGE-CREATES_RESULTS:   "${{steps.add-edge-creates.outputs.result}}"
+        ADD-EDGE-FULL_RESULTS:      "${{steps.add-edge-full.outputs.result}}"
+        DIJKSTRA-SOURCE_RESULTS:    "${{steps.dijkstra-source.outputs.result}}"
+        DIJKSTRA-DIRECT_RESULTS:    "${{steps.dijkstra-direct.outputs.result}}"
+        DIJKSTRA-RELAX_RESULTS:     "${{steps.dijkstra-relax.outputs.result}}"
+        DIJKSTRA-ALL_RESULTS:       "${{steps.dijkstra-all.outputs.result}}"
+        DIJKSTRA-SINGLE_RESULTS:    "${{steps.dijkstra-single.outputs.result}}"
+        PRIMS-COUNT_RESULTS:        "${{steps.prims-count.outputs.result}}"
+        PRIMS-WEIGHT_RESULTS:       "${{steps.prims-weight.outputs.result}}"
+        PRIMS-CONNECTED_RESULTS:    "${{steps.prims-connected.outputs.result}}"
+        PRIMS-SINGLE_RESULTS:       "${{steps.prims-single.outputs.result}}"
+      with:
+        runners: build,constructor,add-edge-creates,add-edge-full,dijkstra-source,dijkstra-direct,dijkstra-relax,dijkstra-all,dijkstra-single,prims-count,prims-weight,prims-connected,prims-single
