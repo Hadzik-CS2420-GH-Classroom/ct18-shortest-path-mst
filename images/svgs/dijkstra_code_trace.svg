@@ -111,7 +111,7 @@
   <rect x="30" y="376" width="840" height="54" fill="#f0faf0"/>
   <text x="60" y="406" text-anchor="middle" fill="#8e44ad" font-size="11" font-weight="bold">2</text>
   <text x="220" y="392" text-anchor="middle" fill="#555" font-size="10">Pop (2,C). d=2 == dist[C] &#x2713;</text>
-  <text x="220" y="406" text-anchor="middle" fill="#555" font-size="10">C&#x2192;A(2): 2+2&lt;0? no. &nbsp; C&#x2192;B(3): 2+3&lt;4? no.</text>
+  <text x="220" y="406" text-anchor="middle" fill="#555" font-size="10">C&#x2192;A(2): 2+2&lt;0? no. &#x00A0; C&#x2192;B(3): 2+3&lt;4? no.</text>
   <text x="220" y="420" text-anchor="middle" fill="#555" font-size="10">C&#x2192;E(1): 2+1&lt;&#x221E; &#x2192; dist[E]=3, push (3,E)</text>
   <text x="540" y="406" text-anchor="middle" fill="#8e44ad" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(3,E), (4,B)]</text>
   <text x="760" y="406" text-anchor="middle" fill="#555" font-size="9" font-family="Consolas, monospace">{A:0, B:4, C:2, D:&#x221E;, E:3}</text>
@@ -129,7 +129,7 @@
   <rect x="30" y="492" width="840" height="54" fill="#f0faf0"/>
   <text x="60" y="522" text-anchor="middle" fill="#2980b9" font-size="11" font-weight="bold">4</text>
   <text x="220" y="508" text-anchor="middle" fill="#555" font-size="10">Pop (4,B). d=4 == dist[B] &#x2713;</text>
-  <text x="220" y="522" text-anchor="middle" fill="#555" font-size="10">B&#x2192;A(4): no. &nbsp; B&#x2192;C(3): 4+3&lt;2? no.</text>
+  <text x="220" y="522" text-anchor="middle" fill="#555" font-size="10">B&#x2192;A(4): no. &#x00A0; B&#x2192;C(3): 4+3&lt;2? no.</text>
   <text x="220" y="536" text-anchor="middle" fill="#555" font-size="10">B&#x2192;D(5): 4+5=9 &lt; 6? no. No updates.</text>
   <text x="540" y="522" text-anchor="middle" fill="#2980b9" font-size="10" font-weight="bold" font-family="Consolas, monospace">[(6,D)]</text>
   <text x="760" y="522" text-anchor="middle" fill="#555" font-size="9" font-family="Consolas, monospace">{A:0, B:4, C:2, D:6, E:3}</text>
