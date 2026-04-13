@@ -41,19 +41,23 @@ void WeightedGraph::add_edge(const std::string& from, const std::string& to, int
 // 3. Queries
 // =============================================================================
 
+// Provided — identical to CT17's Graph::has_vertex.
 bool WeightedGraph::has_vertex(const std::string& vertex) const {
-    // TODO
-    return false;
+    return adj_list_.count(vertex) > 0;
 }
 
+// Provided — identical to CT17's Graph::vertex_count.
 int WeightedGraph::vertex_count() const {
-    // TODO
-    return 0;
+    return static_cast<int>(adj_list_.size());
 }
 
+// Provided — identical to CT17's Graph::edge_count.
 int WeightedGraph::edge_count() const {
-    // TODO: sum sizes of all edge lists, divide by 2 (undirected)
-    return 0;
+    int total = 0;
+    for (const auto& [vertex, edges] : adj_list_) {
+        total += static_cast<int>(edges.size());
+    }
+    return total / 2;
 }
 
 // =============================================================================
