@@ -1,10 +1,10 @@
 {
   "assignment": {
-    "canvas_title": "👨‍💻 Code-Together 17: Shortest Path & MST",
+    "canvas_title": "👨‍💻 Code-Together 18: Shortest Path & MST",
     "points_possible": 30,
     "submission_types": ["online_url"],
     "github_classroom": true,
     "github_classroom_url": "",
-    "executable_name": "ct18-shortest-path-mst"
+    "executable_name": "ct18-shortest-path-mst.exe"
   }
 }
