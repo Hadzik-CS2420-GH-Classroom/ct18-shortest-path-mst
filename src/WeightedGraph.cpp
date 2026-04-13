@@ -83,17 +83,17 @@ int WeightedGraph::edge_count() const {
 std::unordered_map<std::string, int>
 WeightedGraph::dijkstra(const std::string& source) const {
     std::unordered_map<std::string, int> dist;
-    // TODO: implement Dijkstra's using a priority queue
+    // TODO: implement Dijkstra's — step numbers match the SVG rows
     //
-    // 1. Initialize all distances to std::numeric_limits<int>::max()
-    //    dist[source] = 0
+    // 1. Initialize every vertex's dist to INT_MAX, guard against a missing
+    //    source (return dist early), then set dist[source] = 0
     // 2. Declare a min-heap of (distance, vertex) pairs using std::greater
-    // 3. Push {0, source}
-    // 4. While the heap is not empty:
-    //    a. Pop the smallest (d, u)
-    //    b. If d > dist[u], `continue;` (stale entry)
-    //    c. For each edge {v, w} in adj_list_.at(u):
-    //         if dist[u] + w < dist[v], update dist[v] and push {dist[v], v}
+    // 3. Seed the heap: pq.push({0, source})
+    // 4. Main loop — while the heap is not empty:
+    //      pop (d, u) with pq.top() / pq.pop()
+    // 5. Stale-entry skip: if (d > dist[u]) continue;
+    // 6. Relax every edge {v, w} in adj_list_.at(u):
+    //      if dist[u] + w < dist[v], update dist[v] and push {dist[v], v}
     return dist;
 }
 
@@ -119,18 +119,17 @@ std::pair<std::vector<std::tuple<std::string, std::string, int>>, int>
 WeightedGraph::prims_mst(const std::string& start) const {
     std::vector<std::tuple<std::string, std::string, int>> mst_edges;
     int total_weight = 0;
-    // TODO: implement Prim's using a priority queue
+    // TODO: implement Prim's — step numbers match the SVG rows
     //
     // 1. Put `start` in an unordered_set<string> in_mst
     // 2. Declare a min-heap of (weight, from, to) tuples using std::greater
     // 3. Seed the heap with every edge leaving `start`: pq.push({w, start, v})
-    // 4. While pq not empty AND in_mst.size() < V:
-    //    a. Pop the cheapest tuple (w, from, to)
-    //    b. If in_mst already contains `to`, `continue;` (would form a cycle)
-    //    c. Append {from, to, w} to mst_edges; add w to total_weight
-    //    d. Insert `to` into in_mst
-    //    e. For each edge {v, nw} in adj_list_.at(to):
-    //         if v is NOT in in_mst, pq.push({nw, to, v})
+    // 4. Main loop — while pq not empty AND in_mst.size() < V:
+    //      pop the cheapest tuple (w, from, to)
+    // 5. Cycle skip: if in_mst already contains `to`, continue;
+    // 6. Accept: append {from, to, w} to mst_edges, add w to total_weight,
+    //    insert `to` into in_mst, then push every edge {v, nw} from `to`
+    //    into the heap (only when v is NOT in in_mst)
     return {mst_edges, total_weight};
 }
 
