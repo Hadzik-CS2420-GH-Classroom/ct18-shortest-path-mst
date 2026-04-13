@@ -1,127 +1,154 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 640" font-family="'Segoe UI', Arial, sans-serif">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 820" font-family="'Segoe UI', Arial, sans-serif">
   <rect width="100%" height="100%" fill="white"/>
 
   <!-- Title -->
   <text x="430" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">prims_mst() &#x2014; Min-Heap MST Growth</text>
-  <text x="430" y="48" text-anchor="middle" fill="#777" font-size="13">Grow the MST one vertex at a time by always adding the cheapest crossing edge</text>
+  <text x="430" y="48" text-anchor="middle" fill="#777" font-size="13">One code block per conceptual step &#x2014; grow the MST one edge at a time</text>
 
   <!-- Column headers -->
   <text x="210" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">CODE</text>
   <text x="650" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">WHAT HAPPENS</text>
 
+  <!-- ===== SETUP SECTION LABEL ===== -->
+  <text x="30" y="92" font-size="10" fill="#2980b9" font-weight="bold" font-style="italic">Setup: start vertex, priority queue, seed frontier</text>
+
   <!-- Row backgrounds -->
-  <rect x="20" y="78" width="820" height="54" fill="#f9f9f9"/>
-  <rect x="20" y="132" width="820" height="58" fill="white"/>
-  <rect x="20" y="190" width="820" height="58" fill="#f9f9f9"/>
-  <rect x="20" y="248" width="820" height="58" fill="white"/>
-  <rect x="20" y="306" width="820" height="54" fill="#f9f9f9"/>
-  <rect x="20" y="360" width="820" height="110" fill="white"/>
+  <rect x="20" y="98" width="820" height="48" fill="#f9f9f9"/>
+  <rect x="20" y="146" width="820" height="48" fill="white"/>
+  <rect x="20" y="194" width="820" height="64" fill="#f9f9f9"/>
+  <rect x="20" y="258" width="820" height="56" fill="white"/>
 
   <!-- ===== ROW 1: Init MST set ===== -->
-  <rect x="30" y="86" width="380" height="40" rx="4" fill="#2d2d2d"/>
+  <rect x="30" y="106" width="380" height="30" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
-    <tspan x="40" y="102" fill="#4ec9b0">unordered_set</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">&gt; </tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">;</tspan>
-    <tspan x="40" y="118" fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">insert</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">);</tspan>
+    <tspan x="40" y="126" fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">insert</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">);</tspan>
   </text>
 
-  <line x1="410" y1="106" x2="458" y2="106" stroke="#bdc3c7" stroke-width="1.5"/>
-  <polygon points="458,102 466,106 458,110" fill="#bdc3c7"/>
+  <line x1="410" y1="121" x2="458" y2="121" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,117 466,121 458,125" fill="#bdc3c7"/>
 
-  <text x="476" y="102" font-size="11" fill="#555"><tspan font-weight="bold">Start the MST with one vertex.</tspan></text>
-  <text x="476" y="118" font-size="11" fill="#555">Prim's is about growing the set &#x2014; any starting</text>
-  <text x="476" y="132" font-size="11" fill="#555">vertex produces the same total weight.</text>
+  <text x="476" y="118" font-size="11" fill="#555"><tspan font-weight="bold">Start the MST with one vertex.</tspan> Any starting</text>
+  <text x="476" y="134" font-size="11" fill="#555">vertex gives the same total weight in the end.</text>
 
-  <!-- ===== ROW 2: Min-heap of edge tuples ===== -->
-  <rect x="30" y="140" width="380" height="50" rx="4" fill="#2d2d2d"/>
+  <!-- ===== ROW 2: pq declaration ===== -->
+  <rect x="30" y="154" width="380" height="32" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="9">
-    <tspan x="40" y="154" fill="#4ec9b0">priority_queue</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">tuple</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">,</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">,</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">&gt;,</tspan>
-    <tspan x="60" y="168" fill="#4ec9b0">vector</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">tuple</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">,</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">,</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">&gt;&gt;,</tspan>
-    <tspan x="60" y="182" fill="#4ec9b0">greater</tspan><tspan fill="#ddd">&lt;&gt;&gt; </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">;</tspan>
+    <tspan x="40" y="166" fill="#4ec9b0">priority_queue</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">tuple</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">, </tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">, </tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">&gt;,</tspan>
+    <tspan x="60" y="180" fill="#ddd">...</tspan><tspan fill="#ddd">, </tspan><tspan fill="#4ec9b0">greater</tspan><tspan fill="#ddd">&lt;&gt;&gt; </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">;</tspan>
   </text>
 
-  <line x1="410" y1="161" x2="458" y2="161" stroke="#bdc3c7" stroke-width="1.5"/>
-  <polygon points="458,157 466,161 458,165" fill="#bdc3c7"/>
+  <line x1="410" y1="170" x2="458" y2="170" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,166 466,170 458,174" fill="#bdc3c7"/>
 
-  <text x="476" y="154" font-size="11" fill="#27ae60" font-weight="bold">Min-heap</text>
-  <text x="476" y="154" font-size="11" fill="#555" dx="55"> of (weight, from, to) tuples.</text>
-  <text x="476" y="170" font-size="11" fill="#555">Unlike Dijkstra, we store the full <tspan font-weight="bold">edge</tspan> &#x2014; we</text>
-  <text x="476" y="186" font-size="11" fill="#555">need <tspan font-family="Consolas, monospace" font-size="10">from</tspan> to record it in the MST output.</text>
+  <text x="476" y="162" font-size="11" fill="#27ae60" font-weight="bold">Min-heap of (weight, from, to) tuples.</text>
+  <text x="476" y="178" font-size="11" fill="#555">Unlike Dijkstra, we store the full <tspan font-weight="bold">edge</tspan> &#x2014; we need <tspan font-family="Consolas, monospace" font-size="10">from</tspan></text>
+  <text x="476" y="194" font-size="11" fill="#555">to record it in the MST output.</text>
 
-  <!-- ===== ROW 3: Seed ===== -->
-  <rect x="30" y="198" width="380" height="44" rx="4" fill="#2d2d2d"/>
+  <!-- ===== ROW 3: Seed frontier ===== -->
+  <rect x="30" y="202" width="380" height="48" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
-    <tspan x="40" y="214" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">))</tspan>
-    <tspan x="60" y="230" fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">});</tspan>
+    <tspan x="40" y="218" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">)) {</tspan>
+    <tspan x="60" y="234" fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">weight</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">start</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">});</tspan>
   </text>
 
-  <line x1="410" y1="215" x2="458" y2="215" stroke="#bdc3c7" stroke-width="1.5"/>
-  <polygon points="458,211 466,215 458,219" fill="#bdc3c7"/>
+  <line x1="410" y1="226" x2="458" y2="226" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,222 466,226 458,230" fill="#bdc3c7"/>
 
-  <text x="476" y="210" font-size="11" fill="#555"><tspan font-weight="bold">Seed the frontier.</tspan> Every edge leaving</text>
-  <text x="476" y="226" font-size="11" fill="#555"><tspan font-family="Consolas, monospace" font-size="10">start</tspan> is a candidate crossing edge &#x2014;</text>
-  <text x="476" y="242" font-size="11" fill="#555">push all of them into the heap.</text>
+  <text x="476" y="214" font-size="11" fill="#555"><tspan font-weight="bold">Seed the frontier.</tspan> Every edge leaving</text>
+  <text x="476" y="230" font-size="11" fill="#555"><tspan font-family="Consolas, monospace" font-size="10">start</tspan> is a candidate crossing edge &#x2014; push</text>
+  <text x="476" y="246" font-size="11" fill="#555">all of them into the heap at once.</text>
 
-  <!-- ===== ROW 4: Main loop pop ===== -->
-  <text x="30" y="262" font-size="10" fill="#555" font-style="italic">Main loop: pop the cheapest crossing edge</text>
-
-  <rect x="30" y="268" width="380" height="34" rx="4" fill="#2d2d2d"/>
+  <!-- ===== ROW 4: vertex_count ===== -->
+  <rect x="30" y="266" width="380" height="30" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
-    <tspan x="40" y="282" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">empty</tspan><tspan fill="#ddd">() &amp;&amp; </tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">size</tspan><tspan fill="#ddd">() &lt; V) {</tspan>
-    <tspan x="60" y="296" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">from</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
+    <tspan x="40" y="286" fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd"> </tspan><tspan fill="#9cdcfe">V</tspan><tspan fill="#ddd"> = </tspan><tspan fill="#dcdcaa">vertex_count</tspan><tspan fill="#ddd">();</tspan>
   </text>
 
-  <line x1="410" y1="285" x2="458" y2="285" stroke="#bdc3c7" stroke-width="1.5"/>
-  <polygon points="458,281 466,285 458,289" fill="#bdc3c7"/>
+  <line x1="410" y1="281" x2="458" y2="281" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,277 466,281 458,285" fill="#bdc3c7"/>
 
-  <text x="476" y="278" font-size="11" fill="#27ae60" font-weight="bold">Pop the cheapest edge.</text>
-  <text x="476" y="294" font-size="11" fill="#555">Destructure into weight <tspan font-family="Consolas, monospace" font-size="10">w</tspan>, endpoint <tspan font-family="Consolas, monospace" font-size="10">from</tspan></text>
-  <text x="476" y="310" font-size="11" fill="#555">(already in MST), and endpoint <tspan font-family="Consolas, monospace" font-size="10">to</tspan>.</text>
+  <text x="476" y="278" font-size="11" fill="#555"><tspan font-weight="bold">Cache V.</tspan> We'll stop once the MST set</text>
+  <text x="476" y="294" font-size="11" fill="#555">contains all V vertices (V-1 accepted edges).</text>
 
-  <!-- ===== ROW 5: Cycle skip ===== -->
-  <text x="30" y="322" font-size="10" fill="#555" font-style="italic">Skip edges that would form a cycle</text>
+  <!-- ===== MAIN LOOP SECTION LABEL ===== -->
+  <text x="30" y="326" font-size="10" fill="#8e44ad" font-weight="bold" font-style="italic">Main loop: pop cheapest, skip cycles, accept and grow</text>
 
-  <rect x="30" y="328" width="380" height="26" rx="4" fill="#2d2d2d"/>
+  <!-- Main-loop row backgrounds -->
+  <rect x="20" y="332" width="820" height="58" fill="#f9f9f9"/>
+  <rect x="20" y="390" width="820" height="48" fill="white"/>
+  <rect x="20" y="438" width="820" height="56" fill="#f9f9f9"/>
+  <rect x="20" y="494" width="820" height="64" fill="white"/>
+
+  <!-- ===== ROW 5: while + pop ===== -->
+  <rect x="30" y="340" width="380" height="40" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="9">
+    <tspan x="40" y="356" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">empty</tspan><tspan fill="#ddd">() &amp;&amp; </tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">size</tspan><tspan fill="#ddd">() &lt; </tspan><tspan fill="#9cdcfe">V</tspan><tspan fill="#ddd">) {</tspan>
+    <tspan x="60" y="372" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">from</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
+  </text>
+
+  <line x1="410" y1="360" x2="458" y2="360" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,356 466,360 458,364" fill="#bdc3c7"/>
+
+  <text x="476" y="350" font-size="11" fill="#27ae60" font-weight="bold">Pop the cheapest crossing edge.</text>
+  <text x="476" y="366" font-size="11" fill="#555">Loop exits when we've added all V vertices or</text>
+  <text x="476" y="382" font-size="11" fill="#555">run out of candidates.</text>
+
+  <!-- ===== ROW 6: Cycle skip ===== -->
+  <rect x="30" y="398" width="380" height="30" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
-    <tspan x="60" y="346" fill="#c586c0">if</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">count</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">)) </tspan><tspan fill="#c586c0">continue</tspan><tspan fill="#ddd">;</tspan>
+    <tspan x="40" y="418" fill="#c586c0">if</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">count</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">)) </tspan><tspan fill="#c586c0">continue</tspan><tspan fill="#ddd">;</tspan>
   </text>
 
-  <line x1="410" y1="341" x2="458" y2="341" stroke="#bdc3c7" stroke-width="1.5"/>
-  <polygon points="458,337 466,341 458,345" fill="#bdc3c7"/>
+  <line x1="410" y1="413" x2="458" y2="413" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,409 466,413 458,417" fill="#bdc3c7"/>
 
-  <text x="476" y="336" font-size="11" fill="#c0392b" font-weight="bold">Cycle-skip rule.</text>
-  <text x="476" y="352" font-size="11" fill="#555">If <tspan font-family="Consolas, monospace" font-size="10">to</tspan> is already in the MST, adding this edge</text>
-  <text x="476" y="368" font-size="11" fill="#555">would create a cycle &#x2014; throw it away.</text>
+  <text x="476" y="410" font-size="11" fill="#c0392b" font-weight="bold">Cycle skip.</text>
+  <text x="476" y="426" font-size="11" fill="#555">If <tspan font-family="Consolas, monospace" font-size="10">to</tspan> is already in the MST, this edge would close a cycle &#x2014; discard.</text>
 
-  <!-- ===== ROW 6: Accept edge, push frontier ===== -->
-  <text x="30" y="380" font-size="10" fill="#555" font-style="italic">Otherwise: accept this edge and grow the frontier</text>
-
-  <rect x="30" y="386" width="380" height="80" rx="4" fill="#2d2d2d"/>
+  <!-- ===== ROW 7: Record accepted edge ===== -->
+  <rect x="30" y="446" width="380" height="48" rx="4" fill="#2d2d2d"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
-    <tspan x="60" y="402" fill="#9cdcfe">mst_edges</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push_back</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">from</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">});</tspan>
-    <tspan x="60" y="416" fill="#9cdcfe">total_weight</tspan><tspan fill="#ddd"> += </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">;</tspan>
-    <tspan x="60" y="430" fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">insert</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">);</tspan>
-    <tspan x="60" y="444" fill="#c586c0">for</tspan><tspan fill="#ddd"> ([</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">nw</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">))</tspan>
-    <tspan x="80" y="458" fill="#c586c0">if</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">count</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">)) </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">nw</tspan><tspan fill="#ddd">,</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">,</tspan><tspan fill="#9cdcfe">v</tspan><tspan fill="#ddd">});</tspan>
+    <tspan x="40" y="462" fill="#9cdcfe">mst_edges</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push_back</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">from</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">});</tspan>
+    <tspan x="40" y="478" fill="#9cdcfe">total_weight</tspan><tspan fill="#ddd"> += </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">;</tspan>
+    <tspan x="40" y="494" fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">insert</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">);</tspan>
   </text>
 
-  <line x1="410" y1="423" x2="458" y2="423" stroke="#bdc3c7" stroke-width="1.5"/>
-  <polygon points="458,419 466,423 458,427" fill="#bdc3c7"/>
+  <line x1="410" y1="470" x2="458" y2="470" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,466 466,470 458,474" fill="#bdc3c7"/>
 
-  <text x="476" y="398" font-size="11" fill="#27ae60" font-weight="bold">Record the edge.</text>
-  <text x="476" y="398" font-size="11" fill="#555" dx="98"> Add to output vector</text>
-  <text x="476" y="414" font-size="11" fill="#555">and bump the total.</text>
-  <text x="476" y="430" font-size="11" fill="#2c3e50" font-weight="bold">Mark <tspan font-family="Consolas, monospace" font-size="10">to</tspan> as now in the MST.</text>
-  <text x="476" y="446" font-size="11" fill="#555">Grow the frontier: every edge from <tspan font-family="Consolas, monospace" font-size="10">to</tspan> to a</text>
-  <text x="476" y="462" font-size="11" fill="#555">non-MST vertex becomes a new candidate.</text>
+  <text x="476" y="456" font-size="11" fill="#27ae60" font-weight="bold">Accept the edge.</text>
+  <text x="476" y="472" font-size="11" fill="#555">&#x2022; record it in the output vector</text>
+  <text x="476" y="488" font-size="11" fill="#555">&#x2022; bump the running total</text>
+  <text x="476" y="504" font-size="11" fill="#555">&#x2022; mark <tspan font-family="Consolas, monospace" font-size="10">to</tspan> as now in the MST</text>
+
+  <!-- ===== ROW 8: Grow frontier ===== -->
+  <rect x="30" y="502" width="380" height="48" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="518" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">)) {</tspan>
+    <tspan x="60" y="534" fill="#c586c0">if</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">count</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">))</tspan>
+    <tspan x="80" y="550" fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">weight</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">});</tspan>
+  </text>
+
+  <line x1="410" y1="534" x2="458" y2="534" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,530 466,534 458,538" fill="#bdc3c7"/>
+
+  <text x="476" y="516" font-size="11" fill="#2c3e50" font-weight="bold">Grow the frontier.</text>
+  <text x="476" y="532" font-size="11" fill="#555">Every edge from <tspan font-family="Consolas, monospace" font-size="10">to</tspan> to a non-MST vertex</text>
+  <text x="476" y="548" font-size="11" fill="#555">becomes a new candidate crossing edge.</text>
 
   <!-- ===== FOOTER ===== -->
-  <rect x="30" y="482" width="800" height="150" rx="8" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
-  <text x="430" y="504" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">Why Prim's Builds a Minimum Spanning Tree</text>
-  <text x="430" y="524" text-anchor="middle" fill="#555" font-size="12">At every step, the heap's top is the cheapest edge crossing from the MST set to the outside.</text>
-  <text x="430" y="542" text-anchor="middle" fill="#555" font-size="12">The <tspan font-style="italic">cut property</tspan> says: that edge is always safe to include in some MST.</text>
+  <rect x="30" y="570" width="800" height="240" rx="8" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="430" y="594" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">Why Prim's Builds a Minimum Spanning Tree</text>
+  <text x="430" y="614" text-anchor="middle" fill="#555" font-size="12">At every step, the heap's top is the cheapest edge crossing from the MST set to the outside.</text>
+  <text x="430" y="632" text-anchor="middle" fill="#555" font-size="12">The <tspan font-style="italic">cut property</tspan> says: that edge is always safe to include in some MST.</text>
 
-  <text x="430" y="570" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">Differences from Dijkstra</text>
-  <text x="430" y="588" text-anchor="middle" fill="#555" font-size="11">&#x2022; Tuple has <tspan font-weight="bold">3</tspan> fields (w, from, to) &#x2014; we need <tspan font-family="Consolas, monospace">from</tspan> to record the MST edge.</text>
-  <text x="430" y="604" text-anchor="middle" fill="#555" font-size="11">&#x2022; Skip rule is "is <tspan font-family="Consolas, monospace">to</tspan> already in the set?" instead of "is this distance stale?"</text>
-  <text x="430" y="620" text-anchor="middle" fill="#888" font-size="10">Stop after V&#x2212;1 edges. Complexity: O((V + E) log V).</text>
+  <text x="430" y="662" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">Differences from Dijkstra</text>
+  <text x="430" y="680" text-anchor="middle" fill="#555" font-size="11">&#x2022; Tuple has <tspan font-weight="bold">3</tspan> fields (w, from, to) &#x2014; we need <tspan font-family="Consolas, monospace">from</tspan> to record the MST edge.</text>
+  <text x="430" y="696" text-anchor="middle" fill="#555" font-size="11">&#x2022; Skip rule is "is <tspan font-family="Consolas, monospace">to</tspan> already in the set?" instead of "is this distance stale?"</text>
+  <text x="430" y="712" text-anchor="middle" fill="#555" font-size="11">&#x2022; Stop after V&#x2212;1 edges; Dijkstra drains the whole heap.</text>
+
+  <text x="430" y="740" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">Cycle skip vs push-time filter</text>
+  <text x="430" y="758" text-anchor="middle" fill="#555" font-size="11">The row-8 push-time filter (<tspan font-family="Consolas, monospace">if (!in_mst.count(edge.to))</tspan>) catches most cycles up front.</text>
+  <text x="430" y="774" text-anchor="middle" fill="#555" font-size="11">The row-6 pop-time skip handles the rest: an edge pushed earlier becomes a cycle later.</text>
+  <text x="430" y="794" text-anchor="middle" fill="#888" font-size="10">Complexity: O((V + E) log V).</text>
 </svg>
