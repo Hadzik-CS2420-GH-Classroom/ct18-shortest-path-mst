@@ -8,7 +8,7 @@
   <!-- ===== FULL CODE BLOCK ===== -->
   <rect x="30" y="66" width="500" height="90" rx="8" fill="#1e1e1e"/>
   <text font-family="Consolas, 'Courier New', monospace" font-size="10">
-    <tspan x="50" y="86" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">pq</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
+    <tspan x="50" y="86" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
     <tspan x="50" y="106" fill="#e67e22" font-weight="bold">if (d &gt; dist[u]) continue;</tspan>
     <tspan x="50" y="126" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">)) {</tspan>
     <tspan x="70" y="146" fill="#888">/* relaxation */</tspan>
@@ -44,14 +44,14 @@
   <rect x="30" y="212" width="800" height="26" rx="6" fill="#27ae60"/>
   <text x="60" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Step</text>
   <text x="200" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Action</text>
-  <text x="450" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">pq (min-heap)</text>
+  <text x="450" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">min_heap (min-heap)</text>
   <text x="670" y="230" text-anchor="middle" fill="white" font-size="10" font-weight="bold">dist</text>
 
   <!-- Step 0: Seed -->
   <rect x="30" y="242" width="800" height="36" fill="#f0faf0"/>
   <text x="60" y="264" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">0</text>
   <text x="200" y="258" text-anchor="middle" fill="#555" font-size="10">Seed source A at distance 0</text>
-  <text x="200" y="272" text-anchor="middle" fill="#888" font-size="9" font-style="italic">pq.push({0, "A"})</text>
+  <text x="200" y="272" text-anchor="middle" fill="#888" font-size="9" font-style="italic">min_heap.push({0, "A"})</text>
   <text x="450" y="264" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold" font-family="Consolas, monospace">[(0,A)]</text>
   <text x="670" y="264" text-anchor="middle" fill="#555" font-size="10" font-family="Consolas, monospace">{A:0, B:&#x221E;, C:&#x221E;}</text>
 

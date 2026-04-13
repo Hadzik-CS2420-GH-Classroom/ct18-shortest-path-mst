@@ -38,7 +38,7 @@
   <!-- ===== CALLOUT: How pop() works ===== -->
   <rect x="30" y="200" width="840" height="64" rx="10" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
   <text x="450" y="220" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">How does the trace know which vertex to pop next?</text>
-  <text x="450" y="238" text-anchor="middle" fill="#555" font-size="11">The min-heap always returns its smallest element &#x2014; <tspan font-family="Consolas, monospace" font-size="10">pq.top()</tspan> gives it, <tspan font-family="Consolas, monospace" font-size="10">pq.pop()</tspan> removes it. There's no separate "find minimum" step.</text>
+  <text x="450" y="238" text-anchor="middle" fill="#555" font-size="11">The min-heap always returns its smallest element &#x2014; <tspan font-family="Consolas, monospace" font-size="10">min_heap.top()</tspan> gives it, <tspan font-family="Consolas, monospace" font-size="10">min_heap.pop()</tspan> removes it. There's no separate "find minimum" step.</text>
   <text x="450" y="254" text-anchor="middle" fill="#555" font-size="11">Example: after step 1 pushes <tspan font-family="Consolas, monospace" font-size="10">{4, B}</tspan> and <tspan font-family="Consolas, monospace" font-size="10">{2, C}</tspan>, step 2 pops <tspan font-family="Consolas, monospace" font-size="10">{2, C}</tspan> &#x2014; 2 is the smallest key sitting at the top of the heap.</text>
 
   <!-- ===== TRACE ===== -->

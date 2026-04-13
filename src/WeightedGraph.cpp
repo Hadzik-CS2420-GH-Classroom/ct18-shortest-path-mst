@@ -94,27 +94,29 @@ WeightedGraph::dijkstra(const std::string& source) const {
     // 4. Seed the source
     dist[source] = 0;
 
-    // 5. Min-heap of (distance, vertex) pairs
+    // 5. Type alias for (distance, vertex) pairs — keeps the next line readable
     using Pair = std::pair<int, std::string>;
-    std::priority_queue<Pair, std::vector<Pair>, std::greater<Pair>> pq;
 
-    // 6. Seed the heap with the source at distance 0
-    pq.push({0, source});
+    // 6. Build a min-heap: std::greater flips the default max-heap to min-heap
+    std::priority_queue<Pair, std::vector<Pair>, std::greater<Pair>> min_heap;
 
-    // 7. Main loop: pop the closest unfinalized vertex
-    while (!pq.empty()) {
-        auto [d, u] = pq.top();
-        pq.pop();
+    // 7. Seed the min-heap with the source at distance 0
+    min_heap.push({0, source});
 
-        // 8. Skip stale heap entries
+    // 8. Main loop: pop the closest unfinalized vertex
+    while (!min_heap.empty()) {
+        auto [d, u] = min_heap.top();
+        min_heap.pop();
+
+        // 9. Skip stale heap entries
         if (d > dist[u]) continue;
 
-        // 9. Relax every outgoing edge from u
+        // 10. Relax every outgoing edge from u
         for (const auto& edge : adj_list_.at(u)) {
             const int new_dist = dist[u] + edge.weight;
             if (new_dist < dist[edge.to]) {
                 dist[edge.to] = new_dist;
-                pq.push({new_dist, edge.to});
+                min_heap.push({new_dist, edge.to});
             }
         }
     }
@@ -150,35 +152,37 @@ WeightedGraph::prims_mst(const std::string& start) const {
     std::unordered_set<std::string> in_mst;
     in_mst.insert(start);
 
-    // 2. Min-heap of (weight, from, to) tuples
+    // 2. Type alias for (weight, from, to) tuples
     using EdgeTuple = std::tuple<int, std::string, std::string>;
-    std::priority_queue<EdgeTuple, std::vector<EdgeTuple>, std::greater<EdgeTuple>> pq;
 
-    // 3. Seed the frontier with every edge leaving 'start'
+    // 3. Build a min-heap: std::greater flips default max-heap to min-heap
+    std::priority_queue<EdgeTuple, std::vector<EdgeTuple>, std::greater<EdgeTuple>> min_heap;
+
+    // 4. Seed the frontier with every edge leaving 'start'
     for (const auto& edge : adj_list_.at(start)) {
-        pq.push({edge.weight, start, edge.to});
+        min_heap.push({edge.weight, start, edge.to});
     }
 
-    // 4. Cache V so we can stop once the MST covers every vertex
+    // 5. Cache V so we can stop once the MST covers every vertex
     const int V = vertex_count();
 
-    // 5. Main loop: pop the cheapest crossing edge
-    while (!pq.empty() && static_cast<int>(in_mst.size()) < V) {
-        auto [w, from, to] = pq.top();
-        pq.pop();
+    // 6. Main loop: pop the cheapest crossing edge
+    while (!min_heap.empty() && static_cast<int>(in_mst.size()) < V) {
+        auto [w, from, to] = min_heap.top();
+        min_heap.pop();
 
-        // 6. Skip edges that would form a cycle
+        // 7. Skip edges that would form a cycle
         if (in_mst.count(to)) continue;
 
-        // 7. Accept the edge (record + total + mark in MST)
+        // 8. Accept the edge (record + total + mark in MST)
         mst_edges.push_back({from, to, w});
         total_weight += w;
         in_mst.insert(to);
 
-        // 8. Grow the frontier with every crossing edge from 'to'
+        // 9. Grow the frontier with every crossing edge from 'to'
         for (const auto& edge : adj_list_.at(to)) {
             if (!in_mst.count(edge.to)) {
-                pq.push({edge.weight, to, edge.to});
+                min_heap.push({edge.weight, to, edge.to});
             }
         }
     }
