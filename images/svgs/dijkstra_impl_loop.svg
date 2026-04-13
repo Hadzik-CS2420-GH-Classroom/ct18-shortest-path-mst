@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 740" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">dijkstra() &#x2014; Main Loop (Part 2 of 2)</text>
+  <text x="430" y="48" text-anchor="middle" fill="#777" font-size="13">Pop the closest vertex, skip stale entries, relax neighbors &#x2014; one code block per statement</text>
+
+  <!-- Column headers -->
+  <text x="210" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">CODE</text>
+  <text x="650" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">WHAT HAPPENS</text>
+
+  <!-- ===== Main loop header label ===== -->
+  <text x="30" y="92" font-size="10" fill="#8e44ad" font-weight="bold" font-style="italic">Loop until the min-heap is empty</text>
+
+  <!-- Row backgrounds -->
+  <rect x="20" y="98" width="820" height="56" fill="#f9f9f9"/>
+  <rect x="20" y="154" width="820" height="48" fill="white"/>
+
+  <!-- ===== ROW 1: while + pop ===== -->
+  <rect x="30" y="106" width="380" height="40" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="122" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">empty</tspan><tspan fill="#ddd">()) {</tspan>
+    <tspan x="60" y="138" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
+  </text>
+  <line x1="410" y1="126" x2="458" y2="126" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,122 466,126 458,130" fill="#bdc3c7"/>
+  <text x="476" y="116" font-size="11" fill="#27ae60" font-weight="bold">Pop the smallest-distance pair.</text>
+  <text x="476" y="132" font-size="11" fill="#555"><tspan font-family="Consolas, monospace" font-size="10">u</tspan> is the next vertex to finalize;</text>
+  <text x="476" y="148" font-size="11" fill="#555"><tspan font-family="Consolas, monospace" font-size="10">d</tspan> is the distance recorded at push time.</text>
+
+  <!-- ===== ROW 2: Stale skip ===== -->
+  <rect x="30" y="162" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="182" fill="#c586c0">if</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#9cdcfe">d</tspan><tspan fill="#ddd"> &gt; </tspan><tspan fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">]) </tspan><tspan fill="#c586c0">continue</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="177" x2="458" y2="177" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,173 466,177 458,181" fill="#bdc3c7"/>
+  <text x="476" y="174" font-size="11" fill="#c0392b" font-weight="bold">Stale-entry skip.</text>
+  <text x="476" y="190" font-size="11" fill="#555">If <tspan font-family="Consolas, monospace" font-size="10">d</tspan> is worse than what we already know, this pair is out of date (see 2a).</text>
+
+  <!-- ===== Relaxation section label ===== -->
+  <text x="30" y="216" font-size="10" fill="#27ae60" font-weight="bold" font-style="italic">Relaxation: walk every outgoing edge and check for a shorter path</text>
+
+  <!-- Row backgrounds (relaxation) -->
+  <rect x="20" y="222" width="820" height="52" fill="#f0faf0"/>
+  <rect x="20" y="274" width="820" height="52" fill="white"/>
+  <rect x="20" y="326" width="820" height="48" fill="#f0faf0"/>
+  <rect x="20" y="374" width="820" height="48" fill="white"/>
+  <rect x="20" y="422" width="820" height="48" fill="#f0faf0"/>
+
+  <!-- ===== ROW 3: for edge ===== -->
+  <rect x="30" y="230" width="380" height="34" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="250" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">)) {</tspan>
+  </text>
+  <line x1="410" y1="247" x2="458" y2="247" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,243 466,247 458,251" fill="#bdc3c7"/>
+  <text x="476" y="240" font-size="11" fill="#555"><tspan font-weight="bold">Walk the neighbor list.</tspan> Every <tspan font-family="Consolas, monospace" font-size="10">edge</tspan></text>
+  <text x="476" y="256" font-size="11" fill="#555">is an <tspan font-family="Consolas, monospace" font-size="10">Edge{to, weight}</tspan> struct &#x2014; the destination</text>
+  <text x="476" y="272" font-size="11" fill="#555">vertex plus the cost of going there.</text>
+
+  <!-- ===== ROW 4: compute new_dist ===== -->
+  <rect x="30" y="282" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="60" y="302" fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd"> </tspan><tspan fill="#9cdcfe">new_dist</tspan><tspan fill="#ddd"> = </tspan><tspan fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">u</tspan><tspan fill="#ddd">] + </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">weight</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="297" x2="458" y2="297" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,293 466,297 458,301" fill="#bdc3c7"/>
+  <text x="476" y="294" font-size="11" fill="#555"><tspan font-weight="bold">Compute the candidate distance.</tspan></text>
+  <text x="476" y="310" font-size="11" fill="#555">"If I go through <tspan font-family="Consolas, monospace" font-size="10">u</tspan>, how far is <tspan font-family="Consolas, monospace" font-size="10">edge.to</tspan>?"</text>
+
+  <!-- ===== ROW 5: improvement check ===== -->
+  <rect x="30" y="334" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="60" y="354" fill="#c586c0">if</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#9cdcfe">new_dist</tspan><tspan fill="#ddd"> &lt; </tspan><tspan fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">]) {</tspan>
+  </text>
+  <line x1="410" y1="349" x2="458" y2="349" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,345 466,349 458,353" fill="#bdc3c7"/>
+  <text x="476" y="346" font-size="11" fill="#e67e22" font-weight="bold">Is this actually shorter?</text>
+  <text x="476" y="362" font-size="11" fill="#555">Only update if going through <tspan font-family="Consolas, monospace" font-size="10">u</tspan> beats the current best.</text>
+
+  <!-- ===== ROW 6: update dist ===== -->
+  <rect x="30" y="382" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="80" y="402" fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">new_dist</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="397" x2="458" y2="397" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,393 466,397 458,401" fill="#bdc3c7"/>
+  <text x="476" y="394" font-size="11" fill="#555"><tspan font-weight="bold">Record the improvement.</tspan></text>
+  <text x="476" y="410" font-size="11" fill="#555">Overwrite the old distance for <tspan font-family="Consolas, monospace" font-size="10">edge.to</tspan>.</text>
+
+  <!-- ===== ROW 7: push new pair ===== -->
+  <rect x="30" y="430" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="80" y="450" fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">new_dist</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">});</tspan>
+  </text>
+  <line x1="410" y1="445" x2="458" y2="445" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,441 466,445 458,449" fill="#bdc3c7"/>
+  <text x="476" y="442" font-size="11" fill="#555"><tspan font-weight="bold">Queue it for later.</tspan> Push the new pair so this</text>
+  <text x="476" y="458" font-size="11" fill="#555">vertex gets reconsidered with its improved distance.</text>
+
+  <!-- ===== FOOTER ===== -->
+  <rect x="30" y="486" width="800" height="240" rx="8" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="430" y="510" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">Why Dijkstra's Is Correct</text>
+  <text x="430" y="530" text-anchor="middle" fill="#555" font-size="12">The min-heap always hands us the unfinalized vertex with the smallest known distance.</text>
+  <text x="430" y="548" text-anchor="middle" fill="#555" font-size="12">With non-negative weights, no later path can ever be cheaper &#x2014; so we can "finalize" it on pop.</text>
+
+  <text x="430" y="576" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">Key invariant</text>
+  <text x="430" y="594" text-anchor="middle" fill="#555" font-size="11">When a vertex is popped with <tspan font-family="Consolas, monospace">d == dist[u]</tspan>, that distance is final.</text>
+  <text x="430" y="610" text-anchor="middle" fill="#555" font-size="11">Stale entries (where <tspan font-family="Consolas, monospace">d &gt; dist[u]</tspan>) are leftovers from earlier, worse paths we've since beaten.</text>
+
+  <text x="430" y="638" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">Why "relaxation"?</text>
+  <text x="430" y="656" text-anchor="middle" fill="#555" font-size="11">Imagine a taut string along a path. "Relaxing" an edge lets the string slack when we find a shorter route.</text>
+  <text x="430" y="672" text-anchor="middle" fill="#555" font-size="11">Each edge can only relax dist values downward &#x2014; they never grow.</text>
+
+  <text x="430" y="698" text-anchor="middle" fill="#888" font-size="11">Complexity: O((V + E) log V) &#x2014; every edge can cause at most one heap push.</text>
+  <text x="430" y="716" text-anchor="middle" fill="#888" font-size="10" font-style="italic">Each pop is O(log V); V pops total. Each edge contributes one push: O(E log V) across the whole run.</text>
+</svg>

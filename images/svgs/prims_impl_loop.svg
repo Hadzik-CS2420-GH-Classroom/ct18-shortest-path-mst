@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 760" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">prims_mst() &#x2014; Main Loop (Part 2 of 2)</text>
+  <text x="430" y="48" text-anchor="middle" fill="#777" font-size="13">Pop cheapest, skip cycles, accept the edge, grow the frontier &#x2014; one code block per statement</text>
+
+  <!-- Column headers -->
+  <text x="210" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">CODE</text>
+  <text x="650" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">WHAT HAPPENS</text>
+
+  <!-- ===== Main loop header label ===== -->
+  <text x="30" y="92" font-size="10" fill="#8e44ad" font-weight="bold" font-style="italic">Loop while the heap is non-empty AND the MST is incomplete</text>
+
+  <!-- Row backgrounds -->
+  <rect x="20" y="98" width="820" height="58" fill="#f9f9f9"/>
+  <rect x="20" y="156" width="820" height="48" fill="white"/>
+
+  <!-- ===== ROW 1: while + pop ===== -->
+  <rect x="30" y="106" width="380" height="40" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="9">
+    <tspan x="40" y="122" fill="#c586c0">while</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">empty</tspan><tspan fill="#ddd">() &amp;&amp; </tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">size</tspan><tspan fill="#ddd">() &lt; </tspan><tspan fill="#9cdcfe">V</tspan><tspan fill="#ddd">) {</tspan>
+    <tspan x="60" y="138" fill="#ddd">auto [</tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">from</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">top</tspan><tspan fill="#ddd">(); </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">pop</tspan><tspan fill="#ddd">();</tspan>
+  </text>
+  <line x1="410" y1="126" x2="458" y2="126" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,122 466,126 458,130" fill="#bdc3c7"/>
+  <text x="476" y="116" font-size="11" fill="#27ae60" font-weight="bold">Pop the cheapest crossing edge.</text>
+  <text x="476" y="132" font-size="11" fill="#555">Destructure into weight <tspan font-family="Consolas, monospace" font-size="10">w</tspan>, endpoint <tspan font-family="Consolas, monospace" font-size="10">from</tspan></text>
+  <text x="476" y="148" font-size="11" fill="#555">(already in MST), and endpoint <tspan font-family="Consolas, monospace" font-size="10">to</tspan>.</text>
+
+  <!-- ===== ROW 2: Cycle skip ===== -->
+  <rect x="30" y="164" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="184" fill="#c586c0">if</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">count</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">)) </tspan><tspan fill="#c586c0">continue</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="179" x2="458" y2="179" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,175 466,179 458,183" fill="#bdc3c7"/>
+  <text x="476" y="176" font-size="11" fill="#c0392b" font-weight="bold">Cycle skip.</text>
+  <text x="476" y="192" font-size="11" fill="#555">If <tspan font-family="Consolas, monospace" font-size="10">to</tspan> is already in the MST, this edge would close a cycle &#x2014; discard.</text>
+
+  <!-- ===== Accept section label ===== -->
+  <text x="30" y="218" font-size="10" fill="#27ae60" font-weight="bold" font-style="italic">Accept the edge: record it, bump the total, mark the vertex</text>
+
+  <!-- Accept row backgrounds -->
+  <rect x="20" y="224" width="820" height="48" fill="#f0faf0"/>
+  <rect x="20" y="272" width="820" height="48" fill="white"/>
+  <rect x="20" y="320" width="820" height="48" fill="#f0faf0"/>
+
+  <!-- ===== ROW 3: record edge ===== -->
+  <rect x="30" y="232" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="252" fill="#9cdcfe">mst_edges</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push_back</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">from</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">});</tspan>
+  </text>
+  <line x1="410" y1="247" x2="458" y2="247" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,243 466,247 458,251" fill="#bdc3c7"/>
+  <text x="476" y="244" font-size="11" fill="#555"><tspan font-weight="bold">Record the edge.</tspan> Append <tspan font-family="Consolas, monospace" font-size="10">{from, to, w}</tspan></text>
+  <text x="476" y="260" font-size="11" fill="#555">to the output vector so the caller gets the MST edge list.</text>
+
+  <!-- ===== ROW 4: bump total ===== -->
+  <rect x="30" y="280" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="300" fill="#9cdcfe">total_weight</tspan><tspan fill="#ddd"> += </tspan><tspan fill="#9cdcfe">w</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="295" x2="458" y2="295" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,291 466,295 458,299" fill="#bdc3c7"/>
+  <text x="476" y="292" font-size="11" fill="#555"><tspan font-weight="bold">Bump the running total.</tspan></text>
+  <text x="476" y="308" font-size="11" fill="#555">The sum of all accepted edge weights &#x2014; the MST's total cost.</text>
+
+  <!-- ===== ROW 5: mark in MST ===== -->
+  <rect x="30" y="328" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="348" fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">insert</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">);</tspan>
+  </text>
+  <line x1="410" y1="343" x2="458" y2="343" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,339 466,343 458,347" fill="#bdc3c7"/>
+  <text x="476" y="340" font-size="11" fill="#555"><tspan font-weight="bold">Mark <tspan font-family="Consolas, monospace" font-size="10">to</tspan> as now in the MST.</tspan></text>
+  <text x="476" y="356" font-size="11" fill="#555">Future pops that land on <tspan font-family="Consolas, monospace" font-size="10">to</tspan> will be cycle-skipped.</text>
+
+  <!-- ===== Grow section label ===== -->
+  <text x="30" y="382" font-size="10" fill="#2c3e50" font-weight="bold" font-style="italic">Grow the frontier: push every crossing edge from the newly added vertex</text>
+
+  <!-- Grow row backgrounds -->
+  <rect x="20" y="388" width="820" height="48" fill="white"/>
+  <rect x="20" y="436" width="820" height="48" fill="#f9f9f9"/>
+  <rect x="20" y="484" width="820" height="48" fill="white"/>
+
+  <!-- ===== ROW 6: for edge ===== -->
+  <rect x="30" y="396" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="416" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd"> : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">at</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">)) {</tspan>
+  </text>
+  <line x1="410" y1="411" x2="458" y2="411" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,407 466,411 458,415" fill="#bdc3c7"/>
+  <text x="476" y="408" font-size="11" fill="#555"><tspan font-weight="bold">Walk the neighbor list of <tspan font-family="Consolas, monospace" font-size="10">to</tspan>.</tspan></text>
+  <text x="476" y="424" font-size="11" fill="#555">Every edge here could be a new candidate crossing edge.</text>
+
+  <!-- ===== ROW 7: skip already-in-MST ===== -->
+  <rect x="30" y="444" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="60" y="464" fill="#c586c0">if</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#9cdcfe">in_mst</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">count</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">))</tspan>
+  </text>
+  <line x1="410" y1="459" x2="458" y2="459" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,455 466,459 458,463" fill="#bdc3c7"/>
+  <text x="476" y="456" font-size="11" fill="#e67e22" font-weight="bold">Filter: only push edges pointing OUT of the MST.</text>
+  <text x="476" y="472" font-size="11" fill="#555">This catches most cycles before they enter the heap.</text>
+
+  <!-- ===== ROW 8: push edge ===== -->
+  <rect x="30" y="492" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="80" y="512" fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push</tspan><tspan fill="#ddd">({</tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">weight</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">edge</tspan><tspan fill="#ddd">.</tspan><tspan fill="#9cdcfe">to</tspan><tspan fill="#ddd">});</tspan>
+  </text>
+  <line x1="410" y1="507" x2="458" y2="507" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,503 466,507 458,511" fill="#bdc3c7"/>
+  <text x="476" y="504" font-size="11" fill="#555"><tspan font-weight="bold">Push the new candidate.</tspan> Note the order:</text>
+  <text x="476" y="520" font-size="11" fill="#555"><tspan font-family="Consolas, monospace" font-size="10">{weight, from, to}</tspan> &#x2014; weight first so the heap sorts by cost.</text>
+
+  <!-- ===== FOOTER ===== -->
+  <rect x="30" y="548" width="800" height="200" rx="8" fill="#f0faf0" stroke="#27ae60" stroke-width="1.5"/>
+  <text x="430" y="570" text-anchor="middle" fill="#27ae60" font-size="13" font-weight="bold">Why Prim's Builds a Minimum Spanning Tree</text>
+  <text x="430" y="590" text-anchor="middle" fill="#555" font-size="12">At every step, the heap's top is the cheapest edge crossing from the MST set to the outside.</text>
+  <text x="430" y="608" text-anchor="middle" fill="#555" font-size="12">The <tspan font-style="italic">cut property</tspan> says: that edge is always safe to include in some MST.</text>
+
+  <text x="430" y="636" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">Differences from Dijkstra</text>
+  <text x="430" y="654" text-anchor="middle" fill="#555" font-size="11">&#x2022; Tuple has <tspan font-weight="bold">3</tspan> fields (w, from, to) &#x2014; we need <tspan font-family="Consolas, monospace">from</tspan> to record the MST edge.</text>
+  <text x="430" y="670" text-anchor="middle" fill="#555" font-size="11">&#x2022; Skip rule is "is <tspan font-family="Consolas, monospace">to</tspan> already in the set?" instead of "is this distance stale?"</text>
+  <text x="430" y="686" text-anchor="middle" fill="#555" font-size="11">&#x2022; Stop after V&#x2212;1 edges; Dijkstra drains the whole heap.</text>
+
+  <text x="430" y="714" text-anchor="middle" fill="#2c3e50" font-size="12" font-weight="bold">Cycle skip vs push-time filter</text>
+  <text x="430" y="732" text-anchor="middle" fill="#555" font-size="11">The row-7 push-time filter catches most cycles up front. The row-2 pop-time skip handles</text>
+  <text x="430" y="748" text-anchor="middle" fill="#555" font-size="11">the rest: an edge pushed earlier becomes a cycle later when its <tspan font-family="Consolas, monospace">to</tspan> gets added first.</text>
+</svg>

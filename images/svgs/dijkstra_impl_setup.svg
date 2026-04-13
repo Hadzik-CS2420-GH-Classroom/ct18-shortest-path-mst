@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 620" font-family="'Segoe UI', Arial, sans-serif">
+  <rect width="100%" height="100%" fill="white"/>
+
+  <!-- Title -->
+  <text x="430" y="28" text-anchor="middle" font-size="22" font-weight="bold" fill="#2c3e50">dijkstra() &#x2014; Setup (Part 1 of 2)</text>
+  <text x="430" y="48" text-anchor="middle" fill="#777" font-size="13">Initialize the distance map and build the min-heap before entering the main loop</text>
+
+  <!-- Column headers -->
+  <text x="210" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">CODE</text>
+  <text x="650" y="72" text-anchor="middle" fill="#888" font-size="11" font-weight="bold">WHAT HAPPENS</text>
+
+  <!-- Row backgrounds -->
+  <rect x="20" y="82" width="820" height="48" fill="#f9f9f9"/>
+  <rect x="20" y="130" width="820" height="56" fill="white"/>
+  <rect x="20" y="186" width="820" height="48" fill="#f9f9f9"/>
+  <rect x="20" y="234" width="820" height="48" fill="white"/>
+  <rect x="20" y="282" width="820" height="54" fill="#f9f9f9"/>
+  <rect x="20" y="336" width="820" height="128" fill="white"/>
+  <rect x="20" y="464" width="820" height="48" fill="#f9f9f9"/>
+
+  <!-- ===== ROW 1: Declare dist ===== -->
+  <rect x="30" y="90" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="110" fill="#4ec9b0">unordered_map</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">, </tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">&gt; </tspan><tspan fill="#9cdcfe">dist</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="105" x2="458" y2="105" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,101 466,105 458,109" fill="#bdc3c7"/>
+  <text x="476" y="102" font-size="11" fill="#555"><tspan font-weight="bold">Declare</tspan> the output map. Keys are vertex names,</text>
+  <text x="476" y="118" font-size="11" fill="#555">values are best-known distances. Starts empty.</text>
+
+  <!-- ===== ROW 2: Init loop ===== -->
+  <rect x="30" y="138" width="380" height="40" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="154" fill="#c586c0">for</tspan><tspan fill="#ddd"> (</tspan><tspan fill="#569cd6">const</tspan><tspan fill="#ddd"> </tspan><tspan fill="#569cd6">auto</tspan><tspan fill="#ddd">&amp; [</tspan><tspan fill="#9cdcfe">vertex</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">edges</tspan><tspan fill="#ddd">] : </tspan><tspan fill="#9cdcfe">adj_list_</tspan><tspan fill="#ddd">)</tspan>
+    <tspan x="60" y="170" fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">vertex</tspan><tspan fill="#ddd">] = std::numeric_limits&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">&gt;::max();</tspan>
+  </text>
+  <line x1="410" y1="158" x2="458" y2="158" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,154 466,158 458,162" fill="#bdc3c7"/>
+  <text x="476" y="148" font-size="11" fill="#555"><tspan font-weight="bold">Initialize</tspan> every vertex's distance to</text>
+  <text x="476" y="164" font-size="11" fill="#555">"infinity" &#x2014; the largest possible int.</text>
+  <text x="476" y="180" font-size="11" fill="#555">Any real path will beat this baseline.</text>
+
+  <!-- ===== ROW 3: Guard ===== -->
+  <rect x="30" y="194" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="214" fill="#c586c0">if</tspan><tspan fill="#ddd"> (!</tspan><tspan fill="#dcdcaa">has_vertex</tspan><tspan fill="#ddd">(</tspan><tspan fill="#9cdcfe">source</tspan><tspan fill="#ddd">)) </tspan><tspan fill="#c586c0">return</tspan><tspan fill="#ddd"> </tspan><tspan fill="#9cdcfe">dist</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="209" x2="458" y2="209" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,205 466,209 458,213" fill="#bdc3c7"/>
+  <text x="476" y="206" font-size="11" fill="#c0392b" font-weight="bold">Guard clause.</text>
+  <text x="476" y="222" font-size="11" fill="#555">If the caller's source isn't in the graph, bail out with all-&#x221E; dist.</text>
+
+  <!-- ===== ROW 4: Seed source ===== -->
+  <rect x="30" y="242" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="262" fill="#9cdcfe">dist</tspan><tspan fill="#ddd">[</tspan><tspan fill="#9cdcfe">source</tspan><tspan fill="#ddd">] = </tspan><tspan fill="#b5cea8">0</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+  <line x1="410" y1="257" x2="458" y2="257" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,253 466,257 458,261" fill="#bdc3c7"/>
+  <text x="476" y="254" font-size="11" fill="#555"><tspan font-weight="bold">Seed the source.</tspan> The source is distance 0</text>
+  <text x="476" y="270" font-size="11" fill="#555">from itself. This "seed" kicks off the algorithm.</text>
+
+  <!-- ===== ROW 5: using Pair alias ===== -->
+  <rect x="30" y="290" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="310" fill="#569cd6">using</tspan><tspan fill="#ddd"> </tspan><tspan fill="#4ec9b0">Pair</tspan><tspan fill="#ddd"> = std::</tspan><tspan fill="#4ec9b0">pair</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#569cd6">int</tspan><tspan fill="#ddd">, std::</tspan><tspan fill="#4ec9b0">string</tspan><tspan fill="#ddd">&gt;;</tspan>
+  </text>
+  <line x1="410" y1="305" x2="458" y2="305" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,301 466,305 458,309" fill="#bdc3c7"/>
+  <text x="476" y="298" font-size="11" fill="#555"><tspan font-weight="bold">Type alias.</tspan> The full <tspan font-family="Consolas, monospace" font-size="10">pair&lt;int, string&gt;</tspan> type</text>
+  <text x="476" y="314" font-size="11" fill="#555">appears <tspan font-weight="bold">three times</tspan> on the next line &#x2014; naming</text>
+  <text x="476" y="330" font-size="11" fill="#555">it <tspan font-family="Consolas, monospace" font-size="10">Pair</tspan> keeps the declaration readable.</text>
+
+  <!-- ===== ROW 6: min-heap declaration with template-signature explainer ===== -->
+  <rect x="30" y="344" width="380" height="78" rx="4" fill="#fff8e1" stroke="#f0c36d" stroke-width="1"/>
+  <text x="220" y="359" text-anchor="middle" font-size="9" font-style="italic" fill="#8a6d3b">std::priority_queue's three template parameters:</text>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="377" fill="#2c3e50">std::priority_queue&lt;</tspan><tspan fill="#c0392b" font-weight="bold">T</tspan><tspan fill="#2c3e50">, </tspan><tspan fill="#c0392b" font-weight="bold">Container</tspan><tspan fill="#2c3e50">, </tspan><tspan fill="#c0392b" font-weight="bold">Compare</tspan><tspan fill="#2c3e50">&gt;</tspan>
+  </text>
+  <text font-family="'Segoe UI', Arial, sans-serif" font-size="9">
+    <tspan x="44" y="392" fill="#555"><tspan fill="#c0392b" font-weight="bold">T</tspan> &#x2014; element type (what you're storing)</tspan>
+    <tspan x="44" y="404" fill="#555"><tspan fill="#c0392b" font-weight="bold">Container</tspan> &#x2014; underlying storage (usually <tspan font-family="Consolas, monospace">std::vector&lt;T&gt;</tspan>)</tspan>
+    <tspan x="44" y="416" fill="#555"><tspan fill="#c0392b" font-weight="bold">Compare</tspan> &#x2014; ordering: default <tspan font-family="Consolas, monospace">less&lt;&gt;</tspan> = max-heap; <tspan font-family="Consolas, monospace">greater&lt;&gt;</tspan> = <tspan font-weight="bold">min-heap</tspan></tspan>
+  </text>
+
+  <!-- Concrete min-heap declaration -->
+  <rect x="30" y="430" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="9">
+    <tspan x="40" y="450" fill="#ddd">std::</tspan><tspan fill="#4ec9b0">priority_queue</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">Pair</tspan><tspan fill="#ddd">, std::</tspan><tspan fill="#4ec9b0">vector</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">Pair</tspan><tspan fill="#ddd">&gt;, std::</tspan><tspan fill="#4ec9b0">greater</tspan><tspan fill="#ddd">&lt;</tspan><tspan fill="#4ec9b0">Pair</tspan><tspan fill="#ddd">&gt;&gt; </tspan><tspan fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">;</tspan>
+  </text>
+
+  <line x1="410" y1="445" x2="458" y2="445" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,441 466,445 458,449" fill="#bdc3c7"/>
+
+  <text x="476" y="356" font-size="11" fill="#27ae60" font-weight="bold">Build a min-heap of (distance, vertex) pairs.</text>
+  <text x="476" y="374" font-size="11" fill="#555">The yellow box (left) shows what <tspan font-family="Consolas, monospace" font-size="10">std::priority_queue</tspan></text>
+  <text x="476" y="390" font-size="11" fill="#555">asks for. Our concrete call fills in:</text>
+  <text x="476" y="406" font-size="11" fill="#555">&#x2022; <tspan fill="#c0392b" font-weight="bold">T</tspan> = <tspan font-family="Consolas, monospace" font-size="10">Pair</tspan></text>
+  <text x="476" y="422" font-size="11" fill="#555">&#x2022; <tspan fill="#c0392b" font-weight="bold">Container</tspan> = <tspan font-family="Consolas, monospace" font-size="10">std::vector&lt;Pair&gt;</tspan></text>
+  <text x="476" y="438" font-size="11" fill="#555">&#x2022; <tspan fill="#c0392b" font-weight="bold">Compare</tspan> = <tspan font-family="Consolas, monospace" font-size="10">std::greater&lt;Pair&gt;</tspan> (flips it to min-heap!)</text>
+  <text x="476" y="454" font-size="10" fill="#888" font-style="italic">The comparator is the key &#x2014; without it we'd get a max-heap.</text>
+
+  <!-- ===== ROW 7: Seed min-heap ===== -->
+  <rect x="30" y="472" width="380" height="30" rx="4" fill="#2d2d2d"/>
+  <text font-family="Consolas, 'Courier New', monospace" font-size="10">
+    <tspan x="40" y="492" fill="#9cdcfe">min_heap</tspan><tspan fill="#ddd">.</tspan><tspan fill="#dcdcaa">push</tspan><tspan fill="#ddd">({</tspan><tspan fill="#b5cea8">0</tspan><tspan fill="#ddd">, </tspan><tspan fill="#9cdcfe">source</tspan><tspan fill="#ddd">});</tspan>
+  </text>
+  <line x1="410" y1="487" x2="458" y2="487" stroke="#bdc3c7" stroke-width="1.5"/>
+  <polygon points="458,483 466,487 458,491" fill="#bdc3c7"/>
+  <text x="476" y="484" font-size="11" fill="#555"><tspan font-weight="bold">Seed the min-heap.</tspan> Push the source at distance 0.</text>
+  <text x="476" y="500" font-size="11" fill="#555">First &#x2014; and only &#x2014; thing in the heap before the main loop.</text>
+
+  <!-- ===== FOOTER: Setup summary + transition ===== -->
+  <rect x="30" y="524" width="800" height="82" rx="8" fill="#eaf2f8" stroke="#2980b9" stroke-width="1.5"/>
+  <text x="430" y="546" text-anchor="middle" fill="#2980b9" font-size="13" font-weight="bold">Setup is done. What's in play now?</text>
+  <text x="430" y="566" text-anchor="middle" fill="#555" font-size="12"><tspan font-family="Consolas, monospace" font-size="11">dist</tspan> holds every vertex at &#x221E; except the source, which is at 0.</text>
+  <text x="430" y="582" text-anchor="middle" fill="#555" font-size="12"><tspan font-family="Consolas, monospace" font-size="11">min_heap</tspan> contains a single pair: <tspan font-family="Consolas, monospace" font-size="11">(0, source)</tspan>.</text>
+  <text x="430" y="600" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">&#x2192; Continue to Part 2: Main Loop</text>
+</svg>

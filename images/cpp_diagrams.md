@@ -14,7 +14,13 @@ Code-block diagrams referenced from `WeightedGraph.cpp`.
 ## 2. dijkstra() — Min-Heap Shortest Path
 *`WeightedGraph.cpp::dijkstra()` -- init distances, relax edges through a min-heap until empty*
 
-![Dijkstra Implementation](svgs/dijkstra_impl.svg)
+**Part 1: Setup** — declare `dist`, initialize to infinity, guard, seed source, build min-heap, seed heap.
+
+![Dijkstra Setup](svgs/dijkstra_impl_setup.svg)
+
+**Part 2: Main Loop** — pop closest vertex, skip stale entries, walk every outgoing edge and relax it step by step.
+
+![Dijkstra Main Loop](svgs/dijkstra_impl_loop.svg)
 
 ---
 
@@ -35,7 +41,13 @@ Code-block diagrams referenced from `WeightedGraph.cpp`.
 ## 3. prims_mst() — Min-Heap MST Growth
 *`WeightedGraph.cpp::prims_mst()` -- grow MST one vertex at a time by popping the cheapest crossing edge*
 
-![Prim's Implementation](svgs/prims_impl.svg)
+**Part 1: Setup** — seed the MST set with `start`, build the min-heap of edge tuples, seed the frontier with every edge leaving `start`.
+
+![Prim's Setup](svgs/prims_impl_setup.svg)
+
+**Part 2: Main Loop** — pop cheapest edge, skip cycles, accept the edge (record + total + mark), grow the frontier.
+
+![Prim's Main Loop](svgs/prims_impl_loop.svg)
 
 ---
 
